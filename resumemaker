@@ -1,0 +1,1284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional CV Generator - Complete Edition</title>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Poppins:wght@400;700;800&family=Montserrat:wght@400;700;800&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Roboto:wght@400;700;900&family=Lato:wght@300;400;700;900&family=Open+Sans:wght@400;600;800&family=Raleway:wght@400;700;900&family=Source+Sans+Pro:wght@400;600;900&family=Merriweather:wght@400;700;900&family=Nunito:wght@400;700;900&family=Ubuntu:wght@400;700&family=Crimson+Text:wght@400;600;700&family=Libre+Baskerville:wght@400;700&family=PT+Sans:wght@400;700&family=Oswald:wght@400;600;700&family=Quicksand:wght@400;600;700&family=Karla:wght@400;700&family=Fira+Sans:wght@400;600;800&family=Bitter:wght@400;700&family=Cabin:wght@400;600;700&family=Arimo:wght@400;700&family=Josefin+Sans:wght@400;600;700&family=Work+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root { 
+            --primary: #6366f1; 
+            --side-bg: #1e293b; 
+            --side-text: #ffffff; 
+            --font-main: 'Inter'; 
+        }
+        
+        * { 
+            box-sizing: border-box; 
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+        
+        body { 
+            margin: 0; 
+            display: flex; 
+            height: 100vh; 
+            background: #0f172a; 
+            font-family: 'Inter', sans-serif; 
+            overflow: hidden; 
+            color: #333; 
+        }
+
+        #editor { 
+            width: 480px; 
+            background: #ffffff; 
+            overflow-y: auto; 
+            padding: 25px; 
+            height: 100vh; 
+            border-right: 1px solid #e2e8f0; 
+            box-shadow: 10px 0 30px rgba(0,0,0,0.2); 
+            z-index: 100; 
+        }
+        
+        .group { 
+            background: #f8fafc; 
+            border-radius: 12px; 
+            padding: 20px; 
+            margin-bottom: 20px; 
+            border: 1px solid #f1f5f9; 
+        }
+        
+        h3 { 
+            font-size: 16px; 
+            color: var(--primary); 
+            text-transform: uppercase; 
+            letter-spacing: 1.5px; 
+            margin-bottom: 15px; 
+            font-weight: 800; 
+            border-bottom: 2px solid #eee; 
+            padding-bottom: 8px; 
+        }
+        
+        select.dropdown-style { 
+            width: 100%; 
+            padding: 14px 15px; 
+            border: 2px solid #e2e8f0; 
+            background: #fff; 
+            border-radius: 8px; 
+            font-size: 15px; 
+            font-weight: 600; 
+            cursor: pointer; 
+            transition: 0.2s; 
+            margin-top: 8px; 
+            color: #1e293b; 
+        }
+        
+        select.dropdown-style:hover { 
+            border-color: var(--primary); 
+            background: #f8fafc; 
+        }
+        
+        select.dropdown-style:focus { 
+            outline: none; 
+            border-color: var(--primary); 
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1); 
+        }
+        
+        .swatch-grid { 
+            display: grid; 
+            grid-template-columns: repeat(8, 1fr); 
+            gap: 5px; 
+            margin-bottom: 10px; 
+            margin-top: 8px; 
+        }
+        
+        .swatch { 
+            width: 100%; 
+            aspect-ratio: 1; 
+            border-radius: 4px; 
+            cursor: pointer; 
+            border: 2px solid transparent; 
+            transition: 0.2s; 
+        }
+        
+        .swatch:hover { 
+            transform: scale(1.1); 
+        }
+        
+        .swatch.active { 
+            border-color: #000; 
+            transform: scale(1.15); 
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3); 
+        }
+
+        input, textarea { 
+            width: 100%; 
+            padding: 12px; 
+            border: 2px solid #e2e8f0; 
+            border-radius: 8px; 
+            font-size: 14px; 
+            margin-top: 5px; 
+            font-family: inherit; 
+        }
+        
+        .toggle-switch { 
+            display: inline-block; 
+            position: relative; 
+            width: 52px; 
+            height: 28px; 
+        }
+        
+        .toggle-switch input { 
+            opacity: 0; 
+            width: 0; 
+            height: 0; 
+        }
+        
+        .toggle-slider { 
+            position: absolute; 
+            cursor: pointer; 
+            top: 0; 
+            left: 0; 
+            right: 0; 
+            bottom: 0; 
+            background-color: #cbd5e1; 
+            border-radius: 28px; 
+            transition: .3s; 
+        }
+        
+        .toggle-slider:before { 
+            position: absolute; 
+            content: ""; 
+            height: 22px; 
+            width: 22px; 
+            left: 3px; 
+            bottom: 3px; 
+            background-color: white; 
+            border-radius: 50%; 
+            transition: .3s; 
+        }
+        
+        input:checked + .toggle-slider { 
+            background-color: var(--primary); 
+        }
+        
+        input:checked + .toggle-slider:before { 
+            transform: translateX(24px); 
+        }
+        
+        .btn-ai { 
+            background: #8b5cf6; 
+            color: white; 
+            border: none; 
+            padding: 10px 18px; 
+            border-radius: 8px; 
+            cursor: pointer; 
+            font-size: 13px; 
+            font-weight: 700; 
+            margin-top: 8px; 
+            transition: 0.3s; 
+            width: 100%; 
+        }
+        
+        .btn-ai:hover { 
+            opacity: 0.8; 
+            transform: translateY(-1px); 
+        }
+
+        button { 
+            padding: 10px 15px; 
+            border: 2px solid #e2e8f0; 
+            background: #fff; 
+            border-radius: 8px; 
+            cursor: pointer; 
+            font-size: 13px; 
+            transition: 0.2s; 
+            font-weight: 600; 
+        }
+        
+        button:hover { 
+            background: #f8fafc; 
+        }
+
+        #preview-pane { 
+            flex: 1; 
+            overflow-y: auto; 
+            padding: 40px; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            background: #0f172a; 
+            position: relative; 
+        }
+        
+        .toolbar { 
+            width: 210mm; 
+            background: #fff; 
+            padding: 18px 25px; 
+            border-radius: 15px; 
+            margin-bottom: 25px; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5); 
+        }
+
+        /* CV Page Container */
+        .cv-page { 
+            width: 210mm; 
+            height: 297mm;
+            background: white; 
+            font-family: var(--font-main); 
+            position: relative; 
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            margin-bottom: 30px;
+        }
+
+        .cv-page:last-child {
+            margin-bottom: 0;
+        }
+
+        @media print {
+            body {
+                background: white !important;
+                margin: 0;
+                padding: 0;
+            }
+
+            #editor,
+            .toolbar {
+                display: none !important;
+            }
+
+            #preview-pane {
+                padding: 0 !important;
+                background: white !important;
+                overflow: visible !important;
+            }
+
+            .cv-page {
+                width: 210mm;
+                height: 297mm;
+                background: white;
+                box-shadow: none !important;
+                margin: 0;
+                padding: 0;
+                page-break-after: always;
+                overflow: hidden;
+            }
+
+            .cv-page:last-child {
+                page-break-after: auto;
+            }
+
+            .cv-grid {
+                display: table !important;
+                width: 100%;
+                height: 100%;
+                table-layout: fixed;
+                border-collapse: collapse;
+            }
+
+            .side,
+            .main {
+                display: table-cell !important;
+                vertical-align: top !important;
+            }
+
+            .tpl-1 .side,
+            .tpl-2 .side,
+            .tpl-5 .side,
+            .tpl-7 .side,
+            .tpl-9 .side,
+            .tpl-12 .side,
+            .tpl-14 .side,
+            .tpl-17 .side,
+            .tpl-19 .side {
+                width: 35% !important;
+            }
+
+            .tpl-1 .main,
+            .tpl-2 .main,
+            .tpl-5 .main,
+            .tpl-7 .main,
+            .tpl-9 .main,
+            .tpl-12 .main,
+            .tpl-14 .main,
+            .tpl-17 .main,
+            .tpl-19 .main {
+                width: 65% !important;
+            }
+
+            .section-h,
+            .exp-item,
+            .edu-item {
+                page-break-inside: avoid;
+                break-inside: avoid;
+            }
+        }
+
+        .cv-grid { 
+            display: grid; 
+            height: 100%;
+            width: 100%;
+        }
+        
+        .tpl-1 { grid-template-columns: 35% 65%; }
+        .tpl-2 { grid-template-columns: 65% 35%; }
+        .tpl-3 { grid-template-columns: 1fr; }
+        .tpl-4 { grid-template-columns: 1fr; border-top: 20px solid var(--primary); }
+        .tpl-5 { grid-template-columns: 30% 70%; background: #fefefe; }
+        .tpl-6 { grid-template-columns: 1fr; padding: 40px; }
+        .tpl-7 { grid-template-columns: 40% 60%; }
+        .tpl-8 { grid-template-columns: 1fr; background: #fafafa; padding: 30px; }
+        .tpl-9 { grid-template-columns: 25% 75%; }
+        .tpl-10 { grid-template-columns: 1fr 1fr; }
+        .tpl-11 { grid-template-columns: 1fr; }
+        .tpl-12 { grid-template-columns: 38% 62%; border-left: 8px solid var(--primary); }
+        .tpl-13 { grid-template-columns: 1fr; }
+        .tpl-14 { grid-template-columns: 28% 72%; background: #f8f9fa; }
+        .tpl-15 { grid-template-columns: 1fr 1fr; gap: 0; }
+        .tpl-16 { grid-template-columns: 100%; padding: 0; }
+        .tpl-17 { grid-template-columns: 45% 55%; }
+        .tpl-18 { grid-template-columns: 1fr; border: 15px solid var(--primary); padding: 20px; }
+        .tpl-19 { grid-template-columns: 33% 67%; background: #fdfbf7; }
+        .tpl-20 { grid-template-columns: 1fr; }
+
+        .side { 
+            background: var(--side-bg); 
+            color: var(--side-text); 
+            padding: 40px 25px;
+            overflow: hidden;
+        }
+        
+        .main { 
+            padding: 40px; 
+            background: white;
+            overflow: hidden;
+        }
+
+        .name { 
+            font-size: 26pt; 
+            font-weight: 800; 
+            text-transform: uppercase; 
+            margin-bottom: 5px; 
+            color: inherit; 
+            line-height: 1.1;
+            word-wrap: break-word;
+        }
+        
+        .title { 
+            font-size: 12pt; 
+            color: var(--primary); 
+            font-weight: 600; 
+            letter-spacing: 2px; 
+            margin-bottom: 30px; 
+            text-transform: uppercase;
+            word-wrap: break-word;
+        }
+        
+        .section-h { 
+            font-size: 11pt; 
+            font-weight: 800; 
+            text-transform: uppercase; 
+            color: var(--primary); 
+            margin: 25px 0 12px; 
+            border-bottom: 1.5px solid #eee; 
+            padding-bottom: 5px; 
+            display: flex; 
+            align-items: center; 
+            gap: 8px;
+        }
+        
+        #photo-preview { 
+            width: 120px; 
+            height: 120px; 
+            border-radius: 12px; 
+            object-fit: cover; 
+            border: 3px solid var(--primary); 
+            margin-bottom: 20px; 
+            display: none; 
+        }
+        
+        #photo-preview.circle { 
+            border-radius: 50%; 
+        }
+        
+        #photo-preview.square { 
+            border-radius: 0; 
+        }
+        
+        #qr-code { 
+            background: white; 
+            padding: 5px; 
+            margin-top: 20px; 
+            width: 80px; 
+            height: 80px; 
+        }
+        
+        #qr-code canvas { 
+            display: block; 
+        }
+
+        .skill-bar { 
+            height: 6px; 
+            background: rgba(0,0,0,0.1); 
+            border-radius: 10px; 
+            margin: 8px 0 15px; 
+            overflow: hidden; 
+        }
+        
+        .skill-progress { 
+            height: 100%; 
+            background: var(--primary); 
+            transition: 1s; 
+        }
+
+        .btn-exp { 
+            padding: 12px 25px; 
+            border: none; 
+            border-radius: 8px; 
+            cursor: pointer; 
+            font-weight: 700; 
+            color: white; 
+            transition: 0.2s; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2); 
+        }
+        
+        .btn-exp:hover { 
+            transform: translateY(-2px); 
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3); 
+        }
+        
+        .item-editor { 
+            background: #fff; 
+            border: 2px solid #e2e8f0; 
+            border-radius: 8px; 
+            padding: 12px; 
+            margin-bottom: 10px; 
+            position: relative; 
+        }
+        
+        .item-type { 
+            text-transform: uppercase; 
+            font-size: 11px; 
+            color: #64748b; 
+            font-weight: 800; 
+            letter-spacing: 1px; 
+            margin-bottom: 8px; 
+        }
+        
+        .delete-btn { 
+            position: absolute; 
+            top: 8px; 
+            right: 8px; 
+            color: #ef4444; 
+            border: none; 
+            background: #fee; 
+            cursor: pointer; 
+            font-size: 18px; 
+            padding: 2px 8px; 
+            border-radius: 4px; 
+            font-weight: bold; 
+        }
+        
+        .delete-btn:hover { 
+            background: #ef4444; 
+            color: white; 
+        }
+
+        label.control-label { 
+            font-size: 14px; 
+            font-weight: 600; 
+            color: #475569; 
+            display: block; 
+            margin-bottom: 5px; 
+        }
+
+        .exp-item,
+        .edu-item {
+            margin-bottom: 20px;
+        }
+
+        .exp-item-header,
+        .edu-item-header {
+            display: flex;
+            justify-content: space-between;
+            font-weight: 800;
+            color: #1e293b;
+            margin-bottom: 3px;
+            word-wrap: break-word;
+        }
+
+        .exp-item-company,
+        .edu-item-institution {
+            color: var(--primary);
+            font-size: 9pt;
+            font-weight: 700;
+            margin-bottom: 5px;
+            word-wrap: break-word;
+        }
+
+        .exp-item-desc,
+        .edu-item-desc {
+            font-size: 9.5pt;
+            color: #64748b;
+            line-height: 1.6;
+            white-space: pre-line;
+            word-wrap: break-word;
+        }
+
+        .page-indicator {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(99, 102, 241, 0.9);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            z-index: 10;
+        }
+    </style>
+</head>
+<body>
+
+<div id="editor">
+    <div style="margin-bottom: 25px;">
+        <h2 style="font-family:'Montserrat'; margin:0; letter-spacing:-1px; color:#1e293b; font-size: 28px;">⚡ GENESIS ENGINE</h2>
+        <p style="font-size: 13px; color: #94a3b8; font-weight: 700;">Professional CV Builder v3.0</p>
+    </div>
+
+    <div class="group">
+        <h3>📋 Layout Template</h3>
+        <select id="tpl-select" class="dropdown-style" onchange="changeTemplate()">
+            <option value="1">Modern Split</option>
+            <option value="2">Reverse Split</option>
+            <option value="3">Classic Full Width</option>
+            <option value="4">Corporate Header</option>
+            <option value="5">Minimal Clean</option>
+            <option value="6">Artistic Padded</option>
+            <option value="7">Executive Balance</option>
+            <option value="8">Bordered Formal</option>
+            <option value="9">Tech Narrow</option>
+            <option value="10">Balanced Two Column</option>
+            <option value="11">Gradient Flow</option>
+            <option value="12">Accent Border</option>
+            <option value="13">Timeline Vertical</option>
+            <option value="14">Infographic Style</option>
+            <option value="15">Magazine Layout</option>
+            <option value="16">Full Bleed</option>
+            <option value="17">Serif Professional</option>
+            <option value="18">Bold Frame</option>
+            <option value="19">Warm Tones</option>
+            <option value="20">Diagonal Dynamic</option>
+        </select>
+    </div>
+
+    <div class="group">
+        <h3>✏️ Typography Style</h3>
+        <select id="font-select" class="dropdown-style" onchange="changeFont()">
+            <option value="Inter">Inter - Modern Sans-Serif</option>
+            <option value="Poppins">Poppins - Geometric Sans</option>
+            <option value="Montserrat">Montserrat - Urban Style</option>
+            <option value="Playfair Display">Playfair Display - Elegant Serif</option>
+            <option value="Lato">Lato - Humanist Sans</option>
+            <option value="Open Sans">Open Sans - Classic Neutral</option>
+            <option value="Raleway">Raleway - Refined Elegant</option>
+            <option value="Source Sans Pro">Source Sans Pro - Tech Professional</option>
+            <option value="Merriweather">Merriweather - Traditional Serif</option>
+            <option value="Roboto">Roboto - Material Design</option>
+            <option value="Nunito">Nunito - Rounded Friendly</option>
+            <option value="Ubuntu">Ubuntu - Contemporary</option>
+            <option value="Crimson Text">Crimson Text - Literary Classic</option>
+            <option value="Libre Baskerville">Libre Baskerville - Scholarly</option>
+            <option value="PT Sans">PT Sans - Universal Sans</option>
+            <option value="Oswald">Oswald - Condensed Impact</option>
+            <option value="Quicksand">Quicksand - Friendly Rounded</option>
+            <option value="Karla">Karla - Grotesque Sans</option>
+            <option value="Fira Sans">Fira Sans - Digital Modern</option>
+            <option value="Bitter">Bitter - Contemporary Slab</option>
+            <option value="Cabin">Cabin - Humanist Design</option>
+            <option value="Arimo">Arimo - Neo-Grotesque</option>
+            <option value="Josefin Sans">Josefin Sans - Vintage Geometric</option>
+            <option value="Work Sans">Work Sans - Corporate Clean</option>
+        </select>
+    </div>
+
+    <div class="group">
+        <h3>🎨 Color Branding</h3>
+        <label class="control-label">Accent Color</label>
+        <div class="swatch-grid" id="accent-colors"></div>
+        <label class="control-label" style="margin-top: 15px;">Sidebar Background</label>
+        <div class="swatch-grid" id="side-colors"></div>
+    </div>
+
+    <div class="group">
+        <h3>👤 Personal Information</h3>
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; background: #fff; padding: 12px; border-radius: 8px;">
+            <label style="font-size: 14px; font-weight: 600; color: #1e293b;">Show Profile Photo</label>
+            <label class="toggle-switch">
+                <input type="checkbox" id="toggle-photo" onchange="togglePhoto()">
+                <span class="toggle-slider"></span>
+            </label>
+        </div>
+        <div id="photo-controls" style="display: none; background: #fff; padding: 12px; border-radius: 8px; margin-bottom: 10px;">
+            <input type="file" id="in-photo" accept="image/*" onchange="uploadPhoto(event)">
+            <label class="control-label" style="margin-top: 10px;">Photo Shape</label>
+            <select id="photo-shape" class="dropdown-style" onchange="changePhotoShape()">
+                <option value="rounded">Rounded Corners</option>
+                <option value="circle">Circle</option>
+                <option value="square">Square</option>
+            </select>
+        </div>
+        <input type="text" id="in-name" placeholder="Full Name" oninput="render()">
+        <input type="text" id="in-title" placeholder="Professional Title" oninput="render()">
+        <input type="text" id="in-email" placeholder="Email Address" oninput="render()">
+        <input type="text" id="in-phone" placeholder="Phone Number" oninput="render()">
+        <input type="text" id="in-loc" placeholder="Location / City" oninput="render()">
+        <input type="text" id="in-link" placeholder="Portfolio/LinkedIn URL" oninput="render(); genQR(this.value);">
+    </div>
+
+    <div class="group">
+        <h3>📝 Professional Summary</h3>
+        <textarea id="in-sum" rows="4" oninput="render()" placeholder="Write your professional pitch..."></textarea>
+        <button class="btn-ai" onclick="enhanceSummary()">✨ AI ENHANCE SUMMARY</button>
+    </div>
+
+    <div class="group">
+        <h3>📋 Content Sections</h3>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom: 15px;">
+            <button onclick="addItem('exp')" style="background: #3b82f6; color: white; border: none;">+ Experience</button>
+            <button onclick="addItem('edu')" style="background: #8b5cf6; color: white; border: none;">+ Education</button>
+            <button onclick="addItem('skill')" style="background: #10b981; color: white; border: none;">+ Skill</button>
+            <button onclick="addItem('lang')" style="background: #f59e0b; color: white; border: none;">+ Language</button>
+            <button onclick="addItem('ref')" style="background: #ec4899; color: white; border: none; grid-column: 1 / -1;">+ Reference</button>
+        </div>
+        <div id="dynamic-editors"></div>
+    </div>
+</div>
+
+<div id="preview-pane">
+    <div class="toolbar">
+        <span style="font-weight:900; color:#1e293b; letter-spacing:1px; font-size: 16px;">📄 LIVE PREVIEW</span>
+        <div style="display:flex; gap:12px;">
+            <button class="btn-exp" style="background:#ef4444;" onclick="downloadPDF()"><i class="fas fa-file-pdf"></i> EXPORT PDF</button>
+            <button class="btn-exp" style="background:#2b579a;" onclick="downloadWord()"><i class="fas fa-file-word"></i> EXPORT WORD</button>
+        </div>
+    </div>
+
+    <div id="cv-pages-container"></div>
+</div>
+
+<script>
+    const colors = ["#6366f1", "#f43f5e", "#10b981", "#f59e0b", "#0ea5e9", "#d946ef", "#000000", "#475569", "#1e3a8a", "#166534", "#b91c1c", "#4338ca", "#a21caf", "#0891b2", "#15803d", "#be185d", "#c2410c", "#4d7c0f", "#0369a1", "#6d28d9", "#ea580c", "#dc2626", "#65a30d", "#0d9488", "#7c3aed", "#db2777", "#e11d48", "#059669", "#2563eb", "#7e22ce", "#b45309", "#0284c7"];
+    const sideColors = ["#1e293b", "#0f172a", "#2d3436", "#ffffff", "#f8fafc", "#16a085", "#2c3e50", "#27ae60", "#2980b9", "#8e44ad", "#e67e22", "#c0392b", "#1a1a2e", "#16213e", "#0f3460", "#533483", "#2d4059", "#ea5455", "#f07b3f", "#ffd460"];
+    
+    let state = { 
+        exp: [
+            {id: 1, t1: 'Senior Product Manager', t2: 'TechCorp Solutions', d: '2021 - Present', desc: 'Led cross-functional teams of 15+ members to deliver innovative SaaS products serving 100K+ users\nIncreased customer retention by 45% through data-driven feature optimization and user research\nManaged $2M annual product budget and coordinated stakeholders across 3 continents\nSpearheaded adoption of agile methodologies, reducing time-to-market by 35%'},
+            {id: 2, t1: 'Product Manager', t2: 'Digital Innovations Inc', d: '2018 - 2021', desc: 'Successfully launched 5 B2B products generating $10M in annual recurring revenue\nImplemented OKR framework across product organization of 40+ team members\nCollaborated with engineering and design teams to define strategic product roadmaps\nConducted market analysis and competitive research to identify new growth opportunities'}
+        ], 
+        edu: [
+            {id: 3, t1: 'Master of Business Administration (MBA)', t2: 'Stanford Graduate School of Business', d: '2016 - 2018', desc: 'Concentration in Technology Management and Innovation Strategy\nGPA: 3.9/4.0 - Dean\'s List all semesters\nThesis: "Digital Transformation Strategies in Enterprise Software"\nPresident of Technology & Innovation Club'},
+            {id: 4, t1: 'Bachelor of Science in Computer Science', t2: 'Massachusetts Institute of Technology', d: '2012 - 2016', desc: 'Specialization in Software Engineering and Human-Computer Interaction\nGraduated Magna Cum Laude with Honors\nRelevant Coursework: AI, Machine Learning, Database Systems, UX Design'}
+        ], 
+        skill: [
+            {id: 5, t1: 'Product Strategy & Roadmapping', val: 95},
+            {id: 6, t1: 'Agile/Scrum Methodologies', val: 90},
+            {id: 7, t1: 'Data Analytics & A/B Testing', val: 85},
+            {id: 8, t1: 'UX/UI Design Principles', val: 80},
+            {id: 9, t1: 'Team Leadership & Management', val: 92},
+            {id: 10, t1: 'Stakeholder Communication', val: 88}
+        ], 
+        ref: [
+            {id: 11, t1: 'Sarah Johnson', t2: 'VP of Product, TechCorp Solutions', d: '', desc: 'sarah.johnson@techcorp.com\n+1 (555) 123-4567\n"Outstanding leader with exceptional strategic vision"'}
+        ], 
+        lang: [
+            {id: 12, t1: 'English', val: 100},
+            {id: 13, t1: 'Spanish', val: 75},
+            {id: 14, t1: 'Mandarin Chinese', val: 60}
+        ], 
+        tpl: 1, 
+        accent: '#6366f1', 
+        side: '#1e293b', 
+        font: 'Inter', 
+        showPhoto: false, 
+        photoShape: 'rounded',
+        photoData: null
+    };
+    
+    let qrcode = null;
+
+    function init() {
+        document.getElementById('in-name').value = 'Alexandra Mitchell';
+        document.getElementById('in-title').value = 'Senior Product Manager';
+        document.getElementById('in-email').value = 'alex.mitchell@email.com';
+        document.getElementById('in-phone').value = '+1 (555) 987-6543';
+        document.getElementById('in-loc').value = 'San Francisco, California';
+        document.getElementById('in-link').value = 'linkedin.com/in/alexandra-mitchell';
+        document.getElementById('in-sum').value = 'Results-driven Product Manager with 8+ years of experience leading digital transformation initiatives in fast-paced technology environments. Proven track record of launching successful products that drive revenue growth and enhance user experience. Expert in agile methodologies, data analytics, and cross-functional team leadership. Passionate about leveraging emerging technologies to solve complex business challenges and deliver measurable impact to both customers and stakeholders.';
+        
+        const aGrid = document.getElementById('accent-colors');
+        colors.forEach((c, i) => {
+            const s = document.createElement('div'); 
+            s.className = 'swatch'; 
+            s.style.background = c;
+            s.title = c;
+            if(i === 0) s.classList.add('active');
+            s.onclick = () => { 
+                state.accent = c; 
+                document.querySelectorAll('#accent-colors .swatch').forEach(x => x.classList.remove('active')); 
+                s.classList.add('active');
+                render();
+            };
+            aGrid.appendChild(s);
+        });
+
+        const sGrid = document.getElementById('side-colors');
+        sideColors.forEach((c, i) => {
+            const s = document.createElement('div'); 
+            s.className = 'swatch'; 
+            s.style.background = c;
+            s.title = c;
+            if(i === 0) s.classList.add('active');
+            s.onclick = () => { 
+                state.side = c; 
+                document.querySelectorAll('#side-colors .swatch').forEach(x => x.classList.remove('active')); 
+                s.classList.add('active');
+                render();
+            };
+            sGrid.appendChild(s);
+        });
+
+        updateEditor(); 
+        render();
+    }
+
+    function changeTemplate() {
+        state.tpl = parseInt(document.getElementById('tpl-select').value);
+        render();
+    }
+
+    function changeFont() {
+        state.font = document.getElementById('font-select').value;
+        render();
+    }
+
+    function uploadPhoto(e) {
+        const file = e.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = (event) => { 
+            state.photoData = event.target.result;
+            render();
+        };
+        reader.readAsDataURL(file);
+    }
+
+    function togglePhoto() {
+        state.showPhoto = document.getElementById('toggle-photo').checked;
+        const controls = document.getElementById('photo-controls');
+        controls.style.display = state.showPhoto ? 'block' : 'none';
+        render();
+    }
+
+    function changePhotoShape() {
+        state.photoShape = document.getElementById('photo-shape').value;
+        render();
+    }
+
+    function addItem(type) {
+        const id = Date.now() + Math.random();
+        if(type === 'skill' || type === 'lang') {
+            state[type].push({id, t1: '', val: 75});
+        } else {
+            state[type].push({id, t1: '', t2: '', d: '', desc: ''});
+        }
+        updateEditor(); 
+        render();
+    }
+
+    function deleteItem(type, id) {
+        state[type] = state[type].filter(x => x.id !== id);
+        updateEditor();
+        render();
+    }
+
+    function updateEditor() {
+        const container = document.getElementById('dynamic-editors');
+        container.innerHTML = '';
+        
+        ['exp', 'edu', 'skill', 'lang', 'ref'].forEach(type => {
+            state[type].forEach(item => {
+                const div = document.createElement('div'); 
+                div.className = 'item-editor';
+                
+                const typeLabel = {
+                    exp: '💼 Experience',
+                    edu: '🎓 Education',
+                    skill: '⭐ Skill',
+                    lang: '🌍 Language',
+                    ref: '👥 Reference'
+                };
+                
+                div.innerHTML = `
+                    <button class="delete-btn" onclick="deleteItem('${type}', ${item.id})">×</button>
+                    <div class="item-type">${typeLabel[type]}</div>
+                    <input type="text" placeholder="${type === 'skill' || type === 'lang' ? 'Name' : 'Title'}" value="${item.t1 || ''}" oninput="state.${type}.find(x=>x.id===${item.id}).t1=this.value; render()">
+                    ${(type === 'skill' || type === 'lang') ? `
+                        <div style="margin-top: 10px;">
+                            <label style="font-size: 11px; color: #64748b; font-weight: 600;">Proficiency: ${item.val}%</label>
+                            <input type="range" min="0" max="100" value="${item.val}" style="width: 100%; margin-top: 5px;" oninput="state.${type}.find(x=>x.id===${item.id}).val=this.value; this.previousElementSibling.innerText='Proficiency: '+this.value+'%'; render()">
+                        </div>
+                    ` : `
+                        <input type="text" placeholder="${type === 'ref' ? 'Position/Title' : 'Company / Institution'}" value="${item.t2 || ''}" style="margin-top: 5px;" oninput="state.${type}.find(x=>x.id===${item.id}).t2=this.value; render()">
+                        <input type="text" placeholder="Date Range (e.g., 2020-2023)" value="${item.d || ''}" style="margin-top: 5px;" oninput="state.${type}.find(x=>x.id===${item.id}).d=this.value; render()">
+                        <textarea placeholder="Description / Details / Achievements" rows="3" style="margin-top: 5px;" oninput="state.${type}.find(x=>x.id===${item.id}).desc=this.value; render()">${item.desc || ''}</textarea>
+                    `}
+                `;
+                container.appendChild(div);
+            });
+        });
+    }
+
+    function render() {
+        const root = document.documentElement.style;
+        root.setProperty('--primary', state.accent);
+        root.setProperty('--side-bg', state.side);
+        root.setProperty('--side-text', isDark(state.side) ? '#fff' : '#1e293b');
+        root.setProperty('--font-main', state.font);
+
+        const container = document.getElementById('cv-pages-container');
+        container.innerHTML = '';
+
+        // Create first page
+        const page1 = createPage(1);
+        container.appendChild(page1);
+
+        // Check if we need a second page (simple heuristic based on content length)
+        const totalContent = state.exp.length + state.edu.length + state.skill.length + state.lang.length + state.ref.length;
+        if (totalContent > 8 || document.getElementById('in-sum').value.length > 500) {
+            const page2 = createPage(2);
+            container.appendChild(page2);
+        }
+    }
+
+    function createPage(pageNum) {
+        const page = document.createElement('div');
+        page.className = 'cv-page';
+        
+        const indicator = document.createElement('div');
+        indicator.className = 'page-indicator';
+        indicator.textContent = `Page ${pageNum}`;
+        page.appendChild(indicator);
+
+        const grid = document.createElement('div');
+        grid.className = `cv-grid tpl-${state.tpl}`;
+        grid.style.fontFamily = state.font;
+
+        if (pageNum === 1) {
+            // First page - full content
+            grid.innerHTML = `
+                <div class="side">
+                    ${state.showPhoto && state.photoData ? `<img src="${state.photoData}" alt="Profile" style="width: 120px; height: 120px; border-radius: ${state.photoShape === 'circle' ? '50%' : state.photoShape === 'square' ? '0' : '12px'}; object-fit: cover; border: 3px solid var(--primary); margin-bottom: 20px; display: block;">` : ''}
+                    <div class="name">${document.getElementById('in-name').value || "YOUR NAME"}</div>
+                    <div class="title">${document.getElementById('in-title').value || "JOB TITLE"}</div>
+                    
+                    <div class="section-h" style="color:inherit; border-color:rgba(255,255,255,0.1)"><i class="fas fa-address-card"></i> Contact</div>
+                    <div style="font-size:9pt; line-height:1.8; opacity:0.9;">${getContactHTML()}</div>
+
+                    <div class="section-h" style="color:inherit; border-color:rgba(255,255,255,0.1)"><i class="fas fa-star"></i> Skills</div>
+                    <div>${getSkillsHTML()}</div>
+
+                    <div class="section-h" style="color:inherit; border-color:rgba(255,255,255,0.1)"><i class="fas fa-language"></i> Languages</div>
+                    <div>${getLanguagesHTML()}</div>
+
+                    <div id="qr-holder-${pageNum}"></div>
+                </div>
+
+                <div class="main">
+                    <div class="section-h"><i class="fas fa-user"></i> Profile Summary</div>
+                    <p style="font-size:10pt; line-height:1.6; color:#475569; margin-bottom:25px;">${document.getElementById('in-sum').value || ''}</p>
+
+                    <div class="section-h"><i class="fas fa-briefcase"></i> Professional Experience</div>
+                    <div>${getExperienceHTML(0, 2)}</div>
+
+                    <div class="section-h"><i class="fas fa-graduation-cap"></i> Education</div>
+                    <div>${getEducationHTML(0, 2)}</div>
+                </div>
+            `;
+        } else {
+            // Second page - continuation
+            grid.innerHTML = `
+                <div class="side">
+                    <div style="font-size:9pt; opacity:0.8; text-align:center; padding-top:20px;">
+                        ${document.getElementById('in-name').value || "YOUR NAME"}
+                    </div>
+                </div>
+
+                <div class="main">
+                    ${state.exp.length > 2 ? `
+                        <div class="section-h"><i class="fas fa-briefcase"></i> Professional Experience (Continued)</div>
+                        <div>${getExperienceHTML(2, 10)}</div>
+                    ` : ''}
+
+                    ${state.edu.length > 2 ? `
+                        <div class="section-h"><i class="fas fa-graduation-cap"></i> Education (Continued)</div>
+                        <div>${getEducationHTML(2, 10)}</div>
+                    ` : ''}
+
+                    ${state.ref.length > 0 ? `
+                        <div class="section-h"><i class="fas fa-users"></i> References</div>
+                        <div style="display:grid; grid-template-columns:1fr 1fr; gap:15px;">${getReferencesHTML()}</div>
+                    ` : ''}
+                </div>
+            `;
+        }
+
+        page.appendChild(grid);
+
+        // Add QR code to first page if link exists
+        if (pageNum === 1) {
+            setTimeout(() => {
+                const qrHolder = document.getElementById(`qr-holder-${pageNum}`);
+                if (qrHolder && document.getElementById('in-link').value) {
+                    qrHolder.innerHTML = '<div id="qr-render" style="background: white; padding: 5px; margin-top: 20px; width: 80px; height: 80px;"></div>';
+                    if (qrcode) {
+                        qrcode.clear();
+                    }
+                    qrcode = new QRCode(document.getElementById("qr-render"), { 
+                        width: 80, 
+                        height: 80,
+                        colorDark: "#000000",
+                        colorLight: "#ffffff",
+                        text: document.getElementById('in-link').value
+                    });
+                }
+            }, 100);
+        }
+
+        return page;
+    }
+
+    function getContactHTML() {
+        const email = document.getElementById('in-email').value;
+        const phone = document.getElementById('in-phone').value;
+        const loc = document.getElementById('in-loc').value;
+        return [email, phone, loc].filter(x => x).join('<br>');
+    }
+
+    function getSkillsHTML() {
+        return state.skill.map(i => `
+            <div style="margin-bottom: 12px;">
+                <div style="font-size:8.5pt; font-weight:700; display:flex; justify-content:space-between; margin-bottom: 5px;">
+                    ${i.t1 || 'Skill'} 
+                    <span style="opacity: 0.7;">${i.val}%</span>
+                </div>
+                <div class="skill-bar">
+                    <div class="skill-progress" style="width:${i.val}%"></div>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    function getLanguagesHTML() {
+        return state.lang.map(i => {
+            const level = Math.round(i.val / 20);
+            const dots = '●'.repeat(level) + '○'.repeat(5 - level);
+            return `<div style="font-size:9pt; margin-bottom:8px; display: flex; justify-content: space-between; align-items: center;">
+                <span style="font-weight: 600;">${i.t1 || 'Language'}</span>
+                <span style="color:var(--primary); letter-spacing: 2px;">${dots}</span>
+            </div>`;
+        }).join('');
+    }
+
+    function getExperienceHTML(start, end) {
+        return state.exp.slice(start, end).map(i => `
+            <div class="exp-item">
+                <div class="exp-item-header">
+                    <span>${i.t1 || 'Position Title'}</span>
+                    <span style="font-size:8pt; opacity:0.6; flex-shrink:0; margin-left:10px;">${i.d || ''}</span>
+                </div>
+                <div class="exp-item-company">${i.t2 || ''}</div>
+                <div class="exp-item-desc">${i.desc || ''}</div>
+            </div>
+        `).join('');
+    }
+
+    function getEducationHTML(start, end) {
+        return state.edu.slice(start, end).map(i => `
+            <div class="edu-item">
+                <div class="edu-item-header">
+                    <span>${i.t1 || 'Degree'}</span>
+                    <span style="font-size:8pt; opacity:0.6; flex-shrink:0; margin-left:10px;">${i.d || ''}</span>
+                </div>
+                <div class="edu-item-institution">${i.t2 || ''}</div>
+                <div class="edu-item-desc">${i.desc || ''}</div>
+            </div>
+        `).join('');
+    }
+
+    function getReferencesHTML() {
+        return state.ref.map(i => `
+            <div style="font-size:9pt;">
+                <strong style="display: block; margin-bottom: 3px;">${i.t1 || 'Name'}</strong>
+                <div style="color:var(--primary); font-size:8.5pt; margin-bottom: 2px;">${i.t2 || ''}</div>
+                <div style="font-size:8pt; color:#94a3b8; line-height: 1.4; white-space: pre-line;">${i.desc || ''}</div>
+            </div>
+        `).join('');
+    }
+
+    function isDark(color) {
+        const hex = color.replace('#', '');
+        const r = parseInt(hex.substr(0, 2), 16);
+        const g = parseInt(hex.substr(2, 2), 16);
+        const b = parseInt(hex.substr(4, 2), 16);
+        return ((r * 299) + (g * 587) + (b * 114)) / 1000 < 128;
+    }
+
+    function genQR(val) { 
+        render();
+    }
+
+    function enhanceSummary() {
+        const summaries = [
+            "Dynamic and innovative professional with extensive expertise in driving organizational success through strategic leadership and cutting-edge solutions. Demonstrated ability to transform complex challenges into opportunities for growth, leveraging deep technical knowledge and exceptional interpersonal skills. Committed to fostering collaborative environments that inspire excellence and deliver transformative results in competitive markets.",
+            "Accomplished professional with a proven track record of excellence in fast-paced, high-growth environments. Expert at bridging business strategy with technical execution to deliver scalable solutions that drive measurable impact. Known for building high-performing teams and cultivating cultures of innovation, accountability, and continuous improvement.",
+            "Visionary leader with comprehensive experience in digital transformation and organizational development. Combines strategic thinking with hands-on execution to deliver exceptional results across complex, cross-functional initiatives. Passionate about leveraging emerging technologies and data-driven insights to create competitive advantages and enhance customer experiences."
+        ];
+        const randomSummary = summaries[Math.floor(Math.random() * summaries.length)];
+        document.getElementById('in-sum').value = randomSummary;
+        render();
+    }
+
+    function downloadPDF() {
+        const pages = document.querySelectorAll('.cv-page');
+        const indicators = document.querySelectorAll('.page-indicator');
+        
+        // Hide indicators
+        indicators.forEach(ind => ind.style.display = 'none');
+        
+        const opt = {
+            margin: 0,
+            filename: 'Professional_CV_' + document.getElementById('in-name').value.replace(/ /g, '_') + '.pdf',
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { 
+                scale: 2,
+                useCORS: true,
+                letterRendering: true,
+                logging: false
+            },
+            jsPDF: { 
+                unit: 'mm', 
+                format: 'a4', 
+                orientation: 'portrait'
+            }
+        };
+
+        // Convert all pages
+        const pdfPromises = Array.from(pages).map((page, index) => {
+            return html2pdf().set(opt).from(page).toPdf().get('pdf').then(pdf => {
+                return { pdf, index };
+            });
+        });
+
+        Promise.all(pdfPromises).then(results => {
+            const mainPdf = results[0].pdf;
+            
+            for (let i = 1; i < results.length; i++) {
+                mainPdf.addPage();
+                const pageData = results[i].pdf.internal.pages[1];
+                mainPdf.internal.pages.push(pageData);
+            }
+            
+            mainPdf.save('Professional_CV_' + document.getElementById('in-name').value.replace(/ /g, '_') + '.pdf');
+            
+            // Show indicators again
+            indicators.forEach(ind => ind.style.display = 'block');
+        });
+    }
+    
+    function downloadWord() {
+        const name = document.getElementById('in-name').value;
+        const title = document.getElementById('in-title').value;
+        const email = document.getElementById('in-email').value;
+        const phone = document.getElementById('in-phone').value;
+        const loc = document.getElementById('in-loc').value;
+        const link = document.getElementById('in-link').value;
+        const summary = document.getElementById('in-sum').value;
+
+        const contact = [email, phone, loc, link].filter(x => x).join(' | ');
+
+        const expContent = state.exp.map(i => `
+            <p style="margin-bottom:15px; page-break-inside:avoid;">
+                <strong style="font-size:11pt;">${i.t1}</strong><br/>
+                <span style="color:${state.accent}; font-weight:600;">${i.t2}</span> 
+                <span style="float:right; font-size:9pt; color:#666;">${i.d}</span><br/>
+                <span style="font-size:10pt; line-height:1.6; white-space:pre-line;">${i.desc}</span>
+            </p>
+        `).join('');
+
+        const eduContent = state.edu.map(i => `
+            <p style="margin-bottom:15px; page-break-inside:avoid;">
+                <strong style="font-size:11pt;">${i.t1}</strong><br/>
+                <span style="color:${state.accent}; font-weight:600;">${i.t2}</span> 
+                <span style="float:right; font-size:9pt; color:#666;">${i.d}</span><br/>
+                <span style="font-size:10pt; line-height:1.6; white-space:pre-line;">${i.desc}</span>
+            </p>
+        `).join('');
+
+        const skillsContent = state.skill.map(i => 
+            `<p style="margin:5px 0;"><strong>${i.t1}</strong>: ${i.val}%</p>`
+        ).join('');
+
+        const langsContent = state.lang.map(i => {
+            const level = Math.round(i.val / 20);
+            const dots = '●'.repeat(level) + '○'.repeat(5 - level);
+            return `<p style="margin:5px 0;"><strong>${i.t1}</strong>: ${dots}</p>`;
+        }).join('');
+
+        const refsContent = state.ref.map(i => `
+            <p style="margin-bottom:10px;">
+                <strong>${i.t1}</strong><br/>
+                <span style="color:${state.accent};">${i.t2}</span><br/>
+                <span style="font-size:9pt; white-space:pre-line;">${i.desc}</span>
+            </p>
+        `).join('');
+
+        const css = `
+            <style>
+                @page {
+                    size: A4;
+                    margin: 0;
+                }
+                body { 
+                    font-family: ${state.font}, Arial, sans-serif; 
+                    margin: 0;
+                    padding: 0;
+                }
+                table { 
+                    width: 210mm;
+                    height: 297mm;
+                    border-collapse: collapse;
+                    page-break-after: always;
+                }
+                tr {
+                    height: 100%;
+                }
+                td { 
+                    vertical-align: top; 
+                    padding: 30px 20px;
+                }
+                .side { 
+                    background: ${state.side}; 
+                    color: ${isDark(state.side) ? '#ffffff' : '#1e293b'}; 
+                    width: 35%;
+                }
+                .main { 
+                    width: 65%;
+                    padding: 30px;
+                }
+                .name {
+                    font-size: 24pt;
+                    font-weight: 800;
+                    text-transform: uppercase;
+                    margin-bottom: 5px;
+                }
+                .title {
+                    font-size: 11pt;
+                    color: ${state.accent};
+                    font-weight: 600;
+                    letter-spacing: 2px;
+                    text-transform: uppercase;
+                    margin-bottom: 20px;
+                }
+                .section-h { 
+                    font-size: 11pt;
+                    font-weight: 800; 
+                    text-transform: uppercase;
+                    color: ${state.accent};
+                    margin: 20px 0 10px;
+                    border-bottom: 1.5px solid #eee;
+                    padding-bottom: 5px;
+                    page-break-after: avoid;
+                }
+                .side .section-h {
+                    color: inherit;
+                    border-bottom-color: rgba(255,255,255,0.2);
+                }
+                p {
+                    margin: 10px 0;
+                    line-height: 1.6;
+                    page-break-inside: avoid;
+                }
+            </style>
+        `;
+
+        const html = `
+            <html xmlns:o="urn:schemas-microsoft-com:office:office"
+                   xmlns:w="urn:schemas-microsoft-com:office:word"
+                   xmlns="http://www.w3.org/TR/REC-html40">
+            <head>
+                <meta charset="utf-8">
+                <meta name="ProgId" content="Word.Document">
+                ${css}
+            </head>
+            <body>
+                <table>
+                    <tr>
+                        <td class="side">
+                            <div class="name">${name}</div>
+                            <div class="title">${title}</div>
+                            
+                            <div class="section-h">CONTACT</div>
+                            <p style="font-size:9pt; line-height:1.8;">${contact.replace(/\|/g, '<br/>')}</p>
+
+                            <div class="section-h">SKILLS</div>
+                            ${skillsContent}
+
+                            <div class="section-h">LANGUAGES</div>
+                            ${langsContent}
+                        </td>
+                        <td class="main">
+                            <div class="section-h">PROFILE SUMMARY</div>
+                            <p style="font-size:10pt; line-height:1.6; color:#475569;">${summary}</p>
+
+                            <div class="section-h">PROFESSIONAL EXPERIENCE</div>
+                            ${expContent}
+
+                            <div class="section-h">EDUCATION</div>
+                            ${eduContent}
+
+                            ${state.ref.length > 0 ? `
+                                <div class="section-h">REFERENCES</div>
+                                ${refsContent}
+                            ` : ''}
+                        </td>
+                    </tr>
+                </table>
+            </body>
+            </html>
+        `;
+
+        const blob = new Blob(['\ufeff', html], { type: 'application/msword' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'Professional_CV_' + name.replace(/ /g, '_') + '.doc';
+        a.click();
+        URL.revokeObjectURL(url);
+    }
+
+    window.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
+</html>
