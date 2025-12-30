@@ -35,6 +35,14 @@
             color: #333; 
         }
 
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column;
+                height: auto;
+                overflow-y: auto;
+            }
+        }
+
         #editor { 
             width: 480px; 
             background: #ffffff; 
@@ -45,6 +53,24 @@
             box-shadow: 10px 0 30px rgba(0,0,0,0.2); 
             z-index: 100; 
         }
+
+        @media (max-width: 1024px) {
+            #editor {
+                width: 400px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            #editor {
+                width: 100%;
+                height: auto;
+                min-height: 100vh;
+                border-right: none;
+                border-bottom: 3px solid #e2e8f0;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+                padding: 20px;
+            }
+        }
         
         .group { 
             background: #f8fafc; 
@@ -52,6 +78,13 @@
             padding: 20px; 
             margin-bottom: 20px; 
             border: 1px solid #f1f5f9; 
+        }
+
+        @media (max-width: 768px) {
+            .group {
+                padding: 15px;
+                margin-bottom: 15px;
+            }
         }
         
         h3 { 
@@ -63,6 +96,14 @@
             font-weight: 800; 
             border-bottom: 2px solid #eee; 
             padding-bottom: 8px; 
+        }
+
+        @media (max-width: 768px) {
+            h3 {
+                font-size: 14px;
+                letter-spacing: 1px;
+                margin-bottom: 12px;
+            }
         }
         
         select.dropdown-style { 
@@ -125,6 +166,13 @@
             font-size: 14px; 
             margin-top: 5px; 
             font-family: inherit; 
+        }
+
+        @media (max-width: 768px) {
+            input, textarea {
+                font-size: 16px;
+                padding: 14px;
+            }
         }
         
         .toggle-switch { 
@@ -216,6 +264,13 @@
             background: #0f172a; 
             position: relative; 
         }
+
+        @media (max-width: 768px) {
+            #preview-pane {
+                padding: 20px 10px;
+                width: 100%;
+            }
+        }
         
         .toolbar { 
             width: 210mm; 
@@ -229,6 +284,30 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.5); 
         }
 
+        @media (max-width: 768px) {
+            .toolbar {
+                width: calc(100% - 20px);
+                padding: 15px;
+                flex-direction: column;
+                gap: 12px;
+                align-items: stretch;
+            }
+
+            .toolbar > span {
+                text-align: center;
+            }
+
+            .toolbar > div {
+                width: 100%;
+                flex-direction: column;
+            }
+
+            .toolbar .btn-exp {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
         .cv-page { 
             width: 210mm; 
             height: 297mm;
@@ -240,6 +319,15 @@
             margin-bottom: 30px;
             page-break-after: always;
             page-break-inside: avoid;
+        }
+
+        @media (max-width: 768px) {
+            .cv-page {
+                width: calc(100vw - 20px);
+                height: auto;
+                min-height: 400px;
+                margin-bottom: 20px;
+            }
         }
 
         .cv-page:last-child {
@@ -306,6 +394,28 @@
             height: 100%;
             width: 100%;
         }
+
+        @media (max-width: 768px) {
+            .cv-grid {
+                display: block !important;
+                height: auto !important;
+            }
+
+            .cv-grid .side,
+            .cv-grid .main {
+                width: 100% !important;
+                display: block !important;
+            }
+
+            .cv-grid .side {
+                padding: 20px !important;
+                min-height: auto !important;
+            }
+
+            .cv-grid .main {
+                padding: 20px !important;
+            }
+        }
         
         .tpl-1 { grid-template-columns: 35% 65%; }
         .tpl-2 { grid-template-columns: 65% 35%; }
@@ -350,6 +460,12 @@
             line-height: 1.1;
             word-wrap: break-word;
         }
+
+        @media (max-width: 768px) {
+            .name {
+                font-size: 20pt;
+            }
+        }
         
         .title { 
             font-size: 11pt; 
@@ -359,6 +475,13 @@
             margin-bottom: 22px; 
             text-transform: uppercase;
             word-wrap: break-word;
+        }
+
+        @media (max-width: 768px) {
+            .title {
+                font-size: 10pt;
+                letter-spacing: 1px;
+            }
         }
         
         .section-h { 
@@ -398,11 +521,23 @@
             color: white; 
             transition: 0.2s; 
             box-shadow: 0 4px 15px rgba(0,0,0,0.2); 
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
         }
         
         .btn-exp:hover { 
             transform: translateY(-2px); 
             box-shadow: 0 6px 20px rgba(0,0,0,0.3); 
+        }
+
+        @media (max-width: 768px) {
+            .btn-exp {
+                padding: 14px 20px;
+                font-size: 14px;
+                width: 100%;
+                justify-content: center;
+            }
         }
         
         .item-editor { 
@@ -537,8 +672,8 @@
 
 <div id="editor">
     <div style="margin-bottom: 25px;">
-        <h2 style="font-family:'Montserrat'; margin:0; letter-spacing:-1px; color:#1e293b; font-size: 28px;">⚡ ResumeFlow ⚡</h2>
-        <p style="font-size: 12px; color: ##1e293b; font-weight: 500;">Copyright 2025-2026 Ravishan. All rights reserved</p>
+        <h2 style="font-family:'Montserrat'; margin:0; letter-spacing:-1px; color:#1e293b; font-size: 28px;">⚡ GENESIS ENGINE</h2>
+        <p style="font-size: 13px; color: #94a3b8; font-weight: 700;">Professional CV Builder v3.0</p>
     </div>
 
     <div class="group">
