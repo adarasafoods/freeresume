@@ -6,8 +6,8 @@
     <title>Professional CV Generator - Complete Edition</title>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Poppins:wght@400;700;800&family=Montserrat:wght@400;700;800&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Roboto:wght@400;700;900&family=Lato:wght@300;400;700;900&family=Open+Sans:wght@400;600;800&family=Raleway:wght@400;700;900&family=Source+Sans+Pro:wght@400;600;900&family=Merriweather:wght@400;700;900&family=Nunito:wght@400;700;900&family=Ubuntu:wght@400;700&family=Crimson+Text:wght@400;600;700&family=Libre+Baskerville:wght@400;700&family=PT+Sans:wght@400;700&family=Oswald:wght@400;600;700&family=Quicksand:wght@400;600;700&family=Karla:wght@400;700&family=Fira+Sans:wght@400;600;800&family=Bitter:wght@400;700&family=Cabin:wght@400;600;700&family=Arimo:wght@400;700&family=Josefin+Sans:wght@400;600;700&family=Work+Sans:wght@400;600;800&display=swap" rel="stylesheet">
 
@@ -229,7 +229,6 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.5); 
         }
 
-        /* CV Page Container */
         .cv-page { 
             width: 210mm; 
             height: 297mm;
@@ -239,10 +238,13 @@
             overflow: hidden;
             box-shadow: 0 10px 30px rgba(0,0,0,0.3);
             margin-bottom: 30px;
+            page-break-after: always;
+            page-break-inside: avoid;
         }
 
         .cv-page:last-child {
             margin-bottom: 0;
+            page-break-after: auto;
         }
 
         @media print {
@@ -271,6 +273,7 @@
                 margin: 0;
                 padding: 0;
                 page-break-after: always;
+                page-break-inside: avoid;
                 overflow: hidden;
             }
 
@@ -290,37 +293,11 @@
             .main {
                 display: table-cell !important;
                 vertical-align: top !important;
-            }
-
-            .tpl-1 .side,
-            .tpl-2 .side,
-            .tpl-5 .side,
-            .tpl-7 .side,
-            .tpl-9 .side,
-            .tpl-12 .side,
-            .tpl-14 .side,
-            .tpl-17 .side,
-            .tpl-19 .side {
-                width: 35% !important;
-            }
-
-            .tpl-1 .main,
-            .tpl-2 .main,
-            .tpl-5 .main,
-            .tpl-7 .main,
-            .tpl-9 .main,
-            .tpl-12 .main,
-            .tpl-14 .main,
-            .tpl-17 .main,
-            .tpl-19 .main {
-                width: 65% !important;
-            }
-
-            .section-h,
-            .exp-item,
-            .edu-item {
                 page-break-inside: avoid;
-                break-inside: avoid;
+            }
+
+            .page-indicator {
+                display: none !important;
             }
         }
 
@@ -354,18 +331,18 @@
         .side { 
             background: var(--side-bg); 
             color: var(--side-text); 
-            padding: 40px 25px;
+            padding: 25px 18px;
             overflow: hidden;
         }
         
         .main { 
-            padding: 40px; 
+            padding: 25px; 
             background: white;
             overflow: hidden;
         }
 
         .name { 
-            font-size: 26pt; 
+            font-size: 24pt; 
             font-weight: 800; 
             text-transform: uppercase; 
             margin-bottom: 5px; 
@@ -375,56 +352,27 @@
         }
         
         .title { 
-            font-size: 12pt; 
+            font-size: 11pt; 
             color: var(--primary); 
             font-weight: 600; 
-            letter-spacing: 2px; 
-            margin-bottom: 30px; 
+            letter-spacing: 1.5px; 
+            margin-bottom: 22px; 
             text-transform: uppercase;
             word-wrap: break-word;
         }
         
         .section-h { 
-            font-size: 11pt; 
+            font-size: 10pt; 
             font-weight: 800; 
             text-transform: uppercase; 
             color: var(--primary); 
-            margin: 25px 0 12px; 
+            margin: 18px 0 10px; 
             border-bottom: 1.5px solid #eee; 
-            padding-bottom: 5px; 
+            padding-bottom: 4px; 
             display: flex; 
             align-items: center; 
             gap: 8px;
-        }
-        
-        #photo-preview { 
-            width: 120px; 
-            height: 120px; 
-            border-radius: 12px; 
-            object-fit: cover; 
-            border: 3px solid var(--primary); 
-            margin-bottom: 20px; 
-            display: none; 
-        }
-        
-        #photo-preview.circle { 
-            border-radius: 50%; 
-        }
-        
-        #photo-preview.square { 
-            border-radius: 0; 
-        }
-        
-        #qr-code { 
-            background: white; 
-            padding: 5px; 
-            margin-top: 20px; 
-            width: 80px; 
-            height: 80px; 
-        }
-        
-        #qr-code canvas { 
-            display: block; 
+            page-break-after: avoid;
         }
 
         .skill-bar { 
@@ -504,7 +452,8 @@
 
         .exp-item,
         .edu-item {
-            margin-bottom: 20px;
+            margin-bottom: 15px;
+            page-break-inside: avoid;
         }
 
         .exp-item-header,
@@ -528,11 +477,31 @@
 
         .exp-item-desc,
         .edu-item-desc {
-            font-size: 9.5pt;
+            font-size: 8.5pt;
             color: #64748b;
-            line-height: 1.6;
-            white-space: pre-line;
+            line-height: 1.4;
+            white-space: pre-wrap;
             word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+        
+        .exp-item-desc p,
+        .edu-item-desc p {
+            margin: 0 0 5px 0;
+        }
+
+        .profile-summary {
+            font-size: 9pt;
+            line-height: 1.45;
+            color: #475569;
+            margin-bottom: 16px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+        
+        .profile-summary p {
+            margin: 0 0 8px 0;
         }
 
         .page-indicator {
@@ -546,6 +515,21 @@
             font-size: 11px;
             font-weight: 700;
             z-index: 10;
+            pointer-events: none;
+        }
+
+        .contact-item {
+            font-size: 9pt;
+            line-height: 1.9;
+            opacity: 0.95;
+            margin-bottom: 5px;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+
+        .contact-item i {
+            width: 16px;
+            margin-right: 8px;
         }
     </style>
 </head>
@@ -553,8 +537,8 @@
 
 <div id="editor">
     <div style="margin-bottom: 25px;">
-        <h2 style="font-family:'Montserrat'; margin:0; letter-spacing:-1px; color:#1e293b; font-size: 28px;">⚡ GENESIS ENGINE</h2>
-        <p style="font-size: 13px; color: #94a3b8; font-weight: 700;">Professional CV Builder v3.0</p>
+        <h2 style="font-family:'Montserrat'; margin:0; letter-spacing:-1px; color:#1e293b; font-size: 28px;">⚡ ResumeFlow ⚡</h2>
+        <p style="font-size: 12px; color: ##1e293b; font-weight: 500;">Copyright 2025-2026 Ravishan. All rights reserved</p>
     </div>
 
     <div class="group">
@@ -644,7 +628,7 @@
         <input type="text" id="in-email" placeholder="Email Address" oninput="render()">
         <input type="text" id="in-phone" placeholder="Phone Number" oninput="render()">
         <input type="text" id="in-loc" placeholder="Location / City" oninput="render()">
-        <input type="text" id="in-link" placeholder="Portfolio/LinkedIn URL" oninput="render(); genQR(this.value);">
+        <input type="text" id="in-link" placeholder="Portfolio/LinkedIn URL" oninput="render()">
     </div>
 
     <div class="group">
@@ -684,12 +668,12 @@
     
     let state = { 
         exp: [
-            {id: 1, t1: 'Senior Product Manager', t2: 'TechCorp Solutions', d: '2021 - Present', desc: 'Led cross-functional teams of 15+ members to deliver innovative SaaS products serving 100K+ users\nIncreased customer retention by 45% through data-driven feature optimization and user research\nManaged $2M annual product budget and coordinated stakeholders across 3 continents\nSpearheaded adoption of agile methodologies, reducing time-to-market by 35%'},
-            {id: 2, t1: 'Product Manager', t2: 'Digital Innovations Inc', d: '2018 - 2021', desc: 'Successfully launched 5 B2B products generating $10M in annual recurring revenue\nImplemented OKR framework across product organization of 40+ team members\nCollaborated with engineering and design teams to define strategic product roadmaps\nConducted market analysis and competitive research to identify new growth opportunities'}
+            {id: 1, t1: 'Senior Product Manager', t2: 'TechCorp Solutions', d: '2021 - Present', desc: 'Led cross-functional teams of 15+ members to deliver innovative SaaS products serving 100K+ users.\n\nIncreased customer retention by 45% through data-driven feature optimization and user research.\n\nManaged $2M annual product budget and coordinated stakeholders across 3 continents.\n\nSpearheaded adoption of agile methodologies, reducing time-to-market by 35%.'},
+            {id: 2, t1: 'Product Manager', t2: 'Digital Innovations Inc', d: '2018 - 2021', desc: 'Successfully launched 5 B2B products generating $10M in annual recurring revenue.\n\nImplemented OKR framework across product organization of 40+ team members.\n\nCollaborated with engineering and design teams to define strategic product roadmaps.\n\nConducted market analysis and competitive research to identify new growth opportunities.'}
         ], 
         edu: [
-            {id: 3, t1: 'Master of Business Administration (MBA)', t2: 'Stanford Graduate School of Business', d: '2016 - 2018', desc: 'Concentration in Technology Management and Innovation Strategy\nGPA: 3.9/4.0 - Dean\'s List all semesters\nThesis: "Digital Transformation Strategies in Enterprise Software"\nPresident of Technology & Innovation Club'},
-            {id: 4, t1: 'Bachelor of Science in Computer Science', t2: 'Massachusetts Institute of Technology', d: '2012 - 2016', desc: 'Specialization in Software Engineering and Human-Computer Interaction\nGraduated Magna Cum Laude with Honors\nRelevant Coursework: AI, Machine Learning, Database Systems, UX Design'}
+            {id: 3, t1: 'Master of Business Administration (MBA)', t2: 'Stanford Graduate School of Business', d: '2016 - 2018', desc: 'Concentration in Technology Management and Innovation Strategy.\n\nGPA: 3.9/4.0 - Dean\'s List all semesters.\n\nThesis: "Digital Transformation Strategies in Enterprise Software".\n\nPresident of Technology & Innovation Club.'},
+            {id: 4, t1: 'Bachelor of Science in Computer Science', t2: 'Massachusetts Institute of Technology', d: '2012 - 2016', desc: 'Specialization in Software Engineering and Human-Computer Interaction.\n\nGraduated Magna Cum Laude with Honors.\n\nRelevant Coursework: AI, Machine Learning, Database Systems, UX Design.'}
         ], 
         skill: [
             {id: 5, t1: 'Product Strategy & Roadmapping', val: 95},
@@ -715,8 +699,6 @@
         photoShape: 'rounded',
         photoData: null
     };
-    
-    let qrcode = null;
 
     function init() {
         document.getElementById('in-name').value = 'Alexandra Mitchell';
@@ -725,7 +707,7 @@
         document.getElementById('in-phone').value = '+1 (555) 987-6543';
         document.getElementById('in-loc').value = 'San Francisco, California';
         document.getElementById('in-link').value = 'linkedin.com/in/alexandra-mitchell';
-        document.getElementById('in-sum').value = 'Results-driven Product Manager with 8+ years of experience leading digital transformation initiatives in fast-paced technology environments. Proven track record of launching successful products that drive revenue growth and enhance user experience. Expert in agile methodologies, data analytics, and cross-functional team leadership. Passionate about leveraging emerging technologies to solve complex business challenges and deliver measurable impact to both customers and stakeholders.';
+        document.getElementById('in-sum').value = 'Results-driven Product Manager with 8+ years of experience leading digital transformation initiatives in fast-paced technology environments.\n\nProven track record of launching successful products that drive revenue growth and enhance user experience.\n\nExpert in agile methodologies, data analytics, and cross-functional team leadership.\n\nPassionate about leveraging emerging technologies to solve complex business challenges and deliver measurable impact to both customers and stakeholders.';
         
         const aGrid = document.getElementById('accent-colors');
         colors.forEach((c, i) => {
@@ -860,13 +842,16 @@
         const container = document.getElementById('cv-pages-container');
         container.innerHTML = '';
 
-        // Create first page
+        // Always create page 1
         const page1 = createPage(1);
         container.appendChild(page1);
 
-        // Check if we need a second page (simple heuristic based on content length)
-        const totalContent = state.exp.length + state.edu.length + state.skill.length + state.lang.length + state.ref.length;
-        if (totalContent > 8 || document.getElementById('in-sum').value.length > 500) {
+        // Check if we need page 2
+        const hasMoreExp = state.exp.length > 2;
+        const hasMoreEdu = state.edu.length > 2;
+        const hasRefs = state.ref.length > 0;
+        
+        if (hasMoreExp || hasMoreEdu || hasRefs) {
             const page2 = createPage(2);
             container.appendChild(page2);
         }
@@ -886,86 +871,89 @@
         grid.style.fontFamily = state.font;
 
         if (pageNum === 1) {
-            // First page - full content
             grid.innerHTML = `
                 <div class="side">
-                    ${state.showPhoto && state.photoData ? `<img src="${state.photoData}" alt="Profile" style="width: 120px; height: 120px; border-radius: ${state.photoShape === 'circle' ? '50%' : state.photoShape === 'square' ? '0' : '12px'}; object-fit: cover; border: 3px solid var(--primary); margin-bottom: 20px; display: block;">` : ''}
+                    ${state.showPhoto && state.photoData ? `<img src="${state.photoData}" alt="Profile" style="width: 110px; height: 110px; border-radius: ${state.photoShape === 'circle' ? '50%' : state.photoShape === 'square' ? '0' : '12px'}; object-fit: cover; border: 3px solid var(--primary); margin-bottom: 18px; display: block;">` : ''}
                     <div class="name">${document.getElementById('in-name').value || "YOUR NAME"}</div>
                     <div class="title">${document.getElementById('in-title').value || "JOB TITLE"}</div>
                     
-                    <div class="section-h" style="color:inherit; border-color:rgba(255,255,255,0.1)"><i class="fas fa-address-card"></i> Contact</div>
-                    <div style="font-size:9pt; line-height:1.8; opacity:0.9;">${getContactHTML()}</div>
+                    <div class="section-h" style="color:inherit; border-color:rgba(255,255,255,0.15); font-size: 10pt; margin-top: 20px;"><i class="fas fa-address-card"></i> Contact</div>
+                    <div style="margin-top: 10px;">${getContactHTML()}</div>
 
-                    <div class="section-h" style="color:inherit; border-color:rgba(255,255,255,0.1)"><i class="fas fa-star"></i> Skills</div>
-                    <div>${getSkillsHTML()}</div>
+                    <div class="section-h" style="color:inherit; border-color:rgba(255,255,255,0.15); font-size: 10pt; margin-top: 20px;"><i class="fas fa-star"></i> Skills</div>
+                    <div style="margin-top: 10px;">${getSkillsHTML()}</div>
 
-                    <div class="section-h" style="color:inherit; border-color:rgba(255,255,255,0.1)"><i class="fas fa-language"></i> Languages</div>
-                    <div>${getLanguagesHTML()}</div>
+                    <div class="section-h" style="color:inherit; border-color:rgba(255,255,255,0.15); font-size: 10pt; margin-top: 20px;"><i class="fas fa-language"></i> Languages</div>
+                    <div style="margin-top: 10px;">${getLanguagesHTML()}</div>
 
-                    <div id="qr-holder-${pageNum}"></div>
+                    ${document.getElementById('in-link').value ? `
+                        <div style="margin-top: 25px; padding-top: 15px; border-top: 1px solid rgba(255,255,255,0.15);">
+                            <div style="font-size: 8pt; font-weight: 600; margin-bottom: 5px; opacity: 0.8;">LinkedIn</div>
+                            <div style="font-size: 8pt; opacity: 0.9; word-break: break-all;">${document.getElementById('in-link').value}</div>
+                        </div>
+                    ` : ''}
                 </div>
 
                 <div class="main">
                     <div class="section-h"><i class="fas fa-user"></i> Profile Summary</div>
-                    <p style="font-size:10pt; line-height:1.6; color:#475569; margin-bottom:25px;">${document.getElementById('in-sum').value || ''}</p>
+                    <div class="profile-summary">${document.getElementById('in-sum').value.split('\n\n').map(p => `<p>${p.trim()}</p>`).join('') || ''}</div>
 
-                    <div class="section-h"><i class="fas fa-briefcase"></i> Professional Experience</div>
-                    <div>${getExperienceHTML(0, 2)}</div>
+                    ${state.exp.length > 0 ? `
+                        <div class="section-h"><i class="fas fa-briefcase"></i> Professional Experience</div>
+                        <div>${getExperienceHTML(0, 2)}</div>
+                    ` : ''}
 
-                    <div class="section-h"><i class="fas fa-graduation-cap"></i> Education</div>
-                    <div>${getEducationHTML(0, 2)}</div>
+                    ${state.edu.length > 0 ? `
+                        <div class="section-h"><i class="fas fa-graduation-cap"></i> Education</div>
+                        <div>${getEducationHTML(0, 2)}</div>
+                    ` : ''}
                 </div>
             `;
         } else {
             // Second page - continuation
+            const hasMoreExp = state.exp.length > 2;
+            const hasMoreEdu = state.edu.length > 2;
+
+            let mainContent = '';
+            
+            if (hasMoreExp) {
+                mainContent += `
+                    <div class="section-h"><i class="fas fa-briefcase"></i> Professional Experience (Continued)</div>
+                    <div>${getExperienceHTML(2, 10)}</div>
+                `;
+            }
+
+            if (hasMoreEdu) {
+                mainContent += `
+                    <div class="section-h"><i class="fas fa-graduation-cap"></i> Education (Continued)</div>
+                    <div>${getEducationHTML(2, 10)}</div>
+                `;
+            }
+
+            if (state.ref.length > 0) {
+                mainContent += `
+                    <div class="section-h"><i class="fas fa-users"></i> References</div>
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:15px;">${getReferencesHTML()}</div>
+                `;
+            }
+
             grid.innerHTML = `
                 <div class="side">
-                    <div style="font-size:9pt; opacity:0.8; text-align:center; padding-top:20px;">
+                    <div style="font-size:9pt; opacity:0.8; text-align:center; padding-top:15px; font-weight: 600;">
                         ${document.getElementById('in-name').value || "YOUR NAME"}
+                    </div>
+                    <div style="font-size:8pt; opacity:0.6; text-align:center; margin-top: 5px;">
+                        Continued
                     </div>
                 </div>
 
                 <div class="main">
-                    ${state.exp.length > 2 ? `
-                        <div class="section-h"><i class="fas fa-briefcase"></i> Professional Experience (Continued)</div>
-                        <div>${getExperienceHTML(2, 10)}</div>
-                    ` : ''}
-
-                    ${state.edu.length > 2 ? `
-                        <div class="section-h"><i class="fas fa-graduation-cap"></i> Education (Continued)</div>
-                        <div>${getEducationHTML(2, 10)}</div>
-                    ` : ''}
-
-                    ${state.ref.length > 0 ? `
-                        <div class="section-h"><i class="fas fa-users"></i> References</div>
-                        <div style="display:grid; grid-template-columns:1fr 1fr; gap:15px;">${getReferencesHTML()}</div>
-                    ` : ''}
+                    ${mainContent}
                 </div>
             `;
         }
 
         page.appendChild(grid);
-
-        // Add QR code to first page if link exists
-        if (pageNum === 1) {
-            setTimeout(() => {
-                const qrHolder = document.getElementById(`qr-holder-${pageNum}`);
-                if (qrHolder && document.getElementById('in-link').value) {
-                    qrHolder.innerHTML = '<div id="qr-render" style="background: white; padding: 5px; margin-top: 20px; width: 80px; height: 80px;"></div>';
-                    if (qrcode) {
-                        qrcode.clear();
-                    }
-                    qrcode = new QRCode(document.getElementById("qr-render"), { 
-                        width: 80, 
-                        height: 80,
-                        colorDark: "#000000",
-                        colorLight: "#ffffff",
-                        text: document.getElementById('in-link').value
-                    });
-                }
-            }, 100);
-        }
-
         return page;
     }
 
@@ -973,14 +961,20 @@
         const email = document.getElementById('in-email').value;
         const phone = document.getElementById('in-phone').value;
         const loc = document.getElementById('in-loc').value;
-        return [email, phone, loc].filter(x => x).join('<br>');
+        
+        let html = '';
+        if (email) html += `<div class="contact-item"><i class="fas fa-envelope"></i>${email}</div>`;
+        if (phone) html += `<div class="contact-item"><i class="fas fa-phone"></i>${phone}</div>`;
+        if (loc) html += `<div class="contact-item"><i class="fas fa-map-marker-alt"></i>${loc}</div>`;
+        
+        return html;
     }
 
     function getSkillsHTML() {
         return state.skill.map(i => `
-            <div style="margin-bottom: 12px;">
-                <div style="font-size:8.5pt; font-weight:700; display:flex; justify-content:space-between; margin-bottom: 5px;">
-                    ${i.t1 || 'Skill'} 
+            <div style="margin-bottom: 10px;">
+                <div style="font-size:8.5pt; font-weight:700; display:flex; justify-content:space-between; margin-bottom: 4px;">
+                    <span>${i.t1 || 'Skill'}</span>
                     <span style="opacity: 0.7;">${i.val}%</span>
                 </div>
                 <div class="skill-bar">
@@ -994,37 +988,45 @@
         return state.lang.map(i => {
             const level = Math.round(i.val / 20);
             const dots = '●'.repeat(level) + '○'.repeat(5 - level);
-            return `<div style="font-size:9pt; margin-bottom:8px; display: flex; justify-content: space-between; align-items: center;">
+            return `<div style="font-size:8.5pt; margin-bottom:7px; display: flex; justify-content: space-between; align-items: center;">
                 <span style="font-weight: 600;">${i.t1 || 'Language'}</span>
-                <span style="color:var(--primary); letter-spacing: 2px;">${dots}</span>
+                <span style="color:var(--primary); letter-spacing: 2px; font-size: 10pt;">${dots}</span>
             </div>`;
         }).join('');
     }
 
     function getExperienceHTML(start, end) {
-        return state.exp.slice(start, end).map(i => `
+        return state.exp.slice(start, end).map(i => {
+            const descLines = i.desc.split('\n').filter(line => line.trim());
+            const descHTML = descLines.map(line => `<p style="margin: 0 0 6px 0;">${line.trim()}</p>`).join('');
+            
+            return `
             <div class="exp-item">
                 <div class="exp-item-header">
-                    <span>${i.t1 || 'Position Title'}</span>
-                    <span style="font-size:8pt; opacity:0.6; flex-shrink:0; margin-left:10px;">${i.d || ''}</span>
+                    <span style="font-size: 10.5pt;">${i.t1 || 'Position Title'}</span>
+                    <span style="font-size:8pt; opacity:0.6; flex-shrink:0; margin-left:10px; white-space: nowrap;">${i.d || ''}</span>
                 </div>
                 <div class="exp-item-company">${i.t2 || ''}</div>
-                <div class="exp-item-desc">${i.desc || ''}</div>
+                <div class="exp-item-desc">${descHTML}</div>
             </div>
-        `).join('');
+        `}).join('');
     }
 
     function getEducationHTML(start, end) {
-        return state.edu.slice(start, end).map(i => `
+        return state.edu.slice(start, end).map(i => {
+            const descLines = i.desc.split('\n').filter(line => line.trim());
+            const descHTML = descLines.map(line => `<p style="margin: 0 0 6px 0;">${line.trim()}</p>`).join('');
+            
+            return `
             <div class="edu-item">
                 <div class="edu-item-header">
-                    <span>${i.t1 || 'Degree'}</span>
-                    <span style="font-size:8pt; opacity:0.6; flex-shrink:0; margin-left:10px;">${i.d || ''}</span>
+                    <span style="font-size: 10.5pt;">${i.t1 || 'Degree'}</span>
+                    <span style="font-size:8pt; opacity:0.6; flex-shrink:0; margin-left:10px; white-space: nowrap;">${i.d || ''}</span>
                 </div>
                 <div class="edu-item-institution">${i.t2 || ''}</div>
-                <div class="edu-item-desc">${i.desc || ''}</div>
+                <div class="edu-item-desc">${descHTML}</div>
             </div>
-        `).join('');
+        `}).join('');
     }
 
     function getReferencesHTML() {
@@ -1045,15 +1047,11 @@
         return ((r * 299) + (g * 587) + (b * 114)) / 1000 < 128;
     }
 
-    function genQR(val) { 
-        render();
-    }
-
     function enhanceSummary() {
         const summaries = [
-            "Dynamic and innovative professional with extensive expertise in driving organizational success through strategic leadership and cutting-edge solutions. Demonstrated ability to transform complex challenges into opportunities for growth, leveraging deep technical knowledge and exceptional interpersonal skills. Committed to fostering collaborative environments that inspire excellence and deliver transformative results in competitive markets.",
-            "Accomplished professional with a proven track record of excellence in fast-paced, high-growth environments. Expert at bridging business strategy with technical execution to deliver scalable solutions that drive measurable impact. Known for building high-performing teams and cultivating cultures of innovation, accountability, and continuous improvement.",
-            "Visionary leader with comprehensive experience in digital transformation and organizational development. Combines strategic thinking with hands-on execution to deliver exceptional results across complex, cross-functional initiatives. Passionate about leveraging emerging technologies and data-driven insights to create competitive advantages and enhance customer experiences."
+            "Dynamic and innovative professional with extensive expertise in driving organizational success through strategic leadership and cutting-edge solutions.\n\nDemonstrated ability to transform complex challenges into opportunities for growth, leveraging deep technical knowledge and exceptional interpersonal skills.\n\nCommitted to fostering collaborative environments that inspire excellence and deliver transformative results in competitive markets.",
+            "Accomplished professional with a proven track record of excellence in fast-paced, high-growth environments.\n\nExpert at bridging business strategy with technical execution to deliver scalable solutions that drive measurable impact.\n\nKnown for building high-performing teams and cultivating cultures of innovation, accountability, and continuous improvement.",
+            "Visionary leader with comprehensive experience in digital transformation and organizational development.\n\nCombines strategic thinking with hands-on execution to deliver exceptional results across complex, cross-functional initiatives.\n\nPassionate about leveraging emerging technologies and data-driven insights to create competitive advantages and enhance customer experiences."
         ];
         const randomSummary = summaries[Math.floor(Math.random() * summaries.length)];
         document.getElementById('in-sum').value = randomSummary;
@@ -1061,167 +1059,137 @@
     }
 
     function downloadPDF() {
-        const pages = document.querySelectorAll('.cv-page');
+        const pages = Array.from(document.querySelectorAll('.cv-page'));
         const indicators = document.querySelectorAll('.page-indicator');
         
-        // Hide indicators
         indicators.forEach(ind => ind.style.display = 'none');
         
-        const opt = {
-            margin: 0,
-            filename: 'Professional_CV_' + document.getElementById('in-name').value.replace(/ /g, '_') + '.pdf',
-            image: { type: 'jpeg', quality: 0.98 },
-            html2canvas: { 
-                scale: 2,
-                useCORS: true,
-                letterRendering: true,
-                logging: false
-            },
-            jsPDF: { 
-                unit: 'mm', 
-                format: 'a4', 
-                orientation: 'portrait'
+        if (pages.length === 0) {
+            alert('No content to export');
+            indicators.forEach(ind => ind.style.display = 'block');
+            return;
+        }
+
+        const filename = 'Professional_CV_' + (document.getElementById('in-name').value || 'Resume').replace(/ /g, '_') + '.pdf';
+        
+        const { jsPDF } = window.jspdf;
+        const pdf = new jsPDF('p', 'mm', 'a4');
+        
+        const exportPages = async () => {
+            try {
+                for (let i = 0; i < pages.length; i++) {
+                    const canvas = await html2canvas(pages[i], {
+                        scale: 2,
+                        useCORS: true,
+                        logging: false,
+                        width: 794,
+                        height: 1123,
+                        windowWidth: 794,
+                        windowHeight: 1123
+                    });
+                    
+                    const imgData = canvas.toDataURL('image/jpeg', 0.98);
+                    
+                    // A4 dimensions in mm
+                    const pdfWidth = 210;
+                    const pdfHeight = 297;
+                    
+                    if (i > 0) {
+                        pdf.addPage();
+                    }
+                    
+                    // Add image to fit exactly on A4 page
+                    pdf.addImage(imgData, 'JPEG', 0, 0, pdfWidth, pdfHeight);
+                }
+                
+                pdf.save(filename);
+                indicators.forEach(ind => ind.style.display = 'block');
+            } catch (err) {
+                console.error('PDF generation error:', err);
+                alert('Error generating PDF: ' + err.message);
+                indicators.forEach(ind => ind.style.display = 'block');
             }
         };
-
-        // Convert all pages
-        const pdfPromises = Array.from(pages).map((page, index) => {
-            return html2pdf().set(opt).from(page).toPdf().get('pdf').then(pdf => {
-                return { pdf, index };
-            });
-        });
-
-        Promise.all(pdfPromises).then(results => {
-            const mainPdf = results[0].pdf;
-            
-            for (let i = 1; i < results.length; i++) {
-                mainPdf.addPage();
-                const pageData = results[i].pdf.internal.pages[1];
-                mainPdf.internal.pages.push(pageData);
-            }
-            
-            mainPdf.save('Professional_CV_' + document.getElementById('in-name').value.replace(/ /g, '_') + '.pdf');
-            
-            // Show indicators again
-            indicators.forEach(ind => ind.style.display = 'block');
-        });
+        
+        exportPages();
     }
     
     function downloadWord() {
-        const name = document.getElementById('in-name').value;
-        const title = document.getElementById('in-title').value;
+        const name = document.getElementById('in-name').value || 'Your Name';
+        const title = document.getElementById('in-title').value || 'Job Title';
         const email = document.getElementById('in-email').value;
         const phone = document.getElementById('in-phone').value;
         const loc = document.getElementById('in-loc').value;
         const link = document.getElementById('in-link').value;
         const summary = document.getElementById('in-sum').value;
 
-        const contact = [email, phone, loc, link].filter(x => x).join(' | ');
+        let contactHtml = '';
+        if (email) contactHtml += `<p style="margin:3px 0; font-size:9pt;">${email}</p>`;
+        if (phone) contactHtml += `<p style="margin:3px 0; font-size:9pt;">${phone}</p>`;
+        if (loc) contactHtml += `<p style="margin:3px 0; font-size:9pt;">${loc}</p>`;
+        if (link) contactHtml += `<p style="margin:3px 0; font-size:9pt;">${link}</p>`;
 
-        const expContent = state.exp.map(i => `
-            <p style="margin-bottom:15px; page-break-inside:avoid;">
-                <strong style="font-size:11pt;">${i.t1}</strong><br/>
-                <span style="color:${state.accent}; font-weight:600;">${i.t2}</span> 
-                <span style="float:right; font-size:9pt; color:#666;">${i.d}</span><br/>
-                <span style="font-size:10pt; line-height:1.6; white-space:pre-line;">${i.desc}</span>
-            </p>
-        `).join('');
+        const summaryHtml = summary.split('\n\n').filter(p => p.trim()).map(para => 
+            `<p style="margin:6px 0; line-height:1.5; font-size:10pt;">${para.trim()}</p>`
+        ).join('');
 
-        const eduContent = state.edu.map(i => `
-            <p style="margin-bottom:15px; page-break-inside:avoid;">
-                <strong style="font-size:11pt;">${i.t1}</strong><br/>
-                <span style="color:${state.accent}; font-weight:600;">${i.t2}</span> 
-                <span style="float:right; font-size:9pt; color:#666;">${i.d}</span><br/>
-                <span style="font-size:10pt; line-height:1.6; white-space:pre-line;">${i.desc}</span>
-            </p>
-        `).join('');
+        const expContent = state.exp.map(i => {
+            const descLines = i.desc.split('\n').filter(line => line.trim());
+            const descHtml = descLines.map(line => 
+                `<p style="margin:4px 0; line-height:1.5; font-size:10pt;">${line.trim()}</p>`
+            ).join('');
+            
+            return `
+            <div style="margin-bottom:15px;">
+                <table style="width:100%; margin-bottom:2px;">
+                    <tr>
+                        <td style="padding:0;"><strong style="font-size:11pt;">${i.t1}</strong></td>
+                        <td style="padding:0; text-align:right;"><span style="font-size:9pt; color:#666;">${i.d}</span></td>
+                    </tr>
+                </table>
+                <p style="color:${state.accent}; font-weight:600; margin:2px 0; font-size:10pt;">${i.t2}</p>
+                ${descHtml}
+            </div>
+        `}).join('');
+
+        const eduContent = state.edu.map(i => {
+            const descLines = i.desc.split('\n').filter(line => line.trim());
+            const descHtml = descLines.map(line => 
+                `<p style="margin:4px 0; line-height:1.5; font-size:10pt;">${line.trim()}</p>`
+            ).join('');
+            
+            return `
+            <div style="margin-bottom:15px;">
+                <table style="width:100%; margin-bottom:2px;">
+                    <tr>
+                        <td style="padding:0;"><strong style="font-size:11pt;">${i.t1}</strong></td>
+                        <td style="padding:0; text-align:right;"><span style="font-size:9pt; color:#666;">${i.d}</span></td>
+                    </tr>
+                </table>
+                <p style="color:${state.accent}; font-weight:600; margin:2px 0; font-size:10pt;">${i.t2}</p>
+                ${descHtml}
+            </div>
+        `}).join('');
 
         const skillsContent = state.skill.map(i => 
-            `<p style="margin:5px 0;"><strong>${i.t1}</strong>: ${i.val}%</p>`
+            `<p style="margin:4px 0; font-size:9pt;"><strong>${i.t1}</strong>: ${i.val}%</p>`
         ).join('');
 
         const langsContent = state.lang.map(i => {
             const level = Math.round(i.val / 20);
             const dots = '●'.repeat(level) + '○'.repeat(5 - level);
-            return `<p style="margin:5px 0;"><strong>${i.t1}</strong>: ${dots}</p>`;
+            return `<p style="margin:4px 0; font-size:9pt;"><strong>${i.t1}</strong>: ${dots}</p>`;
         }).join('');
 
-        const refsContent = state.ref.map(i => `
-            <p style="margin-bottom:10px;">
-                <strong>${i.t1}</strong><br/>
-                <span style="color:${state.accent};">${i.t2}</span><br/>
-                <span style="font-size:9pt; white-space:pre-line;">${i.desc}</span>
-            </p>
-        `).join('');
-
-        const css = `
-            <style>
-                @page {
-                    size: A4;
-                    margin: 0;
-                }
-                body { 
-                    font-family: ${state.font}, Arial, sans-serif; 
-                    margin: 0;
-                    padding: 0;
-                }
-                table { 
-                    width: 210mm;
-                    height: 297mm;
-                    border-collapse: collapse;
-                    page-break-after: always;
-                }
-                tr {
-                    height: 100%;
-                }
-                td { 
-                    vertical-align: top; 
-                    padding: 30px 20px;
-                }
-                .side { 
-                    background: ${state.side}; 
-                    color: ${isDark(state.side) ? '#ffffff' : '#1e293b'}; 
-                    width: 35%;
-                }
-                .main { 
-                    width: 65%;
-                    padding: 30px;
-                }
-                .name {
-                    font-size: 24pt;
-                    font-weight: 800;
-                    text-transform: uppercase;
-                    margin-bottom: 5px;
-                }
-                .title {
-                    font-size: 11pt;
-                    color: ${state.accent};
-                    font-weight: 600;
-                    letter-spacing: 2px;
-                    text-transform: uppercase;
-                    margin-bottom: 20px;
-                }
-                .section-h { 
-                    font-size: 11pt;
-                    font-weight: 800; 
-                    text-transform: uppercase;
-                    color: ${state.accent};
-                    margin: 20px 0 10px;
-                    border-bottom: 1.5px solid #eee;
-                    padding-bottom: 5px;
-                    page-break-after: avoid;
-                }
-                .side .section-h {
-                    color: inherit;
-                    border-bottom-color: rgba(255,255,255,0.2);
-                }
-                p {
-                    margin: 10px 0;
-                    line-height: 1.6;
-                    page-break-inside: avoid;
-                }
-            </style>
-        `;
+        const refsContent = state.ref.map(i => {
+            const descLines = i.desc.split('\n').map(line => line.trim()).filter(line => line);
+            return `
+            <div style="margin-bottom:12px;">
+                <strong style="display:block; margin-bottom:2px; font-size:10pt;">${i.t1}</strong>
+                <p style="color:${state.accent}; margin:2px 0; font-size:9pt;">${i.t2}</p>
+                ${descLines.map(line => `<p style="font-size:9pt; margin:2px 0;">${line}</p>`).join('')}
+            </div>
+        `}).join('');
 
         const html = `
             <html xmlns:o="urn:schemas-microsoft-com:office:office"
@@ -1229,8 +1197,73 @@
                    xmlns="http://www.w3.org/TR/REC-html40">
             <head>
                 <meta charset="utf-8">
-                <meta name="ProgId" content="Word.Document">
-                ${css}
+                <title>${name} - CV</title>
+                <!--[if gte mso 9]>
+                <xml>
+                    <w:WordDocument>
+                        <w:View>Print</w:View>
+                        <w:Zoom>100</w:Zoom>
+                        <w:DoNotOptimizeForBrowser/>
+                    </w:WordDocument>
+                </xml>
+                <![endif]-->
+                <style>
+                    @page { size: A4; margin: 1in; }
+                    body { 
+                        font-family: ${state.font}, Arial, sans-serif; 
+                        margin: 0; 
+                        padding: 0;
+                        font-size: 10pt;
+                        line-height: 1.5;
+                    }
+                    table { 
+                        width: 100%;
+                        border-collapse: collapse;
+                    }
+                    td { 
+                        vertical-align: top; 
+                        padding: 15px;
+                    }
+                    .side { 
+                        background: ${state.side}; 
+                        color: ${isDark(state.side) ? '#ffffff' : '#1e293b'}; 
+                        width: 35%;
+                    }
+                    .main { 
+                        width: 65%; 
+                        padding: 20px;
+                    }
+                    .name {
+                        font-size: 22pt;
+                        font-weight: 800;
+                        text-transform: uppercase;
+                        margin-bottom: 5px;
+                        line-height: 1.1;
+                    }
+                    .title {
+                        font-size: 11pt;
+                        color: ${state.accent};
+                        font-weight: 600;
+                        letter-spacing: 1.5px;
+                        text-transform: uppercase;
+                        margin-bottom: 15px;
+                    }
+                    .section-h { 
+                        font-size: 10pt;
+                        font-weight: 800; 
+                        text-transform: uppercase;
+                        color: ${state.accent};
+                        margin: 15px 0 8px;
+                        border-bottom: 1.5px solid #ddd;
+                        padding-bottom: 4px;
+                    }
+                    .side .section-h {
+                        color: inherit;
+                        border-bottom-color: rgba(255,255,255,0.3);
+                    }
+                    p { margin: 6px 0; }
+                    strong { font-weight: 700; }
+                </style>
             </head>
             <body>
                 <table>
@@ -1240,28 +1273,21 @@
                             <div class="title">${title}</div>
                             
                             <div class="section-h">CONTACT</div>
-                            <p style="font-size:9pt; line-height:1.8;">${contact.replace(/\|/g, '<br/>')}</p>
+                            <div>${contactHtml}</div>
 
                             <div class="section-h">SKILLS</div>
-                            ${skillsContent}
+                            <div>${skillsContent}</div>
 
                             <div class="section-h">LANGUAGES</div>
-                            ${langsContent}
+                            <div>${langsContent}</div>
                         </td>
                         <td class="main">
                             <div class="section-h">PROFILE SUMMARY</div>
-                            <p style="font-size:10pt; line-height:1.6; color:#475569;">${summary}</p>
+                            <div style="color:#475569;">${summaryHtml}</div>
 
-                            <div class="section-h">PROFESSIONAL EXPERIENCE</div>
-                            ${expContent}
-
-                            <div class="section-h">EDUCATION</div>
-                            ${eduContent}
-
-                            ${state.ref.length > 0 ? `
-                                <div class="section-h">REFERENCES</div>
-                                ${refsContent}
-                            ` : ''}
+                            ${state.exp.length > 0 ? `<div class="section-h">PROFESSIONAL EXPERIENCE</div>${expContent}` : ''}
+                            ${state.edu.length > 0 ? `<div class="section-h">EDUCATION</div>${eduContent}` : ''}
+                            ${state.ref.length > 0 ? `<div class="section-h">REFERENCES</div>${refsContent}` : ''}
                         </td>
                     </tr>
                 </table>
@@ -1274,7 +1300,9 @@
         const a = document.createElement('a');
         a.href = url;
         a.download = 'Professional_CV_' + name.replace(/ /g, '_') + '.doc';
+        document.body.appendChild(a);
         a.click();
+        document.body.removeChild(a);
         URL.revokeObjectURL(url);
     }
 
