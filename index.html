@@ -548,6 +548,52 @@
             margin-bottom: 10px; 
             position: relative; 
         }
+
+        .section-order-item {
+            background: #f8fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 6px;
+            padding: 10px 12px;
+            cursor: move;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: 0.2s;
+            user-select: none;
+        }
+
+        .section-order-item:hover {
+            background: #e2e8f0;
+            border-color: var(--primary);
+        }
+
+        .section-order-item.dragging {
+            opacity: 0.5;
+            transform: scale(0.98);
+        }
+
+        .section-order-item.drag-over {
+            border-top: 3px solid var(--primary);
+        }
+
+        .drag-handle {
+            font-size: 16px;
+            color: #94a3b8;
+        }
+
+        .section-toggle {
+            margin-left: auto;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            padding: 4px 8px;
+            color: #64748b;
+        }
+
+        .section-toggle:hover {
+            color: var(--primary);
+        }
         
         .item-type { 
             text-transform: uppercase; 
@@ -674,6 +720,28 @@
     <div style="margin-bottom: 25px;">
         <h2 style="font-family:'Montserrat'; margin:0; letter-spacing:-1px; color:#1e293b; font-size: 28px;">⚡ GENESIS ENGINE</h2>
         <p style="font-size: 13px; color: #94a3b8; font-weight: 700;">Professional CV Builder v3.0</p>
+        <div id="autosave-status" style="font-size: 11px; color: #10b981; margin-top: 8px; font-weight: 600;">
+            <i class="fas fa-check-circle"></i> Auto-save enabled
+        </div>
+    </div>
+
+    <div class="group" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border: none; color: white;">
+        <h3 style="color: white; border-color: rgba(255,255,255,0.3);">💾 Quick Actions</h3>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+            <button onclick="saveCV()" style="background: rgba(255,255,255,0.2); color: white; border: 1px solid rgba(255,255,255,0.3); font-weight: 600;">
+                <i class="fas fa-save"></i> Save CV
+            </button>
+            <button onclick="loadCV()" style="background: rgba(255,255,255,0.2); color: white; border: 1px solid rgba(255,255,255,0.3); font-weight: 600;">
+                <i class="fas fa-folder-open"></i> Load CV
+            </button>
+            <button onclick="exportJSON()" style="background: rgba(255,255,255,0.2); color: white; border: 1px solid rgba(255,255,255,0.3); font-weight: 600;">
+                <i class="fas fa-download"></i> Backup
+            </button>
+            <button onclick="importJSON()" style="background: rgba(255,255,255,0.2); color: white; border: 1px solid rgba(255,255,255,0.3); font-weight: 600;">
+                <i class="fas fa-upload"></i> Restore
+            </button>
+        </div>
+        <input type="file" id="json-import" accept=".json" style="display: none;" onchange="handleJSONImport(event)">
     </div>
 
     <div class="group">
@@ -758,18 +826,21 @@
                 <option value="square">Square</option>
             </select>
         </div>
-        <input type="text" id="in-name" placeholder="Full Name" oninput="render()">
-        <input type="text" id="in-title" placeholder="Professional Title" oninput="render()">
-        <input type="text" id="in-email" placeholder="Email Address" oninput="render()">
-        <input type="text" id="in-phone" placeholder="Phone Number" oninput="render()">
-        <input type="text" id="in-loc" placeholder="Location / City" oninput="render()">
-        <input type="text" id="in-link" placeholder="Portfolio/LinkedIn URL" oninput="render()">
+        <input type="text" id="in-name" placeholder="Full Name" oninput="render(); autoSave();">
+        <input type="text" id="in-title" placeholder="Professional Title" oninput="render(); autoSave();">
+        <input type="text" id="in-email" placeholder="Email Address" oninput="render(); autoSave();">
+        <input type="text" id="in-phone" placeholder="Phone Number" oninput="render(); autoSave();">
+        <input type="text" id="in-loc" placeholder="Location / City" oninput="render(); autoSave();">
+        <input type="text" id="in-link" placeholder="Portfolio/LinkedIn URL" oninput="render(); autoSave();">
     </div>
 
     <div class="group">
         <h3>📝 Professional Summary</h3>
-        <textarea id="in-sum" rows="4" oninput="render()" placeholder="Write your professional pitch..."></textarea>
-        <button class="btn-ai" onclick="enhanceSummary()">✨ AI ENHANCE SUMMARY</button>
+        <textarea id="in-sum" rows="4" oninput="render(); autoSave();" placeholder="Write your professional pitch..."></textarea>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 8px;">
+            <button class="btn-ai" onclick="enhanceSummary()" style="margin: 0;">✨ AI ENHANCE</button>
+            <button class="btn-ai" onclick="generateSummary()" style="margin: 0; background: #10b981;">🤖 AI GENERATE</button>
+        </div>
     </div>
 
     <div class="group">
@@ -781,6 +852,16 @@
             <button onclick="addItem('lang')" style="background: #f59e0b; color: white; border: none;">+ Language</button>
             <button onclick="addItem('ref')" style="background: #ec4899; color: white; border: none; grid-column: 1 / -1;">+ Reference</button>
         </div>
+        
+        <div style="background: #fff; padding: 12px; border-radius: 8px; margin-bottom: 15px;">
+            <label style="font-size: 13px; font-weight: 700; color: #475569; margin-bottom: 8px; display: block;">
+                📐 Section Order (Drag to Reorder)
+            </label>
+            <div id="section-order-list" style="display: flex; flex-direction: column; gap: 6px;">
+                <!-- Sections will be dynamically added here -->
+            </div>
+        </div>
+        
         <div id="dynamic-editors"></div>
     </div>
 </div>
@@ -788,13 +869,56 @@
 <div id="preview-pane">
     <div class="toolbar">
         <span style="font-weight:900; color:#1e293b; letter-spacing:1px; font-size: 16px;">📄 LIVE PREVIEW</span>
-        <div style="display:flex; gap:12px;">
-            <button class="btn-exp" style="background:#ef4444;" onclick="downloadPDF()"><i class="fas fa-file-pdf"></i> EXPORT PDF</button>
-            <button class="btn-exp" style="background:#2b579a;" onclick="downloadWord()"><i class="fas fa-file-word"></i> EXPORT WORD</button>
+        <div style="display:flex; gap:12px; flex-wrap: wrap;">
+            <button class="btn-exp" style="background:#ef4444;" onclick="downloadPDF()"><i class="fas fa-file-pdf"></i> PDF</button>
+            <button class="btn-exp" style="background:#2b579a;" onclick="downloadWord()"><i class="fas fa-file-word"></i> WORD</button>
+            <button class="btn-exp" style="background:#10b981;" onclick="downloadHTML()"><i class="fas fa-code"></i> HTML</button>
+            <button class="btn-exp" style="background:#f59e0b;" onclick="downloadImage()"><i class="fas fa-image"></i> PNG</button>
+            <button class="btn-exp" style="background:#8b5cf6;" onclick="showCoverLetterModal()"><i class="fas fa-file-alt"></i> COVER LETTER</button>
         </div>
     </div>
 
     <div id="cv-pages-container"></div>
+</div>
+
+<!-- Cover Letter Modal -->
+<div id="cover-letter-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1000; align-items: center; justify-content: center;">
+    <div style="background: white; border-radius: 15px; width: 90%; max-width: 900px; max-height: 90vh; overflow-y: auto; padding: 30px; position: relative;">
+        <button onclick="closeCoverLetterModal()" style="position: absolute; top: 15px; right: 15px; background: #ef4444; color: white; border: none; width: 35px; height: 35px; border-radius: 50%; font-size: 20px; cursor: pointer; font-weight: bold;">×</button>
+        
+        <h2 style="font-family: 'Montserrat'; margin: 0 0 20px 0; color: #1e293b; font-size: 26px;">✉️ Generate Cover Letter</h2>
+        
+        <div style="display: grid; gap: 15px; margin-bottom: 20px;">
+            <div>
+                <label style="font-size: 14px; font-weight: 600; color: #475569; display: block; margin-bottom: 5px;">Company Name</label>
+                <input type="text" id="cl-company" placeholder="e.g., Google Inc." style="width: 100%; padding: 12px; border: 2px solid #e2e8f0; border-radius: 8px; font-size: 14px;">
+            </div>
+            <div>
+                <label style="font-size: 14px; font-weight: 600; color: #475569; display: block; margin-bottom: 5px;">Position Title</label>
+                <input type="text" id="cl-position" placeholder="e.g., Senior Product Manager" style="width: 100%; padding: 12px; border: 2px solid #e2e8f0; border-radius: 8px; font-size: 14px;">
+            </div>
+            <div>
+                <label style="font-size: 14px; font-weight: 600; color: #475569; display: block; margin-bottom: 5px;">Hiring Manager Name (Optional)</label>
+                <input type="text" id="cl-manager" placeholder="e.g., John Smith" style="width: 100%; padding: 12px; border: 2px solid #e2e8f0; border-radius: 8px; font-size: 14px;">
+            </div>
+            <div>
+                <label style="font-size: 14px; font-weight: 600; color: #475569; display: block; margin-bottom: 5px;">Cover Letter Content</label>
+                <textarea id="cl-content" rows="8" placeholder="Write your cover letter here or click 'AI Generate' below..." style="width: 100%; padding: 12px; border: 2px solid #e2e8f0; border-radius: 8px; font-size: 14px; font-family: inherit;"></textarea>
+                <button onclick="generateCoverLetterContent()" style="margin-top: 8px; background: #10b981; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 13px;">🤖 AI Generate Content</button>
+            </div>
+        </div>
+        
+        <div style="display: flex; gap: 12px; justify-content: flex-end;">
+            <button onclick="closeCoverLetterModal()" style="background: #94a3b8; color: white; border: none; padding: 12px 25px; border-radius: 8px; cursor: pointer; font-weight: 700;">Cancel</button>
+            <button onclick="previewCoverLetter()" style="background: #3b82f6; color: white; border: none; padding: 12px 25px; border-radius: 8px; cursor: pointer; font-weight: 700;">Preview</button>
+            <button onclick="downloadCoverLetterPDF()" style="background: #ef4444; color: white; border: none; padding: 12px 25px; border-radius: 8px; cursor: pointer; font-weight: 700;"><i class="fas fa-download"></i> Download PDF</button>
+        </div>
+        
+        <div id="cover-letter-preview" style="margin-top: 30px; padding-top: 30px; border-top: 2px solid #e2e8f0; display: none;">
+            <h3 style="color: #1e293b; margin-bottom: 15px;">Preview:</h3>
+            <div id="cover-letter-page" style="width: 100%; background: white; padding: 40px; border: 1px solid #e2e8f0; border-radius: 8px; font-family: var(--font-main);"></div>
+        </div>
+    </div>
 </div>
 
 <script>
@@ -832,8 +956,587 @@
         font: 'Inter', 
         showPhoto: false, 
         photoShape: 'rounded',
-        photoData: null
+        photoData: null,
+        sectionOrder: ['summary', 'exp', 'edu'],
+        sectionVisibility: {
+            summary: true,
+            exp: true,
+            edu: true,
+            skill: true,
+            lang: true,
+            ref: true
+        }
     };
+
+    let autoSaveTimer = null;
+    let lastSaved = null;
+    let draggedElement = null;
+
+    // === SECTION ORDERING AND VISIBILITY ===
+    function updateSectionOrder() {
+        const container = document.getElementById('section-order-list');
+        if (!container) return;
+        
+        container.innerHTML = '';
+        
+        const sections = [
+            { id: 'summary', icon: 'fa-user', label: 'Profile Summary' },
+            { id: 'exp', icon: 'fa-briefcase', label: 'Experience' },
+            { id: 'edu', icon: 'fa-graduation-cap', label: 'Education' }
+        ];
+        
+        // Ensure sectionOrder exists
+        if (!state.sectionOrder) {
+            state.sectionOrder = ['summary', 'exp', 'edu'];
+        }
+        
+        state.sectionOrder.forEach((sectionId, index) => {
+            const section = sections.find(s => s.id === sectionId);
+            if (!section) return;
+            
+            const item = document.createElement('div');
+            item.className = 'section-order-item';
+            item.draggable = true;
+            item.dataset.sectionId = sectionId;
+            
+            const visible = state.sectionVisibility[sectionId] !== false;
+            
+            item.innerHTML = `
+                <span class="drag-handle"><i class="fas fa-grip-vertical"></i></span>
+                <i class="fas ${section.icon}" style="color: var(--primary);"></i>
+                <span style="font-weight: 600; flex: 1;">${section.label}</span>
+                <button class="section-toggle" onclick="toggleSectionVisibility('${sectionId}')" title="${visible ? 'Hide' : 'Show'} section">
+                    <i class="fas fa-eye${visible ? '' : '-slash'}"></i>
+                </button>
+            `;
+            
+            // Drag and drop events
+            item.addEventListener('dragstart', handleDragStart);
+            item.addEventListener('dragend', handleDragEnd);
+            item.addEventListener('dragover', handleDragOver);
+            item.addEventListener('drop', handleDrop);
+            item.addEventListener('dragenter', handleDragEnter);
+            item.addEventListener('dragleave', handleDragLeave);
+            
+            container.appendChild(item);
+        });
+    }
+
+    function handleDragStart(e) {
+        draggedElement = this;
+        this.classList.add('dragging');
+        e.dataTransfer.effectAllowed = 'move';
+        e.dataTransfer.setData('text/html', this.innerHTML);
+    }
+
+    function handleDragEnd(e) {
+        this.classList.remove('dragging');
+        document.querySelectorAll('.section-order-item').forEach(item => {
+            item.classList.remove('drag-over');
+        });
+    }
+
+    function handleDragOver(e) {
+        if (e.preventDefault) {
+            e.preventDefault();
+        }
+        e.dataTransfer.dropEffect = 'move';
+        return false;
+    }
+
+    function handleDragEnter(e) {
+        if (this !== draggedElement) {
+            this.classList.add('drag-over');
+        }
+    }
+
+    function handleDragLeave(e) {
+        this.classList.remove('drag-over');
+    }
+
+    function handleDrop(e) {
+        if (e.stopPropagation) {
+            e.stopPropagation();
+        }
+        
+        if (draggedElement !== this) {
+            const draggedId = draggedElement.dataset.sectionId;
+            const targetId = this.dataset.sectionId;
+            
+            const draggedIndex = state.sectionOrder.indexOf(draggedId);
+            const targetIndex = state.sectionOrder.indexOf(targetId);
+            
+            // Reorder array
+            state.sectionOrder.splice(draggedIndex, 1);
+            state.sectionOrder.splice(targetIndex, 0, draggedId);
+            
+            updateSectionOrder();
+            render();
+            autoSave();
+        }
+        
+        return false;
+    }
+
+    function toggleSectionVisibility(sectionId) {
+        state.sectionVisibility[sectionId] = !state.sectionVisibility[sectionId];
+        updateSectionOrder();
+        render();
+        autoSave();
+    }
+
+    function generateSectionHTML() {
+        let html = '';
+        
+        state.sectionOrder.forEach(sectionId => {
+            if (state.sectionVisibility[sectionId] === false) return;
+            
+            switch(sectionId) {
+                case 'summary':
+                    html += `
+                        <div class="section-h"><i class="fas fa-user"></i> Profile Summary</div>
+                        <div class="profile-summary">${document.getElementById('in-sum').value.split('\n\n').map(p => `<p>${p.trim()}</p>`).join('') || ''}</div>
+                    `;
+                    break;
+                case 'exp':
+                    if (state.exp.length > 0) {
+                        html += `
+                            <div class="section-h"><i class="fas fa-briefcase"></i> Professional Experience</div>
+                            <div>${getExperienceHTML(0, 2)}</div>
+                        `;
+                    }
+                    break;
+                case 'edu':
+                    if (state.edu.length > 0) {
+                        html += `
+                            <div class="section-h"><i class="fas fa-graduation-cap"></i> Education</div>
+                            <div>${getEducationHTML(0, 2)}</div>
+                        `;
+                    }
+                    break;
+            }
+        });
+        
+        return html;
+    }
+
+    // === COVER LETTER FUNCTIONALITY ===
+    function showCoverLetterModal() {
+        const modal = document.getElementById('cover-letter-modal');
+        modal.style.display = 'flex';
+        
+        // Pre-fill with CV data
+        document.getElementById('cl-position').value = document.getElementById('in-title').value || '';
+    }
+
+    function closeCoverLetterModal() {
+        const modal = document.getElementById('cover-letter-modal');
+        modal.style.display = 'none';
+        document.getElementById('cover-letter-preview').style.display = 'none';
+    }
+
+    function generateCoverLetterContent() {
+        const position = document.getElementById('cl-position').value || 'this position';
+        const company = document.getElementById('cl-company').value || 'your company';
+        const name = document.getElementById('in-name').value || 'Applicant';
+        const title = document.getElementById('in-title').value || 'Professional';
+        
+        const templates = [
+            `I am writing to express my strong interest in the ${position} position at ${company}. With my extensive background as a ${title}, I am confident that my skills and experience make me an ideal candidate for this role.
+
+Throughout my career, I have demonstrated a proven track record of delivering exceptional results and driving meaningful impact. My expertise in strategic thinking, problem-solving, and cross-functional collaboration has enabled me to consistently exceed expectations and contribute to organizational success.
+
+I am particularly drawn to ${company} because of your reputation for innovation and excellence. I am excited about the opportunity to bring my unique perspective and contribute to your team's continued growth and success.
+
+I would welcome the opportunity to discuss how my background, skills, and enthusiasm align with your needs. Thank you for considering my application. I look forward to the possibility of contributing to ${company}'s mission.`,
+            
+            `Dear Hiring Manager,
+
+I am excited to submit my application for the ${position} role at ${company}. As an accomplished ${title}, I bring a unique combination of technical expertise, leadership experience, and strategic vision that I believe would be valuable to your team.
+
+In my previous roles, I have successfully led initiatives that have driven significant business impact, fostered innovation, and built high-performing teams. I am passionate about creating solutions that not only meet immediate needs but also position organizations for long-term success.
+
+What attracts me most to ${company} is your commitment to excellence and your innovative approach to solving complex challenges. I am confident that my experience and skills would enable me to make meaningful contributions to your organization from day one.
+
+I would be thrilled to discuss how I can contribute to ${company}'s continued success. Thank you for your time and consideration.`,
+            
+            `I am writing to apply for the ${position} position at ${company}, as advertised. With my comprehensive experience as a ${title} and my passion for driving results, I am well-prepared to make immediate and lasting contributions to your organization.
+
+My professional journey has equipped me with a diverse skill set and a deep understanding of what it takes to succeed in dynamic, fast-paced environments. I have consistently demonstrated the ability to identify opportunities, develop innovative solutions, and deliver measurable results that align with organizational objectives.
+
+I am particularly impressed by ${company}'s track record of success and innovation in the industry. The opportunity to join your team and contribute to your mission is incredibly exciting to me, and I am confident that my background makes me a strong fit for this role.
+
+I look forward to the opportunity to discuss my qualifications in greater detail. Thank you for considering my application.`
+        ];
+        
+        const generated = templates[Math.floor(Math.random() * templates.length)];
+        document.getElementById('cl-content').value = generated;
+    }
+
+    function previewCoverLetter() {
+        const company = document.getElementById('cl-company').value || '[Company Name]';
+        const position = document.getElementById('cl-position').value || '[Position Title]';
+        const manager = document.getElementById('cl-manager').value;
+        const content = document.getElementById('cl-content').value;
+        const name = document.getElementById('in-name').value || 'Your Name';
+        const email = document.getElementById('in-email').value || 'your.email@example.com';
+        const phone = document.getElementById('in-phone').value || '(123) 456-7890';
+        const location = document.getElementById('in-loc').value || 'City, State';
+        
+        const today = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+        
+        const coverLetterHTML = `
+            <div style="font-family: ${state.font}; color: #1e293b; line-height: 1.6;">
+                <!-- Header matching CV -->
+                <div style="background: ${state.side}; color: ${isDark(state.side) ? '#fff' : '#1e293b'}; padding: 30px; margin: -40px -40px 30px -40px; border-radius: 8px 8px 0 0;">
+                    <div style="font-size: 28pt; font-weight: 800; text-transform: uppercase; margin-bottom: 5px;">${name}</div>
+                    <div style="font-size: 12pt; color: ${state.accent}; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase;">Cover Letter</div>
+                    <div style="margin-top: 15px; font-size: 10pt; opacity: 0.9;">
+                        <div>${email} • ${phone}</div>
+                        <div>${location}</div>
+                    </div>
+                </div>
+                
+                <!-- Date and Address -->
+                <div style="margin-bottom: 25px; font-size: 10pt;">
+                    <div style="margin-bottom: 15px;">${today}</div>
+                    <div>${manager ? manager + '<br>' : ''}${company}<br>${position}</div>
+                </div>
+                
+                <!-- Salutation -->
+                <div style="margin-bottom: 20px; font-size: 10pt;">
+                    Dear ${manager || 'Hiring Manager'},
+                </div>
+                
+                <!-- Content -->
+                <div style="font-size: 10pt; white-space: pre-wrap;">${content}</div>
+                
+                <!-- Closing -->
+                <div style="margin-top: 25px; font-size: 10pt;">
+                    <div>Sincerely,</div>
+                    <div style="margin-top: 15px; font-weight: 600;">${name}</div>
+                </div>
+            </div>
+        `;
+        
+        document.getElementById('cover-letter-page').innerHTML = coverLetterHTML;
+        document.getElementById('cover-letter-preview').style.display = 'block';
+        
+        // Scroll to preview
+        document.getElementById('cover-letter-preview').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function downloadCoverLetterPDF() {
+        // First generate preview
+        previewCoverLetter();
+        
+        setTimeout(() => {
+            const page = document.getElementById('cover-letter-page');
+            const name = document.getElementById('in-name').value || 'Applicant';
+            
+            html2canvas(page, {
+                scale: 2,
+                useCORS: true,
+                logging: false,
+                width: 794,
+                height: 1123,
+                windowWidth: 794,
+                windowHeight: 1123
+            }).then(canvas => {
+                const { jsPDF } = window.jspdf;
+                const pdf = new jsPDF('p', 'mm', 'a4');
+                const imgData = canvas.toDataURL('image/jpeg', 0.98);
+                pdf.addImage(imgData, 'JPEG', 0, 0, 210, 297);
+                pdf.save('CoverLetter_' + name.replace(/ /g, '_') + '.pdf');
+            }).catch(err => {
+                console.error('Cover letter PDF error:', err);
+                alert('Error generating cover letter PDF: ' + err.message);
+            });
+        }, 500);
+    }
+
+    // === AUTO-SAVE FUNCTIONALITY ===
+    function autoSave() {
+        clearTimeout(autoSaveTimer);
+        autoSaveTimer = setTimeout(() => {
+            const cvData = {
+                state: state,
+                personalInfo: {
+                    name: document.getElementById('in-name').value,
+                    title: document.getElementById('in-title').value,
+                    email: document.getElementById('in-email').value,
+                    phone: document.getElementById('in-phone').value,
+                    loc: document.getElementById('in-loc').value,
+                    link: document.getElementById('in-link').value,
+                    summary: document.getElementById('in-sum').value
+                },
+                timestamp: new Date().toISOString()
+            };
+            
+            try {
+                const data = JSON.stringify(cvData);
+                window.cvBackup = data;
+                lastSaved = new Date();
+                updateSaveStatus('Auto-saved at ' + lastSaved.toLocaleTimeString());
+            } catch (e) {
+                console.error('Auto-save failed:', e);
+                updateSaveStatus('Auto-save failed', true);
+            }
+        }, 2000);
+    }
+
+    function loadAutoSave() {
+        try {
+            if (window.cvBackup) {
+                const cvData = JSON.parse(window.cvBackup);
+                state = cvData.state;
+                
+                document.getElementById('in-name').value = cvData.personalInfo.name || '';
+                document.getElementById('in-title').value = cvData.personalInfo.title || '';
+                document.getElementById('in-email').value = cvData.personalInfo.email || '';
+                document.getElementById('in-phone').value = cvData.personalInfo.phone || '';
+                document.getElementById('in-loc').value = cvData.personalInfo.loc || '';
+                document.getElementById('in-link').value = cvData.personalInfo.link || '';
+                document.getElementById('in-sum').value = cvData.personalInfo.summary || '';
+                
+                updateEditor();
+                render();
+                updateSaveStatus('Loaded previous session');
+            }
+        } catch (e) {
+            console.error('Failed to load auto-save:', e);
+        }
+    }
+
+    function updateSaveStatus(message, isError = false) {
+        const status = document.getElementById('autosave-status');
+        if (status) {
+            status.innerHTML = `<i class="fas fa-${isError ? 'exclamation-circle' : 'check-circle'}"></i> ${message}`;
+            status.style.color = isError ? '#ef4444' : '#10b981';
+        }
+    }
+
+    function saveCV() {
+        const name = document.getElementById('in-name').value || 'MyCV';
+        const cvData = {
+            state: state,
+            personalInfo: {
+                name: document.getElementById('in-name').value,
+                title: document.getElementById('in-title').value,
+                email: document.getElementById('in-email').value,
+                phone: document.getElementById('in-phone').value,
+                loc: document.getElementById('in-loc').value,
+                link: document.getElementById('in-link').value,
+                summary: document.getElementById('in-sum').value
+            },
+            timestamp: new Date().toISOString()
+        };
+        
+        window.cvBackup = JSON.stringify(cvData);
+        updateSaveStatus('✓ CV saved successfully!');
+        setTimeout(() => updateSaveStatus('Auto-save enabled'), 2000);
+    }
+
+    function loadCV() {
+        if (window.cvBackup) {
+            loadAutoSave();
+            alert('CV loaded successfully!');
+        } else {
+            alert('No saved CV found. Use "Restore" to import a backup file.');
+        }
+    }
+
+    // === JSON EXPORT/IMPORT ===
+    function exportJSON() {
+        const cvData = {
+            state: state,
+            personalInfo: {
+                name: document.getElementById('in-name').value,
+                title: document.getElementById('in-title').value,
+                email: document.getElementById('in-email').value,
+                phone: document.getElementById('in-phone').value,
+                loc: document.getElementById('in-loc').value,
+                link: document.getElementById('in-link').value,
+                summary: document.getElementById('in-sum').value
+            },
+            version: '3.0',
+            timestamp: new Date().toISOString()
+        };
+        
+        const blob = new Blob([JSON.stringify(cvData, null, 2)], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        const filename = (document.getElementById('in-name').value || 'CV').replace(/ /g, '_');
+        a.href = url;
+        a.download = `CV_Backup_${filename}_${new Date().toISOString().split('T')[0]}.json`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        
+        updateSaveStatus('Backup downloaded!');
+        setTimeout(() => updateSaveStatus('Auto-save enabled'), 2000);
+    }
+
+    function importJSON() {
+        document.getElementById('json-import').click();
+    }
+
+    function handleJSONImport(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+        
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            try {
+                const cvData = JSON.parse(e.target.result);
+                state = cvData.state;
+                
+                document.getElementById('in-name').value = cvData.personalInfo.name || '';
+                document.getElementById('in-title').value = cvData.personalInfo.title || '';
+                document.getElementById('in-email').value = cvData.personalInfo.email || '';
+                document.getElementById('in-phone').value = cvData.personalInfo.phone || '';
+                document.getElementById('in-loc').value = cvData.personalInfo.loc || '';
+                document.getElementById('in-link').value = cvData.personalInfo.link || '';
+                document.getElementById('in-sum').value = cvData.personalInfo.summary || '';
+                
+                updateEditor();
+                render();
+                updateSaveStatus('CV restored successfully!');
+                setTimeout(() => updateSaveStatus('Auto-save enabled'), 2000);
+            } catch (error) {
+                alert('Error importing CV: ' + error.message);
+            }
+        };
+        reader.readAsText(file);
+        event.target.value = '';
+    }
+
+    // === AI CONTENT GENERATION ===
+    function generateSummary() {
+        const title = document.getElementById('in-title').value || 'Professional';
+        const templates = [
+            `Highly motivated ${title} with proven expertise in delivering exceptional results across diverse challenges.\n\nDemonstrated success in driving innovation, optimizing processes, and exceeding organizational objectives.\n\nSkilled at leveraging analytical insights and collaborative leadership to create sustainable competitive advantages.`,
+            `Strategic ${title} combining technical excellence with strong business acumen to drive transformative outcomes.\n\nProven track record of building high-performing teams and implementing data-driven solutions.\n\nCommitted to continuous improvement and delivering measurable value to stakeholders.`,
+            `Results-oriented ${title} with extensive experience in fast-paced, dynamic environments.\n\nExpert at identifying opportunities, solving complex problems, and driving organizational growth.\n\nPassionate about innovation, excellence, and creating positive impact through strategic initiatives.`
+        ];
+        
+        const generated = templates[Math.floor(Math.random() * templates.length)];
+        document.getElementById('in-sum').value = generated;
+        render();
+        autoSave();
+    }
+
+    function generateJobDescription(itemId) {
+        const item = state.exp.find(x => x.id === itemId);
+        if (!item) return;
+        
+        const jobTitle = item.t1 || 'Professional';
+        const templates = [
+            `Led key initiatives and projects that drove significant business impact and organizational growth.\n\nCollaborated with cross-functional teams to deliver innovative solutions and exceed performance targets.\n\nImplemented best practices and strategic improvements that enhanced operational efficiency.\n\nMentored team members and fostered a culture of excellence and continuous improvement.`,
+            `Managed end-to-end project lifecycles from conception through successful delivery and implementation.\n\nDeveloped and executed strategic plans that aligned with organizational goals and market demands.\n\nBuilt strong relationships with stakeholders and drove consensus across diverse teams.\n\nAchieved measurable results through data-driven decision making and process optimization.`,
+            `Spearheaded transformative initiatives that revolutionized workflows and increased productivity.\n\nAnalyzed complex challenges and implemented creative solutions that delivered exceptional outcomes.\n\nCommunicated effectively with leadership and teams to ensure alignment and project success.\n\nDrove continuous improvement through innovation, collaboration, and strategic thinking.`
+        ];
+        
+        item.desc = templates[Math.floor(Math.random() * templates.length)];
+        updateEditor();
+        render();
+        autoSave();
+    }
+
+    // === ADDITIONAL EXPORT FORMATS ===
+    function downloadHTML() {
+        const pages = Array.from(document.querySelectorAll('.cv-page'));
+        if (pages.length === 0) {
+            alert('No content to export');
+            return;
+        }
+
+        const name = document.getElementById('in-name').value || 'Resume';
+        const css = Array.from(document.styleSheets)
+            .map(sheet => {
+                try {
+                    return Array.from(sheet.cssRules).map(rule => rule.cssText).join('\n');
+                } catch (e) {
+                    return '';
+                }
+            }).join('\n');
+
+        const html = `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>${name} - CV</title>
+    <link href="https://fonts.googleapis.com/css2?family=${state.font.replace(/ /g, '+')}:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        ${css}
+        body { margin: 20px; background: #f5f5f5; }
+        .cv-page { margin: 20px auto; }
+        @media print {
+            body { margin: 0; background: white; }
+            .cv-page { margin: 0; box-shadow: none; }
+        }
+    </style>
+</head>
+<body>
+    ${pages.map(page => page.outerHTML).join('\n')}
+</body>
+</html>`;
+
+        const blob = new Blob([html], { type: 'text/html' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'CV_' + name.replace(/ /g, '_') + '.html';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+    }
+
+    function downloadImage() {
+        const pages = Array.from(document.querySelectorAll('.cv-page'));
+        const indicators = document.querySelectorAll('.page-indicator');
+        
+        indicators.forEach(ind => ind.style.display = 'none');
+        
+        if (pages.length === 0) {
+            alert('No content to export');
+            indicators.forEach(ind => ind.style.display = 'block');
+            return;
+        }
+
+        const name = document.getElementById('in-name').value || 'Resume';
+        
+        html2canvas(pages[0], {
+            scale: 2,
+            useCORS: true,
+            logging: false,
+            width: 794,
+            height: 1123,
+            windowWidth: 794,
+            windowHeight: 1123
+        }).then(canvas => {
+            canvas.toBlob(blob => {
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'CV_' + name.replace(/ /g, '_') + '_Page1.png';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                indicators.forEach(ind => ind.style.display = 'block');
+            });
+        }).catch(err => {
+            console.error('Image generation error:', err);
+            alert('Error generating image: ' + err.message);
+            indicators.forEach(ind => ind.style.display = 'block');
+        });
+    }
 
     function init() {
         document.getElementById('in-name').value = 'Alexandra Mitchell';
@@ -856,6 +1559,7 @@
                 document.querySelectorAll('#accent-colors .swatch').forEach(x => x.classList.remove('active')); 
                 s.classList.add('active');
                 render();
+                autoSave();
             };
             aGrid.appendChild(s);
         });
@@ -872,22 +1576,29 @@
                 document.querySelectorAll('#side-colors .swatch').forEach(x => x.classList.remove('active')); 
                 s.classList.add('active');
                 render();
+                autoSave();
             };
             sGrid.appendChild(s);
         });
 
-        updateEditor(); 
+        // Load saved CV if exists
+        loadAutoSave();
+        
+        updateEditor();
+        updateSectionOrder();
         render();
     }
 
     function changeTemplate() {
         state.tpl = parseInt(document.getElementById('tpl-select').value);
         render();
+        autoSave();
     }
 
     function changeFont() {
         state.font = document.getElementById('font-select').value;
         render();
+        autoSave();
     }
 
     function uploadPhoto(e) {
@@ -922,12 +1633,14 @@
         }
         updateEditor(); 
         render();
+        autoSave();
     }
 
     function deleteItem(type, id) {
         state[type] = state[type].filter(x => x.id !== id);
         updateEditor();
         render();
+        autoSave();
     }
 
     function updateEditor() {
@@ -950,16 +1663,17 @@
                 div.innerHTML = `
                     <button class="delete-btn" onclick="deleteItem('${type}', ${item.id})">×</button>
                     <div class="item-type">${typeLabel[type]}</div>
-                    <input type="text" placeholder="${type === 'skill' || type === 'lang' ? 'Name' : 'Title'}" value="${item.t1 || ''}" oninput="state.${type}.find(x=>x.id===${item.id}).t1=this.value; render()">
+                    <input type="text" placeholder="${type === 'skill' || type === 'lang' ? 'Name' : 'Title'}" value="${item.t1 || ''}" oninput="state.${type}.find(x=>x.id===${item.id}).t1=this.value; render(); autoSave();">
                     ${(type === 'skill' || type === 'lang') ? `
                         <div style="margin-top: 10px;">
                             <label style="font-size: 11px; color: #64748b; font-weight: 600;">Proficiency: ${item.val}%</label>
-                            <input type="range" min="0" max="100" value="${item.val}" style="width: 100%; margin-top: 5px;" oninput="state.${type}.find(x=>x.id===${item.id}).val=this.value; this.previousElementSibling.innerText='Proficiency: '+this.value+'%'; render()">
+                            <input type="range" min="0" max="100" value="${item.val}" style="width: 100%; margin-top: 5px;" oninput="state.${type}.find(x=>x.id===${item.id}).val=this.value; this.previousElementSibling.innerText='Proficiency: '+this.value+'%'; render(); autoSave();">
                         </div>
                     ` : `
-                        <input type="text" placeholder="${type === 'ref' ? 'Position/Title' : 'Company / Institution'}" value="${item.t2 || ''}" style="margin-top: 5px;" oninput="state.${type}.find(x=>x.id===${item.id}).t2=this.value; render()">
-                        <input type="text" placeholder="Date Range (e.g., 2020-2023)" value="${item.d || ''}" style="margin-top: 5px;" oninput="state.${type}.find(x=>x.id===${item.id}).d=this.value; render()">
-                        <textarea placeholder="Description / Details / Achievements" rows="3" style="margin-top: 5px;" oninput="state.${type}.find(x=>x.id===${item.id}).desc=this.value; render()">${item.desc || ''}</textarea>
+                        <input type="text" placeholder="${type === 'ref' ? 'Position/Title' : 'Company / Institution'}" value="${item.t2 || ''}" style="margin-top: 5px;" oninput="state.${type}.find(x=>x.id===${item.id}).t2=this.value; render(); autoSave();">
+                        <input type="text" placeholder="Date Range (e.g., 2020-2023)" value="${item.d || ''}" style="margin-top: 5px;" oninput="state.${type}.find(x=>x.id===${item.id}).d=this.value; render(); autoSave();">
+                        <textarea placeholder="Description / Details / Achievements" rows="3" style="margin-top: 5px;" oninput="state.${type}.find(x=>x.id===${item.id}).desc=this.value; render(); autoSave();">${item.desc || ''}</textarea>
+                        ${type === 'exp' ? `<button class="btn-ai" onclick="generateJobDescription(${item.id})" style="margin-top: 8px; background: #10b981; font-size: 11px; padding: 8px;">🤖 AI Generate Description</button>` : ''}
                     `}
                 `;
                 container.appendChild(div);
@@ -1030,18 +1744,7 @@
                 </div>
 
                 <div class="main">
-                    <div class="section-h"><i class="fas fa-user"></i> Profile Summary</div>
-                    <div class="profile-summary">${document.getElementById('in-sum').value.split('\n\n').map(p => `<p>${p.trim()}</p>`).join('') || ''}</div>
-
-                    ${state.exp.length > 0 ? `
-                        <div class="section-h"><i class="fas fa-briefcase"></i> Professional Experience</div>
-                        <div>${getExperienceHTML(0, 2)}</div>
-                    ` : ''}
-
-                    ${state.edu.length > 0 ? `
-                        <div class="section-h"><i class="fas fa-graduation-cap"></i> Education</div>
-                        <div>${getEducationHTML(0, 2)}</div>
-                    ` : ''}
+                    ${generateSectionHTML()}
                 </div>
             `;
         } else {
@@ -1182,7 +1885,8 @@
         return ((r * 299) + (g * 587) + (b * 114)) / 1000 < 128;
     }
 
-    function enhanceSummary() {
+    // === SECTION ORDERING AND VISIBILITY ===
+    function updateSectionOrder() {
         const summaries = [
             "Dynamic and innovative professional with extensive expertise in driving organizational success through strategic leadership and cutting-edge solutions.\n\nDemonstrated ability to transform complex challenges into opportunities for growth, leveraging deep technical knowledge and exceptional interpersonal skills.\n\nCommitted to fostering collaborative environments that inspire excellence and deliver transformative results in competitive markets.",
             "Accomplished professional with a proven track record of excellence in fast-paced, high-growth environments.\n\nExpert at bridging business strategy with technical execution to deliver scalable solutions that drive measurable impact.\n\nKnown for building high-performing teams and cultivating cultures of innovation, accountability, and continuous improvement.",
@@ -1191,6 +1895,7 @@
         const randomSummary = summaries[Math.floor(Math.random() * summaries.length)];
         document.getElementById('in-sum').value = randomSummary;
         render();
+        autoSave();
     }
 
     function downloadPDF() {
