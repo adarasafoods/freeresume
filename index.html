@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Professional CV Generator - Complete Edition</title>
+    <title>ResumeFlow - Professional Resume Builder</title>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -831,70 +831,30 @@
             color: #1e293b;
         }
     
-        /* Progress Bar Styles */
-        .progress-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: #e0e0e0;
-            z-index: 10000;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        /* ResumeFlow ATS pagination fixes */
+        .cv-page.ats-page-1, .cv-page.ats-page-2 {
+            overflow: hidden; /* keep page clean */
         }
-
-        .progress-bar {
-            height: 100%;
-            background: linear-gradient(90deg, #4299e1, #2c5282);
-            width: 0%;
-            transition: width 0.3s ease;
+        .cv-page.ats-page-2 { 
+            page-break-before: always;
         }
-
-        .progress-label {
-            position: fixed;
-            top: 10px;
-            right: 20px;
-            background: rgba(66, 153, 225, 0.95);
-            color: white;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 0.85em;
-            font-weight: 600;
-            z-index: 10001;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-            display: none;
+        .ats-template {
+            box-sizing: border-box;
+            padding: 18mm 15mm 22mm 15mm; /* extra bottom padding prevents footer cut */
         }
-
-        .progress-label.show {
-            display: block;
-            animation: slideIn 0.3s ease;
-        }
-
-        @keyframes slideIn {
-            from {
-                transform: translateX(100px);
-                opacity: 0;
-            }
-            to {
-                transform: translateX(0);
-                opacity: 1;
+        @media print {
+            .ats-template {
+                padding: 18mm 15mm 25mm 15mm !important;
             }
         }
 
     </style>
 </head>
 <body>
-    <!-- Progress Bar -->
-    <div class="progress-container">
-        <div class="progress-bar" id="progressBar"></div>
-    </div>
-    <div class="progress-label" id="progressLabel">Completion: 0%</div>
-
-
 
 <div id="editor">
     <div style="margin-bottom: 25px;">
-        <h2 style="font-family:'Montserrat'; margin:0; letter-spacing:-1px; color:#1e293b; font-size: 28px;">⚡ ResumeFlow ⚡</h2>
+        <h2 style="font-family:'Montserrat'; margin:0; letter-spacing:-1px; color:#1e293b; font-size: 28px;">⚡ ResumeFlow</h2>
         <p style="font-size: 13px; color: #94a3b8; font-weight: 700;">ResumeFlow - Professional Resume Builder</p>
         <div id="autosave-status" style="font-size: 11px; color: #10b981; margin-top: 8px; font-weight: 600;">
             <i class="fas fa-check-circle"></i> Auto-save enabled
@@ -1723,66 +1683,26 @@ I look forward to the opportunity to discuss my qualifications in greater detail
             .cv-page { margin: 0; box-shadow: none; }
         }
     
-        /* Progress Bar Styles */
-        .progress-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: #e0e0e0;
-            z-index: 10000;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        /* ResumeFlow ATS pagination fixes */
+        .cv-page.ats-page-1, .cv-page.ats-page-2 {
+            overflow: hidden; /* keep page clean */
         }
-
-        .progress-bar {
-            height: 100%;
-            background: linear-gradient(90deg, #4299e1, #2c5282);
-            width: 0%;
-            transition: width 0.3s ease;
+        .cv-page.ats-page-2 { 
+            page-break-before: always;
         }
-
-        .progress-label {
-            position: fixed;
-            top: 10px;
-            right: 20px;
-            background: rgba(66, 153, 225, 0.95);
-            color: white;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 0.85em;
-            font-weight: 600;
-            z-index: 10001;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-            display: none;
+        .ats-template {
+            box-sizing: border-box;
+            padding: 18mm 15mm 22mm 15mm; /* extra bottom padding prevents footer cut */
         }
-
-        .progress-label.show {
-            display: block;
-            animation: slideIn 0.3s ease;
-        }
-
-        @keyframes slideIn {
-            from {
-                transform: translateX(100px);
-                opacity: 0;
-            }
-            to {
-                transform: translateX(0);
-                opacity: 1;
+        @media print {
+            .ats-template {
+                padding: 18mm 15mm 25mm 15mm !important;
             }
         }
 
     </style>
 </head>
 <body>
-    <!-- Progress Bar -->
-    <div class="progress-container">
-        <div class="progress-bar" id="progressBar"></div>
-    </div>
-    <div class="progress-label" id="progressLabel">Completion: 0%</div>
-
-
     ${pages.map(page => page.outerHTML).join('\n')}
 </body>
 </html>`;
@@ -2045,66 +1965,26 @@ I look forward to the opportunity to discuss my qualifications in greater detail
                     p { margin: 6px 0; }
                     strong { font-weight: 700; }
                 
-        /* Progress Bar Styles */
-        .progress-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: #e0e0e0;
-            z-index: 10000;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        /* ResumeFlow ATS pagination fixes */
+        .cv-page.ats-page-1, .cv-page.ats-page-2 {
+            overflow: hidden; /* keep page clean */
         }
-
-        .progress-bar {
-            height: 100%;
-            background: linear-gradient(90deg, #4299e1, #2c5282);
-            width: 0%;
-            transition: width 0.3s ease;
+        .cv-page.ats-page-2 { 
+            page-break-before: always;
         }
-
-        .progress-label {
-            position: fixed;
-            top: 10px;
-            right: 20px;
-            background: rgba(66, 153, 225, 0.95);
-            color: white;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 0.85em;
-            font-weight: 600;
-            z-index: 10001;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-            display: none;
+        .ats-template {
+            box-sizing: border-box;
+            padding: 18mm 15mm 22mm 15mm; /* extra bottom padding prevents footer cut */
         }
-
-        .progress-label.show {
-            display: block;
-            animation: slideIn 0.3s ease;
-        }
-
-        @keyframes slideIn {
-            from {
-                transform: translateX(100px);
-                opacity: 0;
-            }
-            to {
-                transform: translateX(0);
-                opacity: 1;
+        @media print {
+            .ats-template {
+                padding: 18mm 15mm 25mm 15mm !important;
             }
         }
 
     </style>
             </head>
             <body>
-    <!-- Progress Bar -->
-    <div class="progress-container">
-        <div class="progress-bar" id="progressBar"></div>
-    </div>
-    <div class="progress-label" id="progressLabel">Completion: 0%</div>
-
-
                 <table>
                     <tr>
                         <td class="side">
@@ -2305,9 +2185,9 @@ I look forward to the opportunity to discuss my qualifications in greater detail
         const isATS = state.tpl >= 21 && state.tpl <= 23;
 
         if (isATS) {
-            // ATS template rendering
-            const page = createATSPage();
-            container.appendChild(page);
+            // ATS template rendering (multi-page)
+            const pages = createATSPages();
+            pages.forEach(p => container.appendChild(p));
         } else {
             // Regular template rendering
             const page1 = createPage(1);
@@ -2325,18 +2205,8 @@ I look forward to the opportunity to discuss my qualifications in greater detail
         }
     }
 
-    function createATSPage() {
-        const page = document.createElement('div');
-        page.className = 'cv-page';
-
-        const indicator = document.createElement('div');
-        indicator.className = 'page-indicator';
-        indicator.textContent = 'Page 1 (ATS Optimized)';
-        page.appendChild(indicator);
-
-        const content = document.createElement('div');
-        content.className = 'ats-template';
-        content.style.fontFamily = state.font;
+    function createATSPages() {
+        const pages = [];
 
         const name = document.getElementById('in-name').value || 'YOUR NAME';
         const title = document.getElementById('in-title').value || 'JOB TITLE';
@@ -2351,49 +2221,119 @@ I look forward to the opportunity to discuss my qualifications in greater detail
         if (loc) contactInfo.push(loc);
         if (link) contactInfo.push(link);
 
-        content.innerHTML = `
+        const summaryHTML = (document.getElementById('in-sum').value && state.sectionVisibility.summary !== false)
+            ? `
+                <div class="section-h">PROFESSIONAL SUMMARY</div>
+                <div class="profile-summary">${document.getElementById('in-sum').value.split('\n\n').map(p => `<p>${p.trim()}</p>`).join('')}</div>
+              `
+            : '';
+
+        // Page 1 limits
+        const expFirstCount = 2;
+        const eduFirstCount = 2;
+
+        const exp1 = (state.exp.length > 0 && state.sectionVisibility.exp !== false)
+            ? `
+                <div class="section-h">PROFESSIONAL EXPERIENCE</div>
+                <div>${getExperienceHTML(0, expFirstCount)}</div>
+              `
+            : '';
+
+        const edu1 = (state.edu.length > 0 && state.sectionVisibility.edu !== false)
+            ? `
+                <div class="section-h">EDUCATION</div>
+                <div>${getEducationHTML(0, eduFirstCount)}</div>
+              `
+            : '';
+
+        const page1 = document.createElement('div');
+        page1.className = 'cv-page ats-page-1';
+        page1.setAttribute('data-layout', 'ats');
+
+        const indicator1 = document.createElement('div');
+        indicator1.className = 'page-indicator';
+        indicator1.textContent = 'Page 1 (ATS Optimized)';
+        page1.appendChild(indicator1);
+
+        const content1 = document.createElement('div');
+        content1.className = 'ats-template';
+        content1.style.fontFamily = state.font;
+        content1.innerHTML = `
             <div class="name">${name}</div>
             <div class="title">${title}</div>
             <div class="contact-info">${contactInfo.join(' | ')}</div>
+            ${summaryHTML}
+            ${exp1}
+            ${edu1}
+        `;
+        page1.appendChild(content1);
+        pages.push(page1);
 
-            ${document.getElementById('in-sum').value && state.sectionVisibility.summary !== false ? `
-                <div class="section-h">PROFESSIONAL SUMMARY</div>
-                <div class="profile-summary">${document.getElementById('in-sum').value.split('\n\n').map(p => `<p>${p.trim()}</p>`).join('')}</div>
-            ` : ''}
+        // Determine remaining content for page 2
+        const hasMoreExp = (state.exp.length > expFirstCount) && state.sectionVisibility.exp !== false;
+        const hasMoreEdu = (state.edu.length > eduFirstCount) && state.sectionVisibility.edu !== false;
+        const hasSkills = state.skill.length > 0 && state.sectionVisibility.skill !== false;
+        const hasLang = state.lang.length > 0 && state.sectionVisibility.lang !== false;
+        const hasRefs = state.ref.length > 0 && state.sectionVisibility.ref !== false;
 
-            ${state.exp.length > 0 && state.sectionVisibility.exp !== false ? `
+        if (hasMoreExp || hasMoreEdu || hasSkills || hasLang || hasRefs) {
+            const page2 = document.createElement('div');
+            page2.className = 'cv-page ats-page-2';
+            page2.setAttribute('data-layout', 'ats');
+
+            const indicator2 = document.createElement('div');
+            indicator2.className = 'page-indicator';
+            indicator2.textContent = 'Page 2 (ATS Optimized)';
+            page2.appendChild(indicator2);
+
+            const content2 = document.createElement('div');
+            content2.className = 'ats-template';
+            content2.style.fontFamily = state.font;
+
+            const exp2 = hasMoreExp ? `
                 <div class="section-h">PROFESSIONAL EXPERIENCE</div>
-                <div>${getExperienceHTML(0, 10)}</div>
-            ` : ''}
+                <div>${getExperienceHTML(expFirstCount, 10)}</div>
+            ` : '';
 
-            ${state.edu.length > 0 && state.sectionVisibility.edu !== false ? `
+            const edu2 = hasMoreEdu ? `
                 <div class="section-h">EDUCATION</div>
-                <div>${getEducationHTML(0, 10)}</div>
-            ` : ''}
+                <div>${getEducationHTML(eduFirstCount, 10)}</div>
+            ` : '';
 
-            ${state.skill.length > 0 && state.sectionVisibility.skill !== false ? `
+            const skills2 = hasSkills ? `
                 <div class="section-h">SKILLS</div>
-                <div style="display: flex; flex-wrap: wrap; gap: 10px;">
-                    ${state.skill.map(s => `<span style="background: #f1f5f9; padding: 6px 12px; border-radius: 6px; font-size: 9pt;">${s.t1}</span>`).join('')}
+                <div style="display:flex; flex-wrap:wrap; gap:10px;">
+                    ${state.skill.map(s => `<span style="background:#f1f5f9; padding:6px 12px; border-radius:6px; font-size:9pt;">${s.t1}</span>`).join('')}
                 </div>
-            ` : ''}
+            ` : '';
 
-            ${state.lang.length > 0 && state.sectionVisibility.lang !== false ? `
+            const lang2 = hasLang ? `
                 <div class="section-h">LANGUAGES</div>
-                <div style="display: flex; flex-wrap: wrap; gap: 10px;">
-                    ${state.lang.map(l => `<span style="background: #f1f5f9; padding: 6px 12px; border-radius: 6px; font-size: 9pt;">${l.t1}</span>`).join('')}
+                <div style="display:flex; flex-wrap:wrap; gap:10px;">
+                    ${state.lang.map(l => `<span style="background:#f1f5f9; padding:6px 12px; border-radius:6px; font-size:9pt;">${l.t1}</span>`).join('')}
                 </div>
-            ` : ''}
+            ` : '';
 
-            ${state.ref.length > 0 && state.sectionVisibility.ref !== false ? `
+            const refs2 = hasRefs ? `
                 <div class="section-h">REFERENCES</div>
                 <div>${getReferencesHTML()}</div>
-            ` : ''}
-        `;
+            ` : '';
 
-        page.appendChild(content);
-        return page;
+            content2.innerHTML = `
+                ${exp2}
+                ${edu2}
+                ${skills2}
+                ${lang2}
+                ${refs2}
+            `;
+
+            page2.appendChild(content2);
+            pages.push(page2);
+        }
+
+        return pages;
     }
+
 
     function createPage(pageNum) {
         const page = document.createElement('div');
