@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Professional CV Generator - Complete Edition</title>
-    
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    
+
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Poppins:wght@400;700;800&family=Montserrat:wght@400;700;800&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Roboto:wght@400;700;900&family=Lato:wght@300;400;700;900&family=Open+Sans:wght@400;600;800&family=Raleway:wght@400;700;900&family=Source+Sans+Pro:wght@400;600;900&family=Merriweather:wght@400;700;900&family=Nunito:wght@400;700;900&family=Ubuntu:wght@400;700&family=Crimson+Text:wght@400;600;700&family=Libre+Baskerville:wght@400;700&family=PT+Sans:wght@400;700&family=Oswald:wght@400;600;700&family=Quicksand:wght@400;600;700&family=Karla:wght@400;700&family=Fira+Sans:wght@400;600;800&family=Bitter:wght@400;700&family=Cabin:wght@400;600;700&family=Arimo:wght@400;700&family=Josefin+Sans:wght@400;600;700&family=Work+Sans:wght@400;600;800&display=swap" rel="stylesheet">
 
     <style>
@@ -18,13 +18,13 @@
             --side-text: #ffffff; 
             --font-main: 'Inter'; 
         }
-        
+
         * { 
             box-sizing: border-box; 
             -webkit-print-color-adjust: exact;
             print-color-adjust: exact;
         }
-        
+
         body { 
             margin: 0; 
             display: flex; 
@@ -71,7 +71,7 @@
                 padding: 20px;
             }
         }
-        
+
         .group { 
             background: #f8fafc; 
             border-radius: 12px; 
@@ -86,7 +86,7 @@
                 margin-bottom: 15px;
             }
         }
-        
+
         h3 { 
             font-size: 16px; 
             color: var(--primary); 
@@ -105,7 +105,7 @@
                 margin-bottom: 12px;
             }
         }
-        
+
         select.dropdown-style { 
             width: 100%; 
             padding: 14px 15px; 
@@ -119,18 +119,18 @@
             margin-top: 8px; 
             color: #1e293b; 
         }
-        
+
         select.dropdown-style:hover { 
             border-color: var(--primary); 
             background: #f8fafc; 
         }
-        
+
         select.dropdown-style:focus { 
             outline: none; 
             border-color: var(--primary); 
             box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1); 
         }
-        
+
         .swatch-grid { 
             display: grid; 
             grid-template-columns: repeat(8, 1fr); 
@@ -138,7 +138,7 @@
             margin-bottom: 10px; 
             margin-top: 8px; 
         }
-        
+
         .swatch { 
             width: 100%; 
             aspect-ratio: 1; 
@@ -147,11 +147,11 @@
             border: 2px solid transparent; 
             transition: 0.2s; 
         }
-        
+
         .swatch:hover { 
             transform: scale(1.1); 
         }
-        
+
         .swatch.active { 
             border-color: #000; 
             transform: scale(1.15); 
@@ -174,20 +174,20 @@
                 padding: 14px;
             }
         }
-        
+
         .toggle-switch { 
             display: inline-block; 
             position: relative; 
             width: 52px; 
             height: 28px; 
         }
-        
+
         .toggle-switch input { 
             opacity: 0; 
             width: 0; 
             height: 0; 
         }
-        
+
         .toggle-slider { 
             position: absolute; 
             cursor: pointer; 
@@ -199,7 +199,7 @@
             border-radius: 28px; 
             transition: .3s; 
         }
-        
+
         .toggle-slider:before { 
             position: absolute; 
             content: ""; 
@@ -211,15 +211,15 @@
             border-radius: 50%; 
             transition: .3s; 
         }
-        
+
         input:checked + .toggle-slider { 
             background-color: var(--primary); 
         }
-        
+
         input:checked + .toggle-slider:before { 
             transform: translateX(24px); 
         }
-        
+
         .btn-ai { 
             background: #8b5cf6; 
             color: white; 
@@ -233,7 +233,7 @@
             transition: 0.3s; 
             width: 100%; 
         }
-        
+
         .btn-ai:hover { 
             opacity: 0.8; 
             transform: translateY(-1px); 
@@ -249,7 +249,7 @@
             transition: 0.2s; 
             font-weight: 600; 
         }
-        
+
         button:hover { 
             background: #f8fafc; 
         }
@@ -271,7 +271,7 @@
                 width: 100%;
             }
         }
-        
+
         .toolbar { 
             width: 210mm; 
             background: #fff; 
@@ -416,7 +416,7 @@
                 padding: 20px !important;
             }
         }
-        
+
         .tpl-1 { grid-template-columns: 35% 65%; }
         .tpl-2 { grid-template-columns: 65% 35%; }
         .tpl-3 { grid-template-columns: 1fr; }
@@ -437,6 +437,9 @@
         .tpl-18 { grid-template-columns: 1fr; border: 15px solid var(--primary); padding: 20px; }
         .tpl-19 { grid-template-columns: 33% 67%; background: #fdfbf7; }
         .tpl-20 { grid-template-columns: 1fr; }
+        .tpl-21 { grid-template-columns: 1fr; }
+        .tpl-22 { grid-template-columns: 100%; padding: 0; background: #fff; }
+        .tpl-23 { grid-template-columns: 100%; padding: 0; background: #fff; }
 
         .side { 
             background: var(--side-bg); 
@@ -444,7 +447,7 @@
             padding: 25px 18px;
             overflow: hidden;
         }
-        
+
         .main { 
             padding: 25px; 
             background: white;
@@ -466,7 +469,7 @@
                 font-size: 20pt;
             }
         }
-        
+
         .title { 
             font-size: 11pt; 
             color: var(--primary); 
@@ -483,7 +486,7 @@
                 letter-spacing: 1px;
             }
         }
-        
+
         .section-h { 
             font-size: 10pt; 
             font-weight: 800; 
@@ -505,7 +508,7 @@
             margin: 8px 0 15px; 
             overflow: hidden; 
         }
-        
+
         .skill-progress { 
             height: 100%; 
             background: var(--primary); 
@@ -513,9 +516,9 @@
         }
 
         .btn-exp { 
-            padding: 12px 25px; 
+            padding: 12px 20px; 
             border: none; 
-            border-radius: 8px; 
+            border-radius: 50%; 
             cursor: pointer; 
             font-weight: 700; 
             color: white; 
@@ -523,12 +526,36 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.2); 
             display: inline-flex;
             align-items: center;
+            justify-content: center;
             gap: 8px;
+            width: 50px;
+            height: 50px;
+            font-size: 18px;
+            position: relative;
         }
-        
+
+        .btn-exp span {
+            display: none;
+        }
+
         .btn-exp:hover { 
-            transform: translateY(-2px); 
+            transform: translateY(-2px) scale(1.05); 
             box-shadow: 0 6px 20px rgba(0,0,0,0.3); 
+        }
+
+        .btn-exp:hover span {
+            display: block;
+            position: absolute;
+            bottom: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            white-space: nowrap;
+            z-index: 10;
         }
 
         @media (max-width: 768px) {
@@ -537,9 +564,27 @@
                 font-size: 14px;
                 width: 100%;
                 justify-content: center;
+                border-radius: 8px;
+                height: auto;
+            }
+
+            .btn-exp span {
+                display: inline;
+                position: static;
+                transform: none;
+                background: transparent;
+                padding: 0;
+                font-size: 14px;
+            }
+
+            .btn-exp:hover span {
+                display: inline;
+                position: static;
+                transform: none;
+                background: transparent;
             }
         }
-        
+
         .item-editor { 
             background: #fff; 
             border: 2px solid #e2e8f0; 
@@ -560,6 +605,7 @@
             gap: 10px;
             transition: 0.2s;
             user-select: none;
+            margin-bottom: 6px;
         }
 
         .section-order-item:hover {
@@ -579,6 +625,11 @@
         .drag-handle {
             font-size: 16px;
             color: #94a3b8;
+            cursor: grab;
+        }
+
+        .drag-handle:active {
+            cursor: grabbing;
         }
 
         .section-toggle {
@@ -589,12 +640,18 @@
             font-size: 18px;
             padding: 4px 8px;
             color: #64748b;
+            transition: 0.2s;
         }
 
         .section-toggle:hover {
             color: var(--primary);
+            transform: scale(1.1);
         }
-        
+
+        .section-toggle.hidden {
+            color: #ef4444;
+        }
+
         .item-type { 
             text-transform: uppercase; 
             font-size: 11px; 
@@ -603,7 +660,7 @@
             letter-spacing: 1px; 
             margin-bottom: 8px; 
         }
-        
+
         .delete-btn { 
             position: absolute; 
             top: 8px; 
@@ -617,7 +674,7 @@
             border-radius: 4px; 
             font-weight: bold; 
         }
-        
+
         .delete-btn:hover { 
             background: #ef4444; 
             color: white; 
@@ -665,7 +722,7 @@
             word-wrap: break-word;
             overflow-wrap: break-word;
         }
-        
+
         .exp-item-desc p,
         .edu-item-desc p {
             margin: 0 0 5px 0;
@@ -680,7 +737,7 @@
             word-wrap: break-word;
             overflow-wrap: break-word;
         }
-        
+
         .profile-summary p {
             margin: 0 0 8px 0;
         }
@@ -712,14 +769,133 @@
             width: 16px;
             margin-right: 8px;
         }
+
+        /* ATS Template Styles */
+        .ats-template {
+            padding: 30px;
+        }
+
+        .ats-template .name {
+            font-size: 28pt;
+            text-align: center;
+            margin-bottom: 8px;
+            color: #1e293b;
+        }
+
+        .ats-template .title {
+            font-size: 14pt;
+            text-align: center;
+            margin-bottom: 15px;
+            color: #475569;
+            letter-spacing: 0;
+            text-transform: none;
+        }
+
+        .ats-template .contact-info {
+            text-align: center;
+            font-size: 10pt;
+            color: #64748b;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .ats-template .section-h {
+            font-size: 12pt;
+            font-weight: 700;
+            color: #1e293b;
+            margin: 20px 0 10px;
+            border-bottom: 2px solid #1e293b;
+            padding-bottom: 4px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .ats-template .exp-item-header,
+        .ats-template .edu-item-header {
+            font-size: 11pt;
+        }
+
+        .ats-template .exp-item-company,
+        .ats-template .edu-item-institution {
+            font-size: 10pt;
+        }
+
+        .ats-template .exp-item-desc,
+        .ats-template .edu-item-desc {
+            font-size: 10pt;
+            color: #1e293b;
+        }
+
+        .ats-template .profile-summary {
+            font-size: 10pt;
+            color: #1e293b;
+        }
+    
+        /* Progress Bar Styles */
+        .progress-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: #e0e0e0;
+            z-index: 10000;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #4299e1, #2c5282);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .progress-label {
+            position: fixed;
+            top: 10px;
+            right: 20px;
+            background: rgba(66, 153, 225, 0.95);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+            z-index: 10001;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            display: none;
+        }
+
+        .progress-label.show {
+            display: block;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
     </style>
 </head>
 <body>
+    <!-- Progress Bar -->
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+    <div class="progress-label" id="progressLabel">Completion: 0%</div>
+
+
 
 <div id="editor">
     <div style="margin-bottom: 25px;">
-        <h2 style="font-family:'Montserrat'; margin:0; letter-spacing:-1px; color:#1e293b; font-size: 28px;">⚡ GENESIS ENGINE</h2>
-        <p style="font-size: 13px; color: #94a3b8; font-weight: 700;">Professional CV Builder v3.0</p>
+        <h2 style="font-family:'Montserrat'; margin:0; letter-spacing:-1px; color:#1e293b; font-size: 28px;">⚡ ResumeFlow</h2>
+        <p style="font-size: 13px; color: #94a3b8; font-weight: 700;">ResumeFlow - Professional Resume Builder</p>
         <div id="autosave-status" style="font-size: 11px; color: #10b981; margin-top: 8px; font-weight: 600;">
             <i class="fas fa-check-circle"></i> Auto-save enabled
         </div>
@@ -767,6 +943,9 @@
             <option value="18">Bold Frame</option>
             <option value="19">Warm Tones</option>
             <option value="20">Diagonal Dynamic</option>
+            <option value="21">ATS Optimized - Clean</option>
+            <option value="22">ATS Optimized - Minimalist</option>
+            <option value="23">ATS Optimized - Professional</option>
         </select>
     </div>
 
@@ -852,16 +1031,16 @@
             <button onclick="addItem('lang')" style="background: #f59e0b; color: white; border: none;">+ Language</button>
             <button onclick="addItem('ref')" style="background: #ec4899; color: white; border: none; grid-column: 1 / -1;">+ Reference</button>
         </div>
-        
+
         <div style="background: #fff; padding: 12px; border-radius: 8px; margin-bottom: 15px;">
             <label style="font-size: 13px; font-weight: 700; color: #475569; margin-bottom: 8px; display: block;">
                 📐 Section Order (Drag to Reorder)
             </label>
-            <div id="section-order-list" style="display: flex; flex-direction: column; gap: 6px;">
+            <div id="section-order-list">
                 <!-- Sections will be dynamically added here -->
             </div>
         </div>
-        
+
         <div id="dynamic-editors"></div>
     </div>
 </div>
@@ -870,11 +1049,26 @@
     <div class="toolbar">
         <span style="font-weight:900; color:#1e293b; letter-spacing:1px; font-size: 16px;">📄 LIVE PREVIEW</span>
         <div style="display:flex; gap:12px; flex-wrap: wrap;">
-            <button class="btn-exp" style="background:#ef4444;" onclick="downloadPDF()"><i class="fas fa-file-pdf"></i> PDF</button>
-            <button class="btn-exp" style="background:#2b579a;" onclick="downloadWord()"><i class="fas fa-file-word"></i> WORD</button>
-            <button class="btn-exp" style="background:#10b981;" onclick="downloadHTML()"><i class="fas fa-code"></i> HTML</button>
-            <button class="btn-exp" style="background:#f59e0b;" onclick="downloadImage()"><i class="fas fa-image"></i> PNG</button>
-            <button class="btn-exp" style="background:#8b5cf6;" onclick="showCoverLetterModal()"><i class="fas fa-file-alt"></i> COVER LETTER</button>
+            <button class="btn-exp" style="background:#ef4444;" onclick="downloadPDF()" title="Download PDF">
+                <i class="fas fa-file-pdf"></i>
+                <span>PDF</span>
+            </button>
+            <button class="btn-exp" style="background:#2b579a;" onclick="downloadWord()" title="Download WORD">
+                <i class="fas fa-file-word"></i>
+                <span>WORD</span>
+            </button>
+            <button class="btn-exp" style="background:#10b981;" onclick="downloadHTML()" title="Download HTML">
+                <i class="fas fa-code"></i>
+                <span>HTML</span>
+            </button>
+            <button class="btn-exp" style="background:#f59e0b;" onclick="downloadImage()" title="Download PNG">
+                <i class="fas fa-image"></i>
+                <span>PNG</span>
+            </button>
+            <button class="btn-exp" style="background:#8b5cf6;" onclick="showCoverLetterModal()" title="Cover Letter">
+                <i class="fas fa-file-alt"></i>
+                <span>COVER LETTER</span>
+            </button>
         </div>
     </div>
 
@@ -885,9 +1079,9 @@
 <div id="cover-letter-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1000; align-items: center; justify-content: center;">
     <div style="background: white; border-radius: 15px; width: 90%; max-width: 900px; max-height: 90vh; overflow-y: auto; padding: 30px; position: relative;">
         <button onclick="closeCoverLetterModal()" style="position: absolute; top: 15px; right: 15px; background: #ef4444; color: white; border: none; width: 35px; height: 35px; border-radius: 50%; font-size: 20px; cursor: pointer; font-weight: bold;">×</button>
-        
+
         <h2 style="font-family: 'Montserrat'; margin: 0 0 20px 0; color: #1e293b; font-size: 26px;">✉️ Generate Cover Letter</h2>
-        
+
         <div style="display: grid; gap: 15px; margin-bottom: 20px;">
             <div>
                 <label style="font-size: 14px; font-weight: 600; color: #475569; display: block; margin-bottom: 5px;">Company Name</label>
@@ -907,13 +1101,13 @@
                 <button onclick="generateCoverLetterContent()" style="margin-top: 8px; background: #10b981; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 13px;">🤖 AI Generate Content</button>
             </div>
         </div>
-        
+
         <div style="display: flex; gap: 12px; justify-content: flex-end;">
             <button onclick="closeCoverLetterModal()" style="background: #94a3b8; color: white; border: none; padding: 12px 25px; border-radius: 8px; cursor: pointer; font-weight: 700;">Cancel</button>
             <button onclick="previewCoverLetter()" style="background: #3b82f6; color: white; border: none; padding: 12px 25px; border-radius: 8px; cursor: pointer; font-weight: 700;">Preview</button>
             <button onclick="downloadCoverLetterPDF()" style="background: #ef4444; color: white; border: none; padding: 12px 25px; border-radius: 8px; cursor: pointer; font-weight: 700;"><i class="fas fa-download"></i> Download PDF</button>
         </div>
-        
+
         <div id="cover-letter-preview" style="margin-top: 30px; padding-top: 30px; border-top: 2px solid #e2e8f0; display: none;">
             <h3 style="color: #1e293b; margin-bottom: 15px;">Preview:</h3>
             <div id="cover-letter-page" style="width: 100%; background: white; padding: 40px; border: 1px solid #e2e8f0; border-radius: 8px; font-family: var(--font-main);"></div>
@@ -924,7 +1118,7 @@
 <script>
     const colors = ["#6366f1", "#f43f5e", "#10b981", "#f59e0b", "#0ea5e9", "#d946ef", "#000000", "#475569", "#1e3a8a", "#166534", "#b91c1c", "#4338ca", "#a21caf", "#0891b2", "#15803d", "#be185d", "#c2410c", "#4d7c0f", "#0369a1", "#6d28d9", "#ea580c", "#dc2626", "#65a30d", "#0d9488", "#7c3aed", "#db2777", "#e11d48", "#059669", "#2563eb", "#7e22ce", "#b45309", "#0284c7"];
     const sideColors = ["#1e293b", "#0f172a", "#2d3436", "#ffffff", "#f8fafc", "#16a085", "#2c3e50", "#27ae60", "#2980b9", "#8e44ad", "#e67e22", "#c0392b", "#1a1a2e", "#16213e", "#0f3460", "#533483", "#2d4059", "#ea5455", "#f07b3f", "#ffd460"];
-    
+
     let state = { 
         exp: [
             {id: 1, t1: 'Senior Product Manager', t2: 'TechCorp Solutions', d: '2021 - Present', desc: 'Led cross-functional teams of 15+ members to deliver innovative SaaS products serving 100K+ users.\n\nIncreased customer retention by 45% through data-driven feature optimization and user research.\n\nManaged $2M annual product budget and coordinated stakeholders across 3 continents.\n\nSpearheaded adoption of agile methodologies, reducing time-to-market by 35%.'},
@@ -972,52 +1166,64 @@
     let lastSaved = null;
     let draggedElement = null;
 
-    // === SECTION ORDERING AND VISIBILITY ===
+    // === SECTION ORDERING AND VISIBILITY - FIXED ===
     function updateSectionOrder() {
         const container = document.getElementById('section-order-list');
         if (!container) return;
-        
+
         container.innerHTML = '';
-        
+
         const sections = [
             { id: 'summary', icon: 'fa-user', label: 'Profile Summary' },
             { id: 'exp', icon: 'fa-briefcase', label: 'Experience' },
             { id: 'edu', icon: 'fa-graduation-cap', label: 'Education' }
         ];
-        
+
         // Ensure sectionOrder exists
-        if (!state.sectionOrder) {
+        if (!state.sectionOrder || state.sectionOrder.length === 0) {
             state.sectionOrder = ['summary', 'exp', 'edu'];
         }
-        
+
+        // Ensure sectionVisibility exists
+        if (!state.sectionVisibility) {
+            state.sectionVisibility = {
+                summary: true,
+                exp: true,
+                edu: true,
+                skill: true,
+                lang: true,
+                ref: true
+            };
+        }
+
         state.sectionOrder.forEach((sectionId, index) => {
             const section = sections.find(s => s.id === sectionId);
             if (!section) return;
-            
+
             const item = document.createElement('div');
             item.className = 'section-order-item';
             item.draggable = true;
             item.dataset.sectionId = sectionId;
-            
+
             const visible = state.sectionVisibility[sectionId] !== false;
-            
+
             item.innerHTML = `
                 <span class="drag-handle"><i class="fas fa-grip-vertical"></i></span>
                 <i class="fas ${section.icon}" style="color: var(--primary);"></i>
                 <span style="font-weight: 600; flex: 1;">${section.label}</span>
-                <button class="section-toggle" onclick="toggleSectionVisibility('${sectionId}')" title="${visible ? 'Hide' : 'Show'} section">
+                <button class="section-toggle ${visible ? '' : 'hidden'}" onclick="event.stopPropagation(); toggleSectionVisibility('${sectionId}')" title="${visible ? 'Hide' : 'Show'} section">
                     <i class="fas fa-eye${visible ? '' : '-slash'}"></i>
                 </button>
             `;
-            
-            // Drag and drop events
+
+            // Drag and drop events - FIXED
             item.addEventListener('dragstart', handleDragStart);
             item.addEventListener('dragend', handleDragEnd);
             item.addEventListener('dragover', handleDragOver);
             item.addEventListener('drop', handleDrop);
             item.addEventListener('dragenter', handleDragEnter);
             item.addEventListener('dragleave', handleDragLeave);
-            
+
             container.appendChild(item);
         });
     }
@@ -1058,27 +1264,41 @@
         if (e.stopPropagation) {
             e.stopPropagation();
         }
-        
+
+        e.preventDefault();
+
         if (draggedElement !== this) {
             const draggedId = draggedElement.dataset.sectionId;
             const targetId = this.dataset.sectionId;
-            
+
             const draggedIndex = state.sectionOrder.indexOf(draggedId);
             const targetIndex = state.sectionOrder.indexOf(targetId);
-            
+
             // Reorder array
             state.sectionOrder.splice(draggedIndex, 1);
             state.sectionOrder.splice(targetIndex, 0, draggedId);
-            
+
             updateSectionOrder();
             render();
             autoSave();
         }
-        
+
         return false;
     }
 
+    // FIXED: Toggle section visibility
     function toggleSectionVisibility(sectionId) {
+        if (!state.sectionVisibility) {
+            state.sectionVisibility = {
+                summary: true,
+                exp: true,
+                edu: true,
+                skill: true,
+                lang: true,
+                ref: true
+            };
+        }
+
         state.sectionVisibility[sectionId] = !state.sectionVisibility[sectionId];
         updateSectionOrder();
         render();
@@ -1087,16 +1307,19 @@
 
     function generateSectionHTML() {
         let html = '';
-        
+
         state.sectionOrder.forEach(sectionId => {
-            if (state.sectionVisibility[sectionId] === false) return;
-            
+            if (state.sectionVisibility && state.sectionVisibility[sectionId] === false) return;
+
             switch(sectionId) {
                 case 'summary':
-                    html += `
-                        <div class="section-h"><i class="fas fa-user"></i> Profile Summary</div>
-                        <div class="profile-summary">${document.getElementById('in-sum').value.split('\n\n').map(p => `<p>${p.trim()}</p>`).join('') || ''}</div>
-                    `;
+                    const summaryText = document.getElementById('in-sum').value;
+                    if (summaryText) {
+                        html += `
+                            <div class="section-h"><i class="fas fa-user"></i> Profile Summary</div>
+                            <div class="profile-summary">${summaryText.split('\n\n').map(p => `<p>${p.trim()}</p>`).join('') || ''}</div>
+                        `;
+                    }
                     break;
                 case 'exp':
                     if (state.exp.length > 0) {
@@ -1116,7 +1339,7 @@
                     break;
             }
         });
-        
+
         return html;
     }
 
@@ -1124,7 +1347,7 @@
     function showCoverLetterModal() {
         const modal = document.getElementById('cover-letter-modal');
         modal.style.display = 'flex';
-        
+
         // Pre-fill with CV data
         document.getElementById('cl-position').value = document.getElementById('in-title').value || '';
     }
@@ -1140,7 +1363,7 @@
         const company = document.getElementById('cl-company').value || 'your company';
         const name = document.getElementById('in-name').value || 'Applicant';
         const title = document.getElementById('in-title').value || 'Professional';
-        
+
         const templates = [
             `I am writing to express my strong interest in the ${position} position at ${company}. With my extensive background as a ${title}, I am confident that my skills and experience make me an ideal candidate for this role.
 
@@ -1149,7 +1372,7 @@ Throughout my career, I have demonstrated a proven track record of delivering ex
 I am particularly drawn to ${company} because of your reputation for innovation and excellence. I am excited about the opportunity to bring my unique perspective and contribute to your team's continued growth and success.
 
 I would welcome the opportunity to discuss how my background, skills, and enthusiasm align with your needs. Thank you for considering my application. I look forward to the possibility of contributing to ${company}'s mission.`,
-            
+
             `Dear Hiring Manager,
 
 I am excited to submit my application for the ${position} role at ${company}. As an accomplished ${title}, I bring a unique combination of technical expertise, leadership experience, and strategic vision that I believe would be valuable to your team.
@@ -1159,7 +1382,7 @@ In my previous roles, I have successfully led initiatives that have driven signi
 What attracts me most to ${company} is your commitment to excellence and your innovative approach to solving complex challenges. I am confident that my experience and skills would enable me to make meaningful contributions to your organization from day one.
 
 I would be thrilled to discuss how I can contribute to ${company}'s continued success. Thank you for your time and consideration.`,
-            
+
             `I am writing to apply for the ${position} position at ${company}, as advertised. With my comprehensive experience as a ${title} and my passion for driving results, I am well-prepared to make immediate and lasting contributions to your organization.
 
 My professional journey has equipped me with a diverse skill set and a deep understanding of what it takes to succeed in dynamic, fast-paced environments. I have consistently demonstrated the ability to identify opportunities, develop innovative solutions, and deliver measurable results that align with organizational objectives.
@@ -1168,7 +1391,7 @@ I am particularly impressed by ${company}'s track record of success and innovati
 
 I look forward to the opportunity to discuss my qualifications in greater detail. Thank you for considering my application.`
         ];
-        
+
         const generated = templates[Math.floor(Math.random() * templates.length)];
         document.getElementById('cl-content').value = generated;
     }
@@ -1182,9 +1405,9 @@ I look forward to the opportunity to discuss my qualifications in greater detail
         const email = document.getElementById('in-email').value || 'your.email@example.com';
         const phone = document.getElementById('in-phone').value || '(123) 456-7890';
         const location = document.getElementById('in-loc').value || 'City, State';
-        
+
         const today = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
-        
+
         const coverLetterHTML = `
             <div style="font-family: ${state.font}; color: #1e293b; line-height: 1.6;">
                 <!-- Header matching CV -->
@@ -1196,21 +1419,21 @@ I look forward to the opportunity to discuss my qualifications in greater detail
                         <div>${location}</div>
                     </div>
                 </div>
-                
+
                 <!-- Date and Address -->
                 <div style="margin-bottom: 25px; font-size: 10pt;">
                     <div style="margin-bottom: 15px;">${today}</div>
                     <div>${manager ? manager + '<br>' : ''}${company}<br>${position}</div>
                 </div>
-                
+
                 <!-- Salutation -->
                 <div style="margin-bottom: 20px; font-size: 10pt;">
                     Dear ${manager || 'Hiring Manager'},
                 </div>
-                
+
                 <!-- Content -->
                 <div style="font-size: 10pt; white-space: pre-wrap;">${content}</div>
-                
+
                 <!-- Closing -->
                 <div style="margin-top: 25px; font-size: 10pt;">
                     <div>Sincerely,</div>
@@ -1218,10 +1441,10 @@ I look forward to the opportunity to discuss my qualifications in greater detail
                 </div>
             </div>
         `;
-        
+
         document.getElementById('cover-letter-page').innerHTML = coverLetterHTML;
         document.getElementById('cover-letter-preview').style.display = 'block';
-        
+
         // Scroll to preview
         document.getElementById('cover-letter-preview').scrollIntoView({ behavior: 'smooth' });
     }
@@ -1229,11 +1452,11 @@ I look forward to the opportunity to discuss my qualifications in greater detail
     function downloadCoverLetterPDF() {
         // First generate preview
         previewCoverLetter();
-        
+
         setTimeout(() => {
             const page = document.getElementById('cover-letter-page');
             const name = document.getElementById('in-name').value || 'Applicant';
-            
+
             html2canvas(page, {
                 scale: 2,
                 useCORS: true,
@@ -1272,7 +1495,7 @@ I look forward to the opportunity to discuss my qualifications in greater detail
                 },
                 timestamp: new Date().toISOString()
             };
-            
+
             try {
                 const data = JSON.stringify(cvData);
                 window.cvBackup = data;
@@ -1290,7 +1513,7 @@ I look forward to the opportunity to discuss my qualifications in greater detail
             if (window.cvBackup) {
                 const cvData = JSON.parse(window.cvBackup);
                 state = cvData.state;
-                
+
                 document.getElementById('in-name').value = cvData.personalInfo.name || '';
                 document.getElementById('in-title').value = cvData.personalInfo.title || '';
                 document.getElementById('in-email').value = cvData.personalInfo.email || '';
@@ -1298,7 +1521,7 @@ I look forward to the opportunity to discuss my qualifications in greater detail
                 document.getElementById('in-loc').value = cvData.personalInfo.loc || '';
                 document.getElementById('in-link').value = cvData.personalInfo.link || '';
                 document.getElementById('in-sum').value = cvData.personalInfo.summary || '';
-                
+
                 updateEditor();
                 render();
                 updateSaveStatus('Loaded previous session');
@@ -1331,7 +1554,7 @@ I look forward to the opportunity to discuss my qualifications in greater detail
             },
             timestamp: new Date().toISOString()
         };
-        
+
         window.cvBackup = JSON.stringify(cvData);
         updateSaveStatus('✓ CV saved successfully!');
         setTimeout(() => updateSaveStatus('Auto-save enabled'), 2000);
@@ -1362,7 +1585,7 @@ I look forward to the opportunity to discuss my qualifications in greater detail
             version: '3.0',
             timestamp: new Date().toISOString()
         };
-        
+
         const blob = new Blob([JSON.stringify(cvData, null, 2)], { type: 'application/json' });
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
@@ -1373,7 +1596,7 @@ I look forward to the opportunity to discuss my qualifications in greater detail
         a.click();
         document.body.removeChild(a);
         URL.revokeObjectURL(url);
-        
+
         updateSaveStatus('Backup downloaded!');
         setTimeout(() => updateSaveStatus('Auto-save enabled'), 2000);
     }
@@ -1385,13 +1608,13 @@ I look forward to the opportunity to discuss my qualifications in greater detail
     function handleJSONImport(event) {
         const file = event.target.files[0];
         if (!file) return;
-        
+
         const reader = new FileReader();
         reader.onload = (e) => {
             try {
                 const cvData = JSON.parse(e.target.result);
                 state = cvData.state;
-                
+
                 document.getElementById('in-name').value = cvData.personalInfo.name || '';
                 document.getElementById('in-title').value = cvData.personalInfo.title || '';
                 document.getElementById('in-email').value = cvData.personalInfo.email || '';
@@ -1399,7 +1622,7 @@ I look forward to the opportunity to discuss my qualifications in greater detail
                 document.getElementById('in-loc').value = cvData.personalInfo.loc || '';
                 document.getElementById('in-link').value = cvData.personalInfo.link || '';
                 document.getElementById('in-sum').value = cvData.personalInfo.summary || '';
-                
+
                 updateEditor();
                 render();
                 updateSaveStatus('CV restored successfully!');
@@ -1420,9 +1643,29 @@ I look forward to the opportunity to discuss my qualifications in greater detail
             `Strategic ${title} combining technical excellence with strong business acumen to drive transformative outcomes.\n\nProven track record of building high-performing teams and implementing data-driven solutions.\n\nCommitted to continuous improvement and delivering measurable value to stakeholders.`,
             `Results-oriented ${title} with extensive experience in fast-paced, dynamic environments.\n\nExpert at identifying opportunities, solving complex problems, and driving organizational growth.\n\nPassionate about innovation, excellence, and creating positive impact through strategic initiatives.`
         ];
-        
+
         const generated = templates[Math.floor(Math.random() * templates.length)];
         document.getElementById('in-sum').value = generated;
+        render();
+        autoSave();
+    }
+
+    function enhanceSummary() {
+        const currentText = document.getElementById('in-sum').value;
+        if (!currentText) {
+            generateSummary();
+            return;
+        }
+
+        // Simple enhancement by adding power words
+        const enhanced = currentText
+            .replace(/good/gi, 'exceptional')
+            .replace(/many/gi, 'numerous')
+            .replace(/helped/gi, 'facilitated')
+            .replace(/did/gi, 'executed')
+            .replace(/made/gi, 'developed');
+
+        document.getElementById('in-sum').value = enhanced;
         render();
         autoSave();
     }
@@ -1430,14 +1673,14 @@ I look forward to the opportunity to discuss my qualifications in greater detail
     function generateJobDescription(itemId) {
         const item = state.exp.find(x => x.id === itemId);
         if (!item) return;
-        
+
         const jobTitle = item.t1 || 'Professional';
         const templates = [
             `Led key initiatives and projects that drove significant business impact and organizational growth.\n\nCollaborated with cross-functional teams to deliver innovative solutions and exceed performance targets.\n\nImplemented best practices and strategic improvements that enhanced operational efficiency.\n\nMentored team members and fostered a culture of excellence and continuous improvement.`,
             `Managed end-to-end project lifecycles from conception through successful delivery and implementation.\n\nDeveloped and executed strategic plans that aligned with organizational goals and market demands.\n\nBuilt strong relationships with stakeholders and drove consensus across diverse teams.\n\nAchieved measurable results through data-driven decision making and process optimization.`,
             `Spearheaded transformative initiatives that revolutionized workflows and increased productivity.\n\nAnalyzed complex challenges and implemented creative solutions that delivered exceptional outcomes.\n\nCommunicated effectively with leadership and teams to ensure alignment and project success.\n\nDrove continuous improvement through innovation, collaboration, and strategic thinking.`
         ];
-        
+
         item.desc = templates[Math.floor(Math.random() * templates.length)];
         updateEditor();
         render();
@@ -1479,9 +1722,67 @@ I look forward to the opportunity to discuss my qualifications in greater detail
             body { margin: 0; background: white; }
             .cv-page { margin: 0; box-shadow: none; }
         }
+    
+        /* Progress Bar Styles */
+        .progress-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: #e0e0e0;
+            z-index: 10000;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #4299e1, #2c5282);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .progress-label {
+            position: fixed;
+            top: 10px;
+            right: 20px;
+            background: rgba(66, 153, 225, 0.95);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+            z-index: 10001;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            display: none;
+        }
+
+        .progress-label.show {
+            display: block;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
     </style>
 </head>
 <body>
+    <!-- Progress Bar -->
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+    <div class="progress-label" id="progressLabel">Completion: 0%</div>
+
+
     ${pages.map(page => page.outerHTML).join('\n')}
 </body>
 </html>`;
@@ -1500,9 +1801,9 @@ I look forward to the opportunity to discuss my qualifications in greater detail
     function downloadImage() {
         const pages = Array.from(document.querySelectorAll('.cv-page'));
         const indicators = document.querySelectorAll('.page-indicator');
-        
+
         indicators.forEach(ind => ind.style.display = 'none');
-        
+
         if (pages.length === 0) {
             alert('No content to export');
             indicators.forEach(ind => ind.style.display = 'block');
@@ -1510,7 +1811,7 @@ I look forward to the opportunity to discuss my qualifications in greater detail
         }
 
         const name = document.getElementById('in-name').value || 'Resume';
-        
+
         html2canvas(pages[0], {
             scale: 2,
             useCORS: true,
@@ -1538,372 +1839,12 @@ I look forward to the opportunity to discuss my qualifications in greater detail
         });
     }
 
-    function init() {
-        document.getElementById('in-name').value = 'Alexandra Mitchell';
-        document.getElementById('in-title').value = 'Senior Product Manager';
-        document.getElementById('in-email').value = 'alex.mitchell@email.com';
-        document.getElementById('in-phone').value = '+1 (555) 987-6543';
-        document.getElementById('in-loc').value = 'San Francisco, California';
-        document.getElementById('in-link').value = 'linkedin.com/in/alexandra-mitchell';
-        document.getElementById('in-sum').value = 'Results-driven Product Manager with 8+ years of experience leading digital transformation initiatives in fast-paced technology environments.\n\nProven track record of launching successful products that drive revenue growth and enhance user experience.\n\nExpert in agile methodologies, data analytics, and cross-functional team leadership.\n\nPassionate about leveraging emerging technologies to solve complex business challenges and deliver measurable impact to both customers and stakeholders.';
-        
-        const aGrid = document.getElementById('accent-colors');
-        colors.forEach((c, i) => {
-            const s = document.createElement('div'); 
-            s.className = 'swatch'; 
-            s.style.background = c;
-            s.title = c;
-            if(i === 0) s.classList.add('active');
-            s.onclick = () => { 
-                state.accent = c; 
-                document.querySelectorAll('#accent-colors .swatch').forEach(x => x.classList.remove('active')); 
-                s.classList.add('active');
-                render();
-                autoSave();
-            };
-            aGrid.appendChild(s);
-        });
-
-        const sGrid = document.getElementById('side-colors');
-        sideColors.forEach((c, i) => {
-            const s = document.createElement('div'); 
-            s.className = 'swatch'; 
-            s.style.background = c;
-            s.title = c;
-            if(i === 0) s.classList.add('active');
-            s.onclick = () => { 
-                state.side = c; 
-                document.querySelectorAll('#side-colors .swatch').forEach(x => x.classList.remove('active')); 
-                s.classList.add('active');
-                render();
-                autoSave();
-            };
-            sGrid.appendChild(s);
-        });
-
-        // Load saved CV if exists
-        loadAutoSave();
-        
-        updateEditor();
-        updateSectionOrder();
-        render();
-    }
-
-    function changeTemplate() {
-        state.tpl = parseInt(document.getElementById('tpl-select').value);
-        render();
-        autoSave();
-    }
-
-    function changeFont() {
-        state.font = document.getElementById('font-select').value;
-        render();
-        autoSave();
-    }
-
-    function uploadPhoto(e) {
-        const file = e.target.files[0];
-        if (!file) return;
-        const reader = new FileReader();
-        reader.onload = (event) => { 
-            state.photoData = event.target.result;
-            render();
-        };
-        reader.readAsDataURL(file);
-    }
-
-    function togglePhoto() {
-        state.showPhoto = document.getElementById('toggle-photo').checked;
-        const controls = document.getElementById('photo-controls');
-        controls.style.display = state.showPhoto ? 'block' : 'none';
-        render();
-    }
-
-    function changePhotoShape() {
-        state.photoShape = document.getElementById('photo-shape').value;
-        render();
-    }
-
-    function addItem(type) {
-        const id = Date.now() + Math.random();
-        if(type === 'skill' || type === 'lang') {
-            state[type].push({id, t1: '', val: 75});
-        } else {
-            state[type].push({id, t1: '', t2: '', d: '', desc: ''});
-        }
-        updateEditor(); 
-        render();
-        autoSave();
-    }
-
-    function deleteItem(type, id) {
-        state[type] = state[type].filter(x => x.id !== id);
-        updateEditor();
-        render();
-        autoSave();
-    }
-
-    function updateEditor() {
-        const container = document.getElementById('dynamic-editors');
-        container.innerHTML = '';
-        
-        ['exp', 'edu', 'skill', 'lang', 'ref'].forEach(type => {
-            state[type].forEach(item => {
-                const div = document.createElement('div'); 
-                div.className = 'item-editor';
-                
-                const typeLabel = {
-                    exp: '💼 Experience',
-                    edu: '🎓 Education',
-                    skill: '⭐ Skill',
-                    lang: '🌍 Language',
-                    ref: '👥 Reference'
-                };
-                
-                div.innerHTML = `
-                    <button class="delete-btn" onclick="deleteItem('${type}', ${item.id})">×</button>
-                    <div class="item-type">${typeLabel[type]}</div>
-                    <input type="text" placeholder="${type === 'skill' || type === 'lang' ? 'Name' : 'Title'}" value="${item.t1 || ''}" oninput="state.${type}.find(x=>x.id===${item.id}).t1=this.value; render(); autoSave();">
-                    ${(type === 'skill' || type === 'lang') ? `
-                        <div style="margin-top: 10px;">
-                            <label style="font-size: 11px; color: #64748b; font-weight: 600;">Proficiency: ${item.val}%</label>
-                            <input type="range" min="0" max="100" value="${item.val}" style="width: 100%; margin-top: 5px;" oninput="state.${type}.find(x=>x.id===${item.id}).val=this.value; this.previousElementSibling.innerText='Proficiency: '+this.value+'%'; render(); autoSave();">
-                        </div>
-                    ` : `
-                        <input type="text" placeholder="${type === 'ref' ? 'Position/Title' : 'Company / Institution'}" value="${item.t2 || ''}" style="margin-top: 5px;" oninput="state.${type}.find(x=>x.id===${item.id}).t2=this.value; render(); autoSave();">
-                        <input type="text" placeholder="Date Range (e.g., 2020-2023)" value="${item.d || ''}" style="margin-top: 5px;" oninput="state.${type}.find(x=>x.id===${item.id}).d=this.value; render(); autoSave();">
-                        <textarea placeholder="Description / Details / Achievements" rows="3" style="margin-top: 5px;" oninput="state.${type}.find(x=>x.id===${item.id}).desc=this.value; render(); autoSave();">${item.desc || ''}</textarea>
-                        ${type === 'exp' ? `<button class="btn-ai" onclick="generateJobDescription(${item.id})" style="margin-top: 8px; background: #10b981; font-size: 11px; padding: 8px;">🤖 AI Generate Description</button>` : ''}
-                    `}
-                `;
-                container.appendChild(div);
-            });
-        });
-    }
-
-    function render() {
-        const root = document.documentElement.style;
-        root.setProperty('--primary', state.accent);
-        root.setProperty('--side-bg', state.side);
-        root.setProperty('--side-text', isDark(state.side) ? '#fff' : '#1e293b');
-        root.setProperty('--font-main', state.font);
-
-        const container = document.getElementById('cv-pages-container');
-        container.innerHTML = '';
-
-        // Always create page 1
-        const page1 = createPage(1);
-        container.appendChild(page1);
-
-        // Check if we need page 2
-        const hasMoreExp = state.exp.length > 2;
-        const hasMoreEdu = state.edu.length > 2;
-        const hasRefs = state.ref.length > 0;
-        
-        if (hasMoreExp || hasMoreEdu || hasRefs) {
-            const page2 = createPage(2);
-            container.appendChild(page2);
-        }
-    }
-
-    function createPage(pageNum) {
-        const page = document.createElement('div');
-        page.className = 'cv-page';
-        
-        const indicator = document.createElement('div');
-        indicator.className = 'page-indicator';
-        indicator.textContent = `Page ${pageNum}`;
-        page.appendChild(indicator);
-
-        const grid = document.createElement('div');
-        grid.className = `cv-grid tpl-${state.tpl}`;
-        grid.style.fontFamily = state.font;
-
-        if (pageNum === 1) {
-            grid.innerHTML = `
-                <div class="side">
-                    ${state.showPhoto && state.photoData ? `<img src="${state.photoData}" alt="Profile" style="width: 110px; height: 110px; border-radius: ${state.photoShape === 'circle' ? '50%' : state.photoShape === 'square' ? '0' : '12px'}; object-fit: cover; border: 3px solid var(--primary); margin-bottom: 18px; display: block;">` : ''}
-                    <div class="name">${document.getElementById('in-name').value || "YOUR NAME"}</div>
-                    <div class="title">${document.getElementById('in-title').value || "JOB TITLE"}</div>
-                    
-                    <div class="section-h" style="color:inherit; border-color:rgba(255,255,255,0.15); font-size: 10pt; margin-top: 20px;"><i class="fas fa-address-card"></i> Contact</div>
-                    <div style="margin-top: 10px;">${getContactHTML()}</div>
-
-                    <div class="section-h" style="color:inherit; border-color:rgba(255,255,255,0.15); font-size: 10pt; margin-top: 20px;"><i class="fas fa-star"></i> Skills</div>
-                    <div style="margin-top: 10px;">${getSkillsHTML()}</div>
-
-                    <div class="section-h" style="color:inherit; border-color:rgba(255,255,255,0.15); font-size: 10pt; margin-top: 20px;"><i class="fas fa-language"></i> Languages</div>
-                    <div style="margin-top: 10px;">${getLanguagesHTML()}</div>
-
-                    ${document.getElementById('in-link').value ? `
-                        <div style="margin-top: 25px; padding-top: 15px; border-top: 1px solid rgba(255,255,255,0.15);">
-                            <div style="font-size: 8pt; font-weight: 600; margin-bottom: 5px; opacity: 0.8;">LinkedIn</div>
-                            <div style="font-size: 8pt; opacity: 0.9; word-break: break-all;">${document.getElementById('in-link').value}</div>
-                        </div>
-                    ` : ''}
-                </div>
-
-                <div class="main">
-                    ${generateSectionHTML()}
-                </div>
-            `;
-        } else {
-            // Second page - continuation
-            const hasMoreExp = state.exp.length > 2;
-            const hasMoreEdu = state.edu.length > 2;
-
-            let mainContent = '';
-            
-            if (hasMoreExp) {
-                mainContent += `
-                    <div class="section-h"><i class="fas fa-briefcase"></i> Professional Experience (Continued)</div>
-                    <div>${getExperienceHTML(2, 10)}</div>
-                `;
-            }
-
-            if (hasMoreEdu) {
-                mainContent += `
-                    <div class="section-h"><i class="fas fa-graduation-cap"></i> Education (Continued)</div>
-                    <div>${getEducationHTML(2, 10)}</div>
-                `;
-            }
-
-            if (state.ref.length > 0) {
-                mainContent += `
-                    <div class="section-h"><i class="fas fa-users"></i> References</div>
-                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:15px;">${getReferencesHTML()}</div>
-                `;
-            }
-
-            grid.innerHTML = `
-                <div class="side">
-                    <div style="font-size:9pt; opacity:0.8; text-align:center; padding-top:15px; font-weight: 600;">
-                        ${document.getElementById('in-name').value || "YOUR NAME"}
-                    </div>
-                    <div style="font-size:8pt; opacity:0.6; text-align:center; margin-top: 5px;">
-                        Continued
-                    </div>
-                </div>
-
-                <div class="main">
-                    ${mainContent}
-                </div>
-            `;
-        }
-
-        page.appendChild(grid);
-        return page;
-    }
-
-    function getContactHTML() {
-        const email = document.getElementById('in-email').value;
-        const phone = document.getElementById('in-phone').value;
-        const loc = document.getElementById('in-loc').value;
-        
-        let html = '';
-        if (email) html += `<div class="contact-item"><i class="fas fa-envelope"></i>${email}</div>`;
-        if (phone) html += `<div class="contact-item"><i class="fas fa-phone"></i>${phone}</div>`;
-        if (loc) html += `<div class="contact-item"><i class="fas fa-map-marker-alt"></i>${loc}</div>`;
-        
-        return html;
-    }
-
-    function getSkillsHTML() {
-        return state.skill.map(i => `
-            <div style="margin-bottom: 10px;">
-                <div style="font-size:8.5pt; font-weight:700; display:flex; justify-content:space-between; margin-bottom: 4px;">
-                    <span>${i.t1 || 'Skill'}</span>
-                    <span style="opacity: 0.7;">${i.val}%</span>
-                </div>
-                <div class="skill-bar">
-                    <div class="skill-progress" style="width:${i.val}%"></div>
-                </div>
-            </div>
-        `).join('');
-    }
-
-    function getLanguagesHTML() {
-        return state.lang.map(i => {
-            const level = Math.round(i.val / 20);
-            const dots = '●'.repeat(level) + '○'.repeat(5 - level);
-            return `<div style="font-size:8.5pt; margin-bottom:7px; display: flex; justify-content: space-between; align-items: center;">
-                <span style="font-weight: 600;">${i.t1 || 'Language'}</span>
-                <span style="color:var(--primary); letter-spacing: 2px; font-size: 10pt;">${dots}</span>
-            </div>`;
-        }).join('');
-    }
-
-    function getExperienceHTML(start, end) {
-        return state.exp.slice(start, end).map(i => {
-            const descLines = i.desc.split('\n').filter(line => line.trim());
-            const descHTML = descLines.map(line => `<p style="margin: 0 0 6px 0;">${line.trim()}</p>`).join('');
-            
-            return `
-            <div class="exp-item">
-                <div class="exp-item-header">
-                    <span style="font-size: 10.5pt;">${i.t1 || 'Position Title'}</span>
-                    <span style="font-size:8pt; opacity:0.6; flex-shrink:0; margin-left:10px; white-space: nowrap;">${i.d || ''}</span>
-                </div>
-                <div class="exp-item-company">${i.t2 || ''}</div>
-                <div class="exp-item-desc">${descHTML}</div>
-            </div>
-        `}).join('');
-    }
-
-    function getEducationHTML(start, end) {
-        return state.edu.slice(start, end).map(i => {
-            const descLines = i.desc.split('\n').filter(line => line.trim());
-            const descHTML = descLines.map(line => `<p style="margin: 0 0 6px 0;">${line.trim()}</p>`).join('');
-            
-            return `
-            <div class="edu-item">
-                <div class="edu-item-header">
-                    <span style="font-size: 10.5pt;">${i.t1 || 'Degree'}</span>
-                    <span style="font-size:8pt; opacity:0.6; flex-shrink:0; margin-left:10px; white-space: nowrap;">${i.d || ''}</span>
-                </div>
-                <div class="edu-item-institution">${i.t2 || ''}</div>
-                <div class="edu-item-desc">${descHTML}</div>
-            </div>
-        `}).join('');
-    }
-
-    function getReferencesHTML() {
-        return state.ref.map(i => `
-            <div style="font-size:9pt;">
-                <strong style="display: block; margin-bottom: 3px;">${i.t1 || 'Name'}</strong>
-                <div style="color:var(--primary); font-size:8.5pt; margin-bottom: 2px;">${i.t2 || ''}</div>
-                <div style="font-size:8pt; color:#94a3b8; line-height: 1.4; white-space: pre-line;">${i.desc || ''}</div>
-            </div>
-        `).join('');
-    }
-
-    function isDark(color) {
-        const hex = color.replace('#', '');
-        const r = parseInt(hex.substr(0, 2), 16);
-        const g = parseInt(hex.substr(2, 2), 16);
-        const b = parseInt(hex.substr(4, 2), 16);
-        return ((r * 299) + (g * 587) + (b * 114)) / 1000 < 128;
-    }
-
-    // === SECTION ORDERING AND VISIBILITY ===
-    function updateSectionOrder() {
-        const summaries = [
-            "Dynamic and innovative professional with extensive expertise in driving organizational success through strategic leadership and cutting-edge solutions.\n\nDemonstrated ability to transform complex challenges into opportunities for growth, leveraging deep technical knowledge and exceptional interpersonal skills.\n\nCommitted to fostering collaborative environments that inspire excellence and deliver transformative results in competitive markets.",
-            "Accomplished professional with a proven track record of excellence in fast-paced, high-growth environments.\n\nExpert at bridging business strategy with technical execution to deliver scalable solutions that drive measurable impact.\n\nKnown for building high-performing teams and cultivating cultures of innovation, accountability, and continuous improvement.",
-            "Visionary leader with comprehensive experience in digital transformation and organizational development.\n\nCombines strategic thinking with hands-on execution to deliver exceptional results across complex, cross-functional initiatives.\n\nPassionate about leveraging emerging technologies and data-driven insights to create competitive advantages and enhance customer experiences."
-        ];
-        const randomSummary = summaries[Math.floor(Math.random() * summaries.length)];
-        document.getElementById('in-sum').value = randomSummary;
-        render();
-        autoSave();
-    }
-
     function downloadPDF() {
         const pages = Array.from(document.querySelectorAll('.cv-page'));
         const indicators = document.querySelectorAll('.page-indicator');
-        
+
         indicators.forEach(ind => ind.style.display = 'none');
-        
+
         if (pages.length === 0) {
             alert('No content to export');
             indicators.forEach(ind => ind.style.display = 'block');
@@ -1911,10 +1852,10 @@ I look forward to the opportunity to discuss my qualifications in greater detail
         }
 
         const filename = 'Professional_CV_' + (document.getElementById('in-name').value || 'Resume').replace(/ /g, '_') + '.pdf';
-        
+
         const { jsPDF } = window.jspdf;
         const pdf = new jsPDF('p', 'mm', 'a4');
-        
+
         const exportPages = async () => {
             try {
                 for (let i = 0; i < pages.length; i++) {
@@ -1927,21 +1868,21 @@ I look forward to the opportunity to discuss my qualifications in greater detail
                         windowWidth: 794,
                         windowHeight: 1123
                     });
-                    
+
                     const imgData = canvas.toDataURL('image/jpeg', 0.98);
-                    
+
                     // A4 dimensions in mm
                     const pdfWidth = 210;
                     const pdfHeight = 297;
-                    
+
                     if (i > 0) {
                         pdf.addPage();
                     }
-                    
+
                     // Add image to fit exactly on A4 page
                     pdf.addImage(imgData, 'JPEG', 0, 0, pdfWidth, pdfHeight);
                 }
-                
+
                 pdf.save(filename);
                 indicators.forEach(ind => ind.style.display = 'block');
             } catch (err) {
@@ -1950,10 +1891,10 @@ I look forward to the opportunity to discuss my qualifications in greater detail
                 indicators.forEach(ind => ind.style.display = 'block');
             }
         };
-        
+
         exportPages();
     }
-    
+
     function downloadWord() {
         const name = document.getElementById('in-name').value || 'Your Name';
         const title = document.getElementById('in-title').value || 'Job Title';
@@ -1978,7 +1919,7 @@ I look forward to the opportunity to discuss my qualifications in greater detail
             const descHtml = descLines.map(line => 
                 `<p style="margin:4px 0; line-height:1.5; font-size:10pt;">${line.trim()}</p>`
             ).join('');
-            
+
             return `
             <div style="margin-bottom:15px;">
                 <table style="width:100%; margin-bottom:2px;">
@@ -1997,7 +1938,7 @@ I look forward to the opportunity to discuss my qualifications in greater detail
             const descHtml = descLines.map(line => 
                 `<p style="margin:4px 0; line-height:1.5; font-size:10pt;">${line.trim()}</p>`
             ).join('');
-            
+
             return `
             <div style="margin-bottom:15px;">
                 <table style="width:100%; margin-bottom:2px;">
@@ -2103,15 +2044,73 @@ I look forward to the opportunity to discuss my qualifications in greater detail
                     }
                     p { margin: 6px 0; }
                     strong { font-weight: 700; }
-                </style>
+                
+        /* Progress Bar Styles */
+        .progress-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: #e0e0e0;
+            z-index: 10000;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #4299e1, #2c5282);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .progress-label {
+            position: fixed;
+            top: 10px;
+            right: 20px;
+            background: rgba(66, 153, 225, 0.95);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+            z-index: 10001;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            display: none;
+        }
+
+        .progress-label.show {
+            display: block;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+    </style>
             </head>
             <body>
+    <!-- Progress Bar -->
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+    <div class="progress-label" id="progressLabel">Completion: 0%</div>
+
+
                 <table>
                     <tr>
                         <td class="side">
                             <div class="name">${name}</div>
                             <div class="title">${title}</div>
-                            
+
                             <div class="section-h">CONTACT</div>
                             <div>${contactHtml}</div>
 
@@ -2144,6 +2143,439 @@ I look forward to the opportunity to discuss my qualifications in greater detail
         a.click();
         document.body.removeChild(a);
         URL.revokeObjectURL(url);
+    }
+
+    function init() {
+        document.getElementById('in-name').value = 'Alexandra Mitchell';
+        document.getElementById('in-title').value = 'Senior Product Manager';
+        document.getElementById('in-email').value = 'alex.mitchell@email.com';
+        document.getElementById('in-phone').value = '+1 (555) 987-6543';
+        document.getElementById('in-loc').value = 'San Francisco, California';
+        document.getElementById('in-link').value = 'linkedin.com/in/alexandra-mitchell';
+        document.getElementById('in-sum').value = 'Results-driven Product Manager with 8+ years of experience leading digital transformation initiatives in fast-paced technology environments.\n\nProven track record of launching successful products that drive revenue growth and enhance user experience.\n\nExpert in agile methodologies, data analytics, and cross-functional team leadership.\n\nPassionate about leveraging emerging technologies to solve complex business challenges and deliver measurable impact to both customers and stakeholders.';
+
+        const aGrid = document.getElementById('accent-colors');
+        colors.forEach((c, i) => {
+            const s = document.createElement('div'); 
+            s.className = 'swatch'; 
+            s.style.background = c;
+            s.title = c;
+            if(i === 0) s.classList.add('active');
+            s.onclick = () => { 
+                state.accent = c; 
+                document.querySelectorAll('#accent-colors .swatch').forEach(x => x.classList.remove('active')); 
+                s.classList.add('active');
+                render();
+                autoSave();
+            };
+            aGrid.appendChild(s);
+        });
+
+        const sGrid = document.getElementById('side-colors');
+        sideColors.forEach((c, i) => {
+            const s = document.createElement('div'); 
+            s.className = 'swatch'; 
+            s.style.background = c;
+            s.title = c;
+            if(i === 0) s.classList.add('active');
+            s.onclick = () => { 
+                state.side = c; 
+                document.querySelectorAll('#side-colors .swatch').forEach(x => x.classList.remove('active')); 
+                s.classList.add('active');
+                render();
+                autoSave();
+            };
+            sGrid.appendChild(s);
+        });
+
+        // Load saved CV if exists
+        loadAutoSave();
+
+        updateEditor();
+        updateSectionOrder();
+        render();
+    }
+
+    function changeTemplate() {
+        state.tpl = parseInt(document.getElementById('tpl-select').value);
+        render();
+        autoSave();
+    }
+
+    function changeFont() {
+        state.font = document.getElementById('font-select').value;
+        render();
+        autoSave();
+    }
+
+    function uploadPhoto(e) {
+        const file = e.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = (event) => { 
+            state.photoData = event.target.result;
+            render();
+            autoSave();
+        };
+        reader.readAsDataURL(file);
+    }
+
+    function togglePhoto() {
+        state.showPhoto = document.getElementById('toggle-photo').checked;
+        const controls = document.getElementById('photo-controls');
+        controls.style.display = state.showPhoto ? 'block' : 'none';
+        render();
+        autoSave();
+    }
+
+    function changePhotoShape() {
+        state.photoShape = document.getElementById('photo-shape').value;
+        render();
+        autoSave();
+    }
+
+    function addItem(type) {
+        const id = Date.now() + Math.random();
+        if(type === 'skill' || type === 'lang') {
+            state[type].push({id, t1: '', val: 75});
+        } else {
+            state[type].push({id, t1: '', t2: '', d: '', desc: ''});
+        }
+        updateEditor(); 
+        render();
+        autoSave();
+    }
+
+    function deleteItem(type, id) {
+        state[type] = state[type].filter(x => x.id !== id);
+        updateEditor();
+        render();
+        autoSave();
+    }
+
+    function updateEditor() {
+        const container = document.getElementById('dynamic-editors');
+        container.innerHTML = '';
+
+        ['exp', 'edu', 'skill', 'lang', 'ref'].forEach(type => {
+            state[type].forEach(item => {
+                const div = document.createElement('div'); 
+                div.className = 'item-editor';
+
+                const typeLabel = {
+                    exp: '💼 Experience',
+                    edu: '🎓 Education',
+                    skill: '⭐ Skill',
+                    lang: '🌍 Language',
+                    ref: '👥 Reference'
+                };
+
+                div.innerHTML = `
+                    <button class="delete-btn" onclick="deleteItem('${type}', ${item.id})">×</button>
+                    <div class="item-type">${typeLabel[type]}</div>
+                    <input type="text" placeholder="${type === 'skill' || type === 'lang' ? 'Name' : 'Title'}" value="${item.t1 || ''}" oninput="state.${type}.find(x=>x.id===${item.id}).t1=this.value; render(); autoSave();">
+                    ${(type === 'skill' || type === 'lang') ? `
+                        <div style="margin-top: 10px;">
+                            <label style="font-size: 11px; color: #64748b; font-weight: 600;">Proficiency: ${item.val}%</label>
+                            <input type="range" min="0" max="100" value="${item.val}" style="width: 100%; margin-top: 5px;" oninput="state.${type}.find(x=>x.id===${item.id}).val=this.value; this.previousElementSibling.innerText='Proficiency: '+this.value+'%'; render(); autoSave();">
+                        </div>
+                    ` : `
+                        <input type="text" placeholder="${type === 'ref' ? 'Position/Title' : 'Company / Institution'}" value="${item.t2 || ''}" style="margin-top: 5px;" oninput="state.${type}.find(x=>x.id===${item.id}).t2=this.value; render(); autoSave();">
+                        <input type="text" placeholder="Date Range (e.g., 2020-2023)" value="${item.d || ''}" style="margin-top: 5px;" oninput="state.${type}.find(x=>x.id===${item.id}).d=this.value; render(); autoSave();">
+                        <textarea placeholder="Description / Details / Achievements" rows="3" style="margin-top: 5px;" oninput="state.${type}.find(x=>x.id===${item.id}).desc=this.value; render(); autoSave();">${item.desc || ''}</textarea>
+                        ${type === 'exp' ? `<button class="btn-ai" onclick="generateJobDescription(${item.id})" style="margin-top: 8px; background: #10b981; font-size: 11px; padding: 8px;">🤖 AI Generate Description</button>` : ''}
+                    `}
+                `;
+                container.appendChild(div);
+            });
+        });
+    }
+
+    function render() {
+        const root = document.documentElement.style;
+        root.setProperty('--primary', state.accent);
+        root.setProperty('--side-bg', state.side);
+        root.setProperty('--side-text', isDark(state.side) ? '#fff' : '#1e293b');
+        root.setProperty('--font-main', state.font);
+
+        const container = document.getElementById('cv-pages-container');
+        container.innerHTML = '';
+
+        // Check if ATS template
+        const isATS = state.tpl >= 21 && state.tpl <= 23;
+
+        if (isATS) {
+            // ATS template rendering
+            const page = createATSPage();
+            container.appendChild(page);
+        } else {
+            // Regular template rendering
+            const page1 = createPage(1);
+            container.appendChild(page1);
+
+            // Check if we need page 2
+            const hasMoreExp = state.exp.length > 2;
+            const hasMoreEdu = state.edu.length > 2;
+            const hasRefs = state.ref.length > 0;
+
+            if (hasMoreExp || hasMoreEdu || hasRefs) {
+                const page2 = createPage(2);
+                container.appendChild(page2);
+            }
+        }
+    }
+
+    function createATSPage() {
+        const page = document.createElement('div');
+        page.className = 'cv-page';
+
+        const indicator = document.createElement('div');
+        indicator.className = 'page-indicator';
+        indicator.textContent = 'Page 1 (ATS Optimized)';
+        page.appendChild(indicator);
+
+        const content = document.createElement('div');
+        content.className = 'ats-template';
+        content.style.fontFamily = state.font;
+
+        const name = document.getElementById('in-name').value || 'YOUR NAME';
+        const title = document.getElementById('in-title').value || 'JOB TITLE';
+        const email = document.getElementById('in-email').value;
+        const phone = document.getElementById('in-phone').value;
+        const loc = document.getElementById('in-loc').value;
+        const link = document.getElementById('in-link').value;
+
+        let contactInfo = [];
+        if (email) contactInfo.push(email);
+        if (phone) contactInfo.push(phone);
+        if (loc) contactInfo.push(loc);
+        if (link) contactInfo.push(link);
+
+        content.innerHTML = `
+            <div class="name">${name}</div>
+            <div class="title">${title}</div>
+            <div class="contact-info">${contactInfo.join(' | ')}</div>
+
+            ${document.getElementById('in-sum').value && state.sectionVisibility.summary !== false ? `
+                <div class="section-h">PROFESSIONAL SUMMARY</div>
+                <div class="profile-summary">${document.getElementById('in-sum').value.split('\n\n').map(p => `<p>${p.trim()}</p>`).join('')}</div>
+            ` : ''}
+
+            ${state.exp.length > 0 && state.sectionVisibility.exp !== false ? `
+                <div class="section-h">PROFESSIONAL EXPERIENCE</div>
+                <div>${getExperienceHTML(0, 10)}</div>
+            ` : ''}
+
+            ${state.edu.length > 0 && state.sectionVisibility.edu !== false ? `
+                <div class="section-h">EDUCATION</div>
+                <div>${getEducationHTML(0, 10)}</div>
+            ` : ''}
+
+            ${state.skill.length > 0 && state.sectionVisibility.skill !== false ? `
+                <div class="section-h">SKILLS</div>
+                <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+                    ${state.skill.map(s => `<span style="background: #f1f5f9; padding: 6px 12px; border-radius: 6px; font-size: 9pt;">${s.t1}</span>`).join('')}
+                </div>
+            ` : ''}
+
+            ${state.lang.length > 0 && state.sectionVisibility.lang !== false ? `
+                <div class="section-h">LANGUAGES</div>
+                <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+                    ${state.lang.map(l => `<span style="background: #f1f5f9; padding: 6px 12px; border-radius: 6px; font-size: 9pt;">${l.t1}</span>`).join('')}
+                </div>
+            ` : ''}
+
+            ${state.ref.length > 0 && state.sectionVisibility.ref !== false ? `
+                <div class="section-h">REFERENCES</div>
+                <div>${getReferencesHTML()}</div>
+            ` : ''}
+        `;
+
+        page.appendChild(content);
+        return page;
+    }
+
+    function createPage(pageNum) {
+        const page = document.createElement('div');
+        page.className = 'cv-page';
+
+        const indicator = document.createElement('div');
+        indicator.className = 'page-indicator';
+        indicator.textContent = `Page ${pageNum}`;
+        page.appendChild(indicator);
+
+        const grid = document.createElement('div');
+        grid.className = `cv-grid tpl-${state.tpl}`;
+        grid.style.fontFamily = state.font;
+
+        if (pageNum === 1) {
+            grid.innerHTML = `
+                <div class="side">
+                    ${state.showPhoto && state.photoData ? `<img src="${state.photoData}" alt="Profile" style="width: 110px; height: 110px; border-radius: ${state.photoShape === 'circle' ? '50%' : state.photoShape === 'square' ? '0' : '12px'}; object-fit: cover; border: 3px solid var(--primary); margin-bottom: 18px; display: block;">` : ''}
+                    <div class="name">${document.getElementById('in-name').value || "YOUR NAME"}</div>
+                    <div class="title">${document.getElementById('in-title').value || "JOB TITLE"}</div>
+
+                    <div class="section-h" style="color:inherit; border-color:rgba(255,255,255,0.15); font-size: 10pt; margin-top: 20px;"><i class="fas fa-address-card"></i> Contact</div>
+                    <div style="margin-top: 10px;">${getContactHTML()}</div>
+
+                    ${state.skill.length > 0 && state.sectionVisibility.skill !== false ? `
+                        <div class="section-h" style="color:inherit; border-color:rgba(255,255,255,0.15); font-size: 10pt; margin-top: 20px;"><i class="fas fa-star"></i> Skills</div>
+                        <div style="margin-top: 10px;">${getSkillsHTML()}</div>
+                    ` : ''}
+
+                    ${state.lang.length > 0 && state.sectionVisibility.lang !== false ? `
+                        <div class="section-h" style="color:inherit; border-color:rgba(255,255,255,0.15); font-size: 10pt; margin-top: 20px;"><i class="fas fa-language"></i> Languages</div>
+                        <div style="margin-top: 10px;">${getLanguagesHTML()}</div>
+                    ` : ''}
+
+                    ${document.getElementById('in-link').value ? `
+                        <div style="margin-top: 25px; padding-top: 15px; border-top: 1px solid rgba(255,255,255,0.15);">
+                            <div style="font-size: 8pt; font-weight: 600; margin-bottom: 5px; opacity: 0.8;">LinkedIn</div>
+                            <div style="font-size: 8pt; opacity: 0.9; word-break: break-all;">${document.getElementById('in-link').value}</div>
+                        </div>
+                    ` : ''}
+                </div>
+
+                <div class="main">
+                    ${generateSectionHTML()}
+                </div>
+            `;
+        } else {
+            // Second page - continuation
+            const hasMoreExp = state.exp.length > 2;
+            const hasMoreEdu = state.edu.length > 2;
+
+            let mainContent = '';
+
+            if (hasMoreExp && state.sectionVisibility.exp !== false) {
+                mainContent += `
+                    <div class="section-h"><i class="fas fa-briefcase"></i> Professional Experience (Continued)</div>
+                    <div>${getExperienceHTML(2, 10)}</div>
+                `;
+            }
+
+            if (hasMoreEdu && state.sectionVisibility.edu !== false) {
+                mainContent += `
+                    <div class="section-h"><i class="fas fa-graduation-cap"></i> Education (Continued)</div>
+                    <div>${getEducationHTML(2, 10)}</div>
+                `;
+            }
+
+            if (state.ref.length > 0 && state.sectionVisibility.ref !== false) {
+                mainContent += `
+                    <div class="section-h"><i class="fas fa-users"></i> References</div>
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:15px;">${getReferencesHTML()}</div>
+                `;
+            }
+
+            grid.innerHTML = `
+                <div class="side">
+                    <div style="font-size:9pt; opacity:0.8; text-align:center; padding-top:15px; font-weight: 600;">
+                        ${document.getElementById('in-name').value || "YOUR NAME"}
+                    </div>
+                    <div style="font-size:8pt; opacity:0.6; text-align:center; margin-top: 5px;">
+                        Continued
+                    </div>
+                </div>
+
+                <div class="main">
+                    ${mainContent}
+                </div>
+            `;
+        }
+
+        page.appendChild(grid);
+        return page;
+    }
+
+    function getContactHTML() {
+        const email = document.getElementById('in-email').value;
+        const phone = document.getElementById('in-phone').value;
+        const loc = document.getElementById('in-loc').value;
+
+        let html = '';
+        if (email) html += `<div class="contact-item"><i class="fas fa-envelope"></i>${email}</div>`;
+        if (phone) html += `<div class="contact-item"><i class="fas fa-phone"></i>${phone}</div>`;
+        if (loc) html += `<div class="contact-item"><i class="fas fa-map-marker-alt"></i>${loc}</div>`;
+
+        return html;
+    }
+
+    function getSkillsHTML() {
+        return state.skill.map(i => `
+            <div style="margin-bottom: 10px;">
+                <div style="font-size:8.5pt; font-weight:700; display:flex; justify-content:space-between; margin-bottom: 4px;">
+                    <span>${i.t1 || 'Skill'}</span>
+                    <span style="opacity: 0.7;">${i.val}%</span>
+                </div>
+                <div class="skill-bar">
+                    <div class="skill-progress" style="width:${i.val}%"></div>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    function getLanguagesHTML() {
+        return state.lang.map(i => {
+            const level = Math.round(i.val / 20);
+            const dots = '●'.repeat(level) + '○'.repeat(5 - level);
+            return `<div style="font-size:8.5pt; margin-bottom:7px; display: flex; justify-content: space-between; align-items: center;">
+                <span style="font-weight: 600;">${i.t1 || 'Language'}</span>
+                <span style="color:var(--primary); letter-spacing: 2px; font-size: 10pt;">${dots}</span>
+            </div>`;
+        }).join('');
+    }
+
+    function getExperienceHTML(start, end) {
+        return state.exp.slice(start, end).map(i => {
+            const descLines = i.desc.split('\n').filter(line => line.trim());
+            const descHTML = descLines.map(line => `<p style="margin: 0 0 6px 0;">${line.trim()}</p>`).join('');
+
+            return `
+            <div class="exp-item">
+                <div class="exp-item-header">
+                    <span style="font-size: 10.5pt;">${i.t1 || 'Position Title'}</span>
+                    <span style="font-size:8pt; opacity:0.6; flex-shrink:0; margin-left:10px; white-space: nowrap;">${i.d || ''}</span>
+                </div>
+                <div class="exp-item-company">${i.t2 || ''}</div>
+                <div class="exp-item-desc">${descHTML}</div>
+            </div>
+        `}).join('');
+    }
+
+    function getEducationHTML(start, end) {
+        return state.edu.slice(start, end).map(i => {
+            const descLines = i.desc.split('\n').filter(line => line.trim());
+            const descHTML = descLines.map(line => `<p style="margin: 0 0 6px 0;">${line.trim()}</p>`).join('');
+
+            return `
+            <div class="edu-item">
+                <div class="edu-item-header">
+                    <span style="font-size: 10.5pt;">${i.t1 || 'Degree'}</span>
+                    <span style="font-size:8pt; opacity:0.6; flex-shrink:0; margin-left:10px; white-space: nowrap;">${i.d || ''}</span>
+                </div>
+                <div class="edu-item-institution">${i.t2 || ''}</div>
+                <div class="edu-item-desc">${descHTML}</div>
+            </div>
+        `}).join('');
+    }
+
+    function getReferencesHTML() {
+        return state.ref.map(i => `
+            <div style="font-size:9pt;">
+                <strong style="display: block; margin-bottom: 3px;">${i.t1 || 'Name'}</strong>
+                <div style="color:var(--primary); font-size:8.5pt; margin-bottom: 2px;">${i.t2 || ''}</div>
+                <div style="font-size:8pt; color:#94a3b8; line-height: 1.4; white-space: pre-line;">${i.desc || ''}</div>
+            </div>
+        `).join('');
+    }
+
+    function isDark(color) {
+        const hex = color.replace('#', '');
+        const r = parseInt(hex.substr(0, 2), 16);
+        const g = parseInt(hex.substr(2, 2), 16);
+        const b = parseInt(hex.substr(4, 2), 16);
+        return ((r * 299) + (g * 587) + (b * 114)) / 1000 < 128;
     }
 
     window.addEventListener('DOMContentLoaded', init);
