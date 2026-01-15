@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ResumeFlow - Professional Resume Builder</title>
+    <title>ResumeFlow - Professional Resume Builder </title>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -17,9 +17,13 @@
     <style>
         :root {
             --primary: #6366f1;
+            --primary-gradient: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            --secondary-gradient: linear-gradient(135deg, #10b981 0%, #059669 100%);
             --side-bg: #1e293b;
             --side-text: #ffffff;
             --font-main: 'Inter';
+            --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --card-radius: 12px;
         }
 
         * {
@@ -76,35 +80,43 @@
         }
 
         .group {
-            background: #f8fafc;
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 20px;
+            background: #ffffff;
+            border-radius: var(--card-radius);
+            padding: 24px;
+            margin-bottom: 24px;
             border: 1px solid #f1f5f9;
+            box-shadow: var(--card-shadow);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .group:hover {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
         }
 
         @media (max-width: 768px) {
             .group {
-                padding: 15px;
-                margin-bottom: 15px;
+                padding: 16px;
+                margin-bottom: 16px;
             }
         }
 
         h3 {
-            font-size: 16px;
-            color: var(--primary);
+            font-size: 13px;
+            color: #6366f1;
             text-transform: uppercase;
-            letter-spacing: 1.5px;
-            margin-bottom: 15px;
+            letter-spacing: 1.2px;
+            margin-bottom: 16px;
             font-weight: 800;
-            border-bottom: 2px solid #eee;
-            padding-bottom: 8px;
+            border-bottom: 2px solid #f1f5f9;
+            padding-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         @media (max-width: 768px) {
             h3 {
-                font-size: 14px;
-                letter-spacing: 1px;
+                font-size: 12px;
                 margin-bottom: 12px;
             }
         }
@@ -164,12 +176,23 @@
         input,
         textarea {
             width: 100%;
-            padding: 12px;
-            border: 2px solid #e2e8f0;
+            padding: 12px 16px;
+            border: 1px solid #cbd5e1;
             border-radius: 8px;
             font-size: 14px;
-            margin-top: 5px;
+            margin-top: 6px;
             font-family: inherit;
+            color: #334155;
+            background: #ffffff;
+            transition: all 0.2s;
+        }
+
+        input:focus,
+        textarea:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+            background: #fff;
         }
 
         @media (max-width: 768px) {
@@ -578,7 +601,7 @@
         }
 
         .section-h {
-            font-size: 10pt;
+            font-size: 14pt;
             font-weight: 800;
             text-transform: uppercase;
             color: var(--primary);
@@ -730,7 +753,69 @@
             cursor: grabbing;
         }
 
-        /* Toast Notifications */
+        .drag-handle:active {
+            cursor: grabbing;
+        }
+
+        /* Collapsible Details */
+        /* Collapsible Details */
+        details.section-group {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            overflow: hidden;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+            transition: box-shadow 0.2s;
+        }
+
+        details.section-group:hover {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        details.section-group summary {
+            padding: 14px 18px;
+            background: #ffffff;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 14px;
+            color: #1e293b;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            list-style: none;
+            user-select: none;
+            transition: background 0.2s;
+        }
+
+        details.section-group summary:hover {
+            background: #f8fafc;
+        }
+
+        details.section-group summary::-webkit-details-marker {
+            display: none;
+        }
+
+        details.section-group summary::after {
+            content: '\f078';
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            color: #94a3b8;
+            font-size: 12px;
+        }
+
+        details.section-group[open] summary::after {
+            transform: rotate(180deg);
+            color: var(--primary);
+        }
+
+        details.section-group .group-content {
+            padding: 20px;
+            border-top: 1px solid #f1f5f9;
+            background: #fcfcfc;
+        }
+
         .toast-container {
             position: fixed;
             top: 20px;
@@ -1468,6 +1553,84 @@
                 padding: 18mm 15mm 25mm 15mm !important;
             }
         }
+
+        /* New Vibrant Buttons */
+        .btn-vibrant-action {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: 0.2s;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-vibrant-action:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            filter: brightness(1.1);
+        }
+
+        .btn-gradient-primary {
+            background: var(--primary-gradient);
+        }
+
+        .btn-gradient-success {
+            background: var(--secondary-gradient);
+        }
+
+        .section-grid-btn {
+            padding: 12px 10px;
+            border-radius: 8px;
+            border: none;
+            color: white;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-grid-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+            filter: brightness(1.1);
+        }
+
+        .btn-blue {
+            background: #3b82f6;
+        }
+
+        .btn-purple {
+            background: #8b5cf6;
+        }
+
+        .btn-green {
+            background: #10b981;
+        }
+
+        .btn-orange {
+            background: #f59e0b;
+        }
+
+        .btn-pink {
+            background: #ec4899;
+        }
+
+        .btn-indigo {
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+        }
     </style>
 </head>
 
@@ -1577,77 +1740,82 @@
                 onchange="handleJSONImport(event)">
         </details>
 
-        <!-- Design Settings - Compact Row -->
-        <div class="group" style="padding: 15px;">
-            <h3 style="font-size: 13px; margin-bottom: 12px;">Design Settings</h3>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-                <div>
-                    <label
-                        style="font-size: 11px; font-weight: 600; color: #64748b; display: block; margin-bottom: 4px;">Template</label>
-                    <select id="tpl-select" class="dropdown-style" onchange="changeTemplate()"
-                        style="padding: 10px; font-size: 12px; margin-top: 0;">
-                        <option value="1">Modern Split</option>
-                        <option value="2">Reverse Split</option>
-                        <option value="3">Classic Full Width</option>
-                        <option value="4">Corporate Header</option>
-                        <option value="5">Minimal Clean</option>
-                        <option value="6">Artistic Padded</option>
-                        <option value="7">Executive Balance</option>
-                        <option value="8">Bordered Formal</option>
-                        <option value="9">Tech Narrow</option>
-                        <option value="10">Two Column</option>
-                        <option value="11">Gradient Flow</option>
-                        <option value="12">Accent Border</option>
-                        <option value="13">Timeline</option>
-                        <option value="14">Infographic</option>
-                        <option value="15">Magazine</option>
-                        <option value="16">Full Bleed</option>
-                        <option value="17">Serif Pro</option>
-                        <option value="18">Bold Frame</option>
-                        <option value="19">Warm Tones</option>
-                        <option value="20">Dynamic</option>
-                        <option value="21">ATS Clean</option>
-                        <option value="22">ATS Minimal</option>
-                        <option value="23">ATS Pro</option>
-                    </select>
+        <!-- Design Settings (Collapsible) -->
+        <div class="group" style="padding: 10px;">
+            <details class="section-group">
+                <summary style="margin: -10px; padding: 15px; background: transparent;">🎨 Design & Appearance</summary>
+                <div style="padding-top: 15px;">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                        <div>
+                            <label
+                                style="font-size: 11px; font-weight: 600; color: #64748b; display: block; margin-bottom: 4px;">Template</label>
+                            <select id="tpl-select" class="dropdown-style" onchange="changeTemplate()"
+                                style="padding: 10px; font-size: 12px; margin-top: 0;">
+                                <option value="1">Modern Split</option>
+                                <option value="2">Reverse Split</option>
+                                <option value="3">Classic Full Width</option>
+                                <option value="4">Corporate Header</option>
+                                <option value="5">Minimal Clean</option>
+                                <option value="6">Artistic Padded</option>
+                                <option value="7">Executive Balance</option>
+                                <option value="8">Bordered Formal</option>
+                                <option value="9">Tech Narrow</option>
+                                <option value="10">Two Column</option>
+                                <option value="11">Gradient Flow</option>
+                                <option value="12">Accent Border</option>
+                                <option value="13">Timeline</option>
+                                <option value="14">Infographic</option>
+                                <option value="15">Magazine</option>
+                                <option value="16">Full Bleed</option>
+                                <option value="17">Serif Pro</option>
+                                <option value="18">Bold Frame</option>
+                                <option value="19">Warm Tones</option>
+                                <option value="20">Dynamic</option>
+                                <option value="21">ATS Clean</option>
+                                <option value="22">ATS Minimal</option>
+                                <option value="23">ATS Pro</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label
+                                style="font-size: 11px; font-weight: 600; color: #64748b; display: block; margin-bottom: 4px;">Font</label>
+                            <select id="font-select" class="dropdown-style" onchange="changeFont()"
+                                style="padding: 10px; font-size: 12px; margin-top: 0;">
+                                <option value="Inter">Inter</option>
+                                <option value="Poppins">Poppins</option>
+                                <option value="Montserrat">Montserrat</option>
+                                <option value="Playfair Display">Playfair Display</option>
+                                <option value="Lato">Lato</option>
+                                <option value="Open Sans">Open Sans</option>
+                                <option value="Raleway">Raleway</option>
+                                <option value="Source Sans Pro">Source Sans Pro</option>
+                                <option value="Merriweather">Merriweather</option>
+                                <option value="Roboto">Roboto</option>
+                                <option value="Nunito">Nunito</option>
+                                <option value="Ubuntu">Ubuntu</option>
+                                <option value="Work Sans">Work Sans</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div style="margin-top: 12px;">
+                        <label
+                            style="font-size: 11px; font-weight: 600; color: #64748b; display: block; margin-bottom: 6px;">Accent
+                            Color</label>
+                        <div class="swatch-grid" id="accent-colors" style="grid-template-columns: repeat(10, 1fr);">
+                        </div>
+                    </div>
+                    <div style="margin-top: 10px;">
+                        <label
+                            style="font-size: 11px; font-weight: 600; color: #64748b; display: block; margin-bottom: 6px;">Sidebar</label>
+                        <div class="swatch-grid" id="side-colors" style="grid-template-columns: repeat(10, 1fr);"></div>
+                    </div>
                 </div>
-                <div>
-                    <label
-                        style="font-size: 11px; font-weight: 600; color: #64748b; display: block; margin-bottom: 4px;">Font</label>
-                    <select id="font-select" class="dropdown-style" onchange="changeFont()"
-                        style="padding: 10px; font-size: 12px; margin-top: 0;">
-                        <option value="Inter">Inter</option>
-                        <option value="Poppins">Poppins</option>
-                        <option value="Montserrat">Montserrat</option>
-                        <option value="Playfair Display">Playfair Display</option>
-                        <option value="Lato">Lato</option>
-                        <option value="Open Sans">Open Sans</option>
-                        <option value="Raleway">Raleway</option>
-                        <option value="Source Sans Pro">Source Sans Pro</option>
-                        <option value="Merriweather">Merriweather</option>
-                        <option value="Roboto">Roboto</option>
-                        <option value="Nunito">Nunito</option>
-                        <option value="Ubuntu">Ubuntu</option>
-                        <option value="Work Sans">Work Sans</option>
-                    </select>
-                </div>
-            </div>
-            <div style="margin-top: 12px;">
-                <label
-                    style="font-size: 11px; font-weight: 600; color: #64748b; display: block; margin-bottom: 6px;">Accent
-                    Color</label>
-                <div class="swatch-grid" id="accent-colors" style="grid-template-columns: repeat(10, 1fr);"></div>
-            </div>
-            <div style="margin-top: 10px;">
-                <label
-                    style="font-size: 11px; font-weight: 600; color: #64748b; display: block; margin-bottom: 6px;">Sidebar</label>
-                <div class="swatch-grid" id="side-colors" style="grid-template-columns: repeat(10, 1fr);"></div>
-            </div>
+            </details>
         </div>
 
         <!-- Personal Information -->
-        <div class="group" style="padding: 15px;">
-            <h3 style="font-size: 13px; margin-bottom: 12px;">Personal Information</h3>
+        <div class="group">
+            <h3>Personal Information</h3>
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
                 <input type="text" id="in-name" placeholder="Full Name" style="padding: 10px; font-size: 13px;"
                     oninput="render(); autoSave(); updateProgress();">
@@ -1689,47 +1857,45 @@
         </div>
 
         <!-- Professional Summary -->
-        <div class="group" style="padding: 15px;">
-            <h3 style="font-size: 13px; margin-bottom: 12px;">Professional Summary</h3>
+        <div class="group">
+            <h3>Professional Summary</h3>
             <textarea id="in-sum" rows="3" style="padding: 10px; font-size: 13px; resize: vertical;"
                 oninput="render(); autoSave(); updateProgress(); updateCharCounter();"
                 placeholder="Write a brief professional summary..."></textarea>
             <div class="char-counter" id="char-counter" style="font-size: 10px; margin-top: 4px;">0 / 500 characters
             </div>
-            <div style="display: flex; gap: 6px; margin-top: 8px;">
-                <button onclick="enhanceSummary()"
-                    style="flex: 1; padding: 8px; font-size: 11px; background: #8b5cf6; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 500;">
-                    ✨ Enhance
+            <div style="display: flex; gap: 10px; margin-top: 12px;">
+                <button onclick="enhanceSummary()" class="btn-vibrant-action btn-gradient-primary">
+                    <i class="fas fa-magic"></i> Enhance
                 </button>
-                <button onclick="generateSummary()"
-                    style="flex: 1; padding: 8px; font-size: 11px; background: #10b981; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 500;">
-                    🤖 Generate
+                <button onclick="generateSummary()" class="btn-vibrant-action btn-gradient-success">
+                    <i class="fas fa-robot"></i> Generate
                 </button>
             </div>
         </div>
 
         <!-- Content Sections -->
         <div class="group" style="padding: 15px;">
-            <h3 style="font-size: 13px; margin-bottom: 12px;">Content Sections</h3>
-            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-bottom: 12px;">
-                <button onclick="addItem('exp')"
-                    style="padding: 8px 4px; font-size: 11px; background: #3b82f6; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 500;">+
-                    Work</button>
-                <button onclick="addItem('edu')"
-                    style="padding: 8px 4px; font-size: 11px; background: #8b5cf6; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 500;">+
-                    Education</button>
-                <button onclick="addItem('skill')"
-                    style="padding: 8px 4px; font-size: 11px; background: #10b981; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 500;">+
-                    Skills</button>
-                <button onclick="addItem('lang')"
-                    style="padding: 8px 4px; font-size: 11px; background: #f59e0b; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 500;">+
-                    Language</button>
-                <button onclick="addItem('ref')"
-                    style="padding: 8px 4px; font-size: 11px; background: #ec4899; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 500;">+
-                    Reference</button>
-                <button onclick="addCustomSection()"
-                    style="padding: 8px 4px; font-size: 11px; background: linear-gradient(135deg, #6366f1, #8b5cf6); color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 500;">+
-                    Custom</button>
+            <h3>Content Sections</h3>
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 20px;">
+                <button onclick="addItem('exp')" class="section-grid-btn btn-blue">
+                    <i class="fas fa-briefcase"></i> + Work
+                </button>
+                <button onclick="addItem('edu')" class="section-grid-btn btn-purple">
+                    <i class="fas fa-graduation-cap"></i> + Education
+                </button>
+                <button onclick="addItem('skill')" class="section-grid-btn btn-green">
+                    <i class="fas fa-star"></i> + Skills
+                </button>
+                <button onclick="addItem('lang')" class="section-grid-btn btn-orange">
+                    <i class="fas fa-language"></i> + Language
+                </button>
+                <button onclick="addItem('ref')" class="section-grid-btn btn-pink">
+                    <i class="fas fa-users"></i> + Reference
+                </button>
+                <button onclick="addCustomSection()" class="section-grid-btn btn-indigo">
+                    <i class="fas fa-plus-circle"></i> + Custom
+                </button>
             </div>
 
             <details style="margin-bottom: 12px;">
@@ -1843,6 +2009,7 @@
         const colors = ["#6366f1", "#f43f5e", "#10b981", "#f59e0b", "#0ea5e9", "#d946ef", "#000000", "#475569", "#1e3a8a", "#166534", "#b91c1c", "#4338ca", "#a21caf", "#0891b2", "#15803d", "#be185d", "#c2410c", "#4d7c0f", "#0369a1", "#6d28d9", "#ea580c", "#dc2626", "#65a30d", "#0d9488", "#7c3aed", "#db2777", "#e11d48", "#059669", "#2563eb", "#7e22ce", "#b45309", "#0284c7"];
         const sideColors = ["#1e293b", "#0f172a", "#2d3436", "#ffffff", "#f8fafc", "#16a085", "#2c3e50", "#27ae60", "#2980b9", "#8e44ad", "#e67e22", "#c0392b", "#1a1a2e", "#16213e", "#0f3460", "#533483", "#2d4059", "#ea5455", "#f07b3f", "#ffd460"];
 
+
         let state = {
             exp: [
                 { id: 1, t1: 'Senior Product Manager', t2: 'TechCorp Solutions', d: '2021 - Present', desc: 'Led cross-functional teams of 15+ members to deliver innovative SaaS products serving 100K+ users.\n\nIncreased customer retention by 45% through data-driven feature optimization and user research.\n\nManaged $2M annual product budget and coordinated stakeholders across 3 continents.\n\nSpearheaded adoption of agile methodologies, reducing time-to-market by 35%.' },
@@ -1893,124 +2060,8 @@
         let draggedElement = null;
 
         // === SECTION ORDERING AND VISIBILITY - FIXED ===
-        function updateSectionOrder() {
-            const container = document.getElementById('section-order-list');
-            if (!container) return;
+        // Consistently using the drag handlers defined at the bottom of the file.
 
-            container.innerHTML = '';
-
-            const sections = [
-                { id: 'summary', icon: 'fa-user', label: 'Profile Summary' },
-                { id: 'exp', icon: 'fa-briefcase', label: 'Experience' },
-                { id: 'edu', icon: 'fa-graduation-cap', label: 'Education' }
-            ];
-
-            // Ensure sectionOrder exists
-            if (!state.sectionOrder || state.sectionOrder.length === 0) {
-                state.sectionOrder = ['summary', 'exp', 'edu'];
-            }
-
-            // Ensure sectionVisibility exists
-            if (!state.sectionVisibility) {
-                state.sectionVisibility = {
-                    summary: true,
-                    exp: true,
-                    edu: true,
-                    skill: true,
-                    lang: true,
-                    ref: true
-                };
-            }
-
-            state.sectionOrder.forEach((sectionId, index) => {
-                const section = sections.find(s => s.id === sectionId);
-                if (!section) return;
-
-                const item = document.createElement('div');
-                item.className = 'section-order-item';
-                item.draggable = true;
-                item.dataset.sectionId = sectionId;
-
-                const visible = state.sectionVisibility[sectionId] !== false;
-
-                item.innerHTML = `
-                <span class="drag-handle"><i class="fas fa-grip-vertical"></i></span>
-                <i class="fas ${section.icon}" style="color: var(--primary);"></i>
-                <span style="font-weight: 600; flex: 1;">${section.label}</span>
-                <button class="section-toggle ${visible ? '' : 'hidden'}" onclick="event.stopPropagation(); toggleSectionVisibility('${sectionId}')" title="${visible ? 'Hide' : 'Show'} section">
-                    <i class="fas fa-eye${visible ? '' : '-slash'}"></i>
-                </button>
-            `;
-
-                // Drag and drop events - FIXED
-                item.addEventListener('dragstart', handleDragStart);
-                item.addEventListener('dragend', handleDragEnd);
-                item.addEventListener('dragover', handleDragOver);
-                item.addEventListener('drop', handleDrop);
-                item.addEventListener('dragenter', handleDragEnter);
-                item.addEventListener('dragleave', handleDragLeave);
-
-                container.appendChild(item);
-            });
-        }
-
-        function handleDragStart(e) {
-            draggedElement = this;
-            this.classList.add('dragging');
-            e.dataTransfer.effectAllowed = 'move';
-            e.dataTransfer.setData('text/html', this.innerHTML);
-        }
-
-        function handleDragEnd(e) {
-            this.classList.remove('dragging');
-            document.querySelectorAll('.section-order-item').forEach(item => {
-                item.classList.remove('drag-over');
-            });
-        }
-
-        function handleDragOver(e) {
-            if (e.preventDefault) {
-                e.preventDefault();
-            }
-            e.dataTransfer.dropEffect = 'move';
-            return false;
-        }
-
-        function handleDragEnter(e) {
-            if (this !== draggedElement) {
-                this.classList.add('drag-over');
-            }
-        }
-
-        function handleDragLeave(e) {
-            this.classList.remove('drag-over');
-        }
-
-        function handleDrop(e) {
-            if (e.stopPropagation) {
-                e.stopPropagation();
-            }
-
-            e.preventDefault();
-
-            if (draggedElement !== this) {
-                const draggedId = draggedElement.dataset.sectionId;
-                const targetId = this.dataset.sectionId;
-
-                const draggedIndex = state.sectionOrder.indexOf(draggedId);
-                const targetIndex = state.sectionOrder.indexOf(targetId);
-
-                // Reorder array
-                state.sectionOrder.splice(draggedIndex, 1);
-                state.sectionOrder.splice(targetIndex, 0, draggedId);
-
-                updateSectionOrder();
-                render();
-                autoSave();
-            }
-
-            return false;
-        }
 
         // FIXED: Toggle section visibility
         function toggleSectionVisibility(sectionId) {
@@ -2905,74 +2956,78 @@ I look forward to the opportunity to discuss my qualifications in greater detail
             autoSave();
         }
 
-        function updateEditor() {
-            const container = document.getElementById('dynamic-editors');
-            container.innerHTML = '';
+        // updateEditor() is handled by the enhanced version at the bottom.
 
-            ['exp', 'edu', 'skill', 'lang', 'ref'].forEach(type => {
-                state[type].forEach(item => {
-                    const div = document.createElement('div');
-                    div.className = 'item-editor';
 
-                    const typeLabel = {
-                        exp: '💼 Experience',
-                        edu: '🎓 Education',
-                        skill: '⭐ Skill',
-                        lang: '🌍 Language',
-                        ref: '👥 Reference'
-                    };
+        async function render() {
+            if (!document.getElementById('in-name')) return;
 
-                    div.innerHTML = `
-                    <button class="delete-btn" onclick="deleteItem('${type}', ${item.id})">×</button>
-                    <div class="item-type">${typeLabel[type]}</div>
-                    <input type="text" placeholder="${type === 'skill' || type === 'lang' ? 'Name' : 'Title'}" value="${item.t1 || ''}" oninput="state.${type}.find(x=>x.id===${item.id}).t1=this.value; render(); autoSave();">
-                    ${(type === 'skill' || type === 'lang') ? `
-                        <div style="margin-top: 10px;">
-                            <label style="font-size: 11px; color: #64748b; font-weight: 600;">Proficiency: ${item.val}%</label>
-                            <input type="range" min="0" max="100" value="${item.val}" style="width: 100%; margin-top: 5px;" oninput="state.${type}.find(x=>x.id===${item.id}).val=this.value; this.previousElementSibling.innerText='Proficiency: '+this.value+'%'; render(); autoSave();">
-                        </div>
-                    ` : `
-                        <input type="text" placeholder="${type === 'ref' ? 'Position/Title' : 'Company / Institution'}" value="${item.t2 || ''}" style="margin-top: 5px;" oninput="state.${type}.find(x=>x.id===${item.id}).t2=this.value; render(); autoSave();">
-                        <input type="text" placeholder="Date Range (e.g., 2020-2023)" value="${item.d || ''}" style="margin-top: 5px;" oninput="state.${type}.find(x=>x.id===${item.id}).d=this.value; render(); autoSave();">
-                        <textarea placeholder="Description / Details / Achievements" rows="3" style="margin-top: 5px;" oninput="state.${type}.find(x=>x.id===${item.id}).desc=this.value; render(); autoSave();">${item.desc || ''}</textarea>
-                        ${type === 'exp' ? `<button class="btn-ai" onclick="generateJobDescription(${item.id})" style="margin-top: 8px; background: #10b981; font-size: 11px; padding: 8px;">🤖 AI Generate Description</button>` : ''}
-                    `}
-                `;
-                    container.appendChild(div);
-                });
-            });
-        }
+            // Set CSS Vars
+            const r = document.querySelector(':root');
+            const accent = state.accent || '#6366f1';
+            const side = state.side || '#1e293b';
 
-        function render() {
-            const root = document.documentElement.style;
-            root.setProperty('--primary', state.accent);
-            root.setProperty('--side-bg', state.side);
-            root.setProperty('--side-text', isDark(state.side) ? '#fff' : '#1e293b');
-            root.setProperty('--font-main', state.font);
+            r.style.setProperty('--primary', accent);
+            r.style.setProperty('--side-bg', side);
+            r.style.setProperty('--side-text', isDark(side) ? '#ffffff' : '#1e293b');
+            r.style.setProperty('--font-main', state.font || 'Inter');
 
             const container = document.getElementById('cv-pages-container');
+            if (!container) return;
             container.innerHTML = '';
 
-            // Check if ATS template
-            const isATS = state.tpl >= 21 && state.tpl <= 23;
+            const isATS = state.tpl >= 21;
 
             if (isATS) {
-                // ATS template rendering (multi-page)
                 const pages = createATSPages();
                 pages.forEach(p => container.appendChild(p));
-            } else {
-                // Regular template rendering
-                const page1 = createPage(1);
-                container.appendChild(page1);
+                return;
+            }
 
-                // Check if we need page 2
-                const hasMoreExp = state.exp.length > 2;
-                const hasMoreEdu = state.edu.length > 2;
-                const hasRefs = state.ref.length > 0;
+            // Standard Template Pagination Logic
+            const page1 = createPage(1);
+            container.appendChild(page1);
 
-                if (hasMoreExp || hasMoreEdu || hasRefs) {
-                    const page2 = createPage(2);
-                    container.appendChild(page2);
+            // 2. Check for overflow and distribute to Page 2+
+            const main1 = page1.querySelector('.main');
+            if (main1) {
+                // A4 Height ~1123px. We use 1080 as safe limit.
+                const MAX_HEIGHT = 1080;
+
+                // Allow browser to calculate layout
+                await new Promise(r => setTimeout(r, 0));
+
+                const children = Array.from(main1.children);
+                const moveableSections = children.filter(c => c.classList.contains('resume-section'));
+                const page1Rect = page1.getBoundingClientRect();
+
+                let page2 = null;
+                let main2 = null;
+
+                for (let i = moveableSections.length - 1; i >= 0; i--) {
+                    const section = moveableSections[i];
+                    const rect = section.getBoundingClientRect();
+
+                    // Check absolute position relative to page top
+                    // If bottom of section is below 1080px from page top, move it.
+                    if ((rect.bottom - page1Rect.top) <= MAX_HEIGHT) {
+                        break;
+                    }
+
+                    // Create Page 2 if needed
+                    if (!page2) {
+                        page2 = createPage(2);
+                        main2 = page2.querySelector('.main');
+                        main2.innerHTML = ''; // Clear auto-generated content
+                        container.appendChild(page2);
+                    }
+
+                    // Move to Page 2
+                    if (main2.firstChild) {
+                        main2.insertBefore(section, main2.firstChild);
+                    } else {
+                        main2.appendChild(section);
+                    }
                 }
             }
         }
@@ -3185,13 +3240,10 @@ I look forward to the opportunity to discuss my qualifications in greater detail
                     <div style="font-size:9pt; opacity:0.8; text-align:center; padding-top:15px; font-weight: 600;">
                         ${document.getElementById('in-name').value || "YOUR NAME"}
                     </div>
-                    <div style="font-size:8pt; opacity:0.6; text-align:center; margin-top: 5px;">
-                        Continued
-                    </div>
                 </div>
 
                 <div class="main">
-                    ${mainContent}
+                    <!-- Dynamic content will be moved here -->
                 </div>
             `;
             }
@@ -3682,151 +3734,39 @@ I look forward to the opportunity to discuss my qualifications in greater detail
         }
 
         // === ENHANCED DRAG AND DROP ===
-        function updateSectionOrder() {
-            const container = document.getElementById('section-order-list');
-            if (!container) return;
+        // Consolidating editor logic
+        function updateEditor() {
 
-            container.innerHTML = '';
-
-            const sections = [
-                { id: 'summary', icon: 'fa-user', label: 'Profile Summary' },
-                { id: 'exp', icon: 'fa-briefcase', label: 'Experience' },
-                { id: 'edu', icon: 'fa-graduation-cap', label: 'Education' }
-            ];
-
-            // Ensure sectionOrder exists
-            if (!state.sectionOrder || state.sectionOrder.length === 0) {
-                state.sectionOrder = ['summary', 'exp', 'edu'];
-            }
-
-            // Ensure sectionVisibility exists
-            if (!state.sectionVisibility) {
-                state.sectionVisibility = {
-                    summary: true,
-                    exp: true,
-                    edu: true,
-                    skill: true,
-                    lang: true,
-                    ref: true
-                };
-            }
-
-            state.sectionOrder.forEach((sectionId, index) => {
-                const section = sections.find(s => s.id === sectionId);
-                if (!section) return;
-
-                const item = document.createElement('div');
-                item.className = 'section-order-item';
-                item.draggable = true;
-                item.dataset.sectionId = sectionId;
-                item.dataset.index = index;
-
-                const visible = state.sectionVisibility[sectionId] !== false;
-
-                item.innerHTML = `
-                    <span class="drag-handle"><i class="fas fa-grip-vertical"></i></span>
-                    <i class="fas ${section.icon}" style="color: var(--primary);"></i>
-                    <span style="font-weight: 600; flex: 1;">${section.label}</span>
-                    <button class="section-toggle ${visible ? '' : 'hidden'}" onclick="event.stopPropagation(); toggleSectionVisibility('${sectionId}')" title="${visible ? 'Hide' : 'Show'} section">
-                        <i class="fas fa-eye${visible ? '' : '-slash'}"></i>
-                    </button>
-                `;
-
-                // Improved drag and drop with better event handling
-                item.addEventListener('dragstart', function (e) {
-                    draggedElement = this;
-                    this.classList.add('dragging');
-                    e.dataTransfer.effectAllowed = 'move';
-                    e.dataTransfer.setData('text/plain', sectionId);
-
-                    // Create custom drag image
-                    const ghost = document.createElement('div');
-                    ghost.className = 'drag-ghost';
-                    ghost.textContent = section.label;
-                    ghost.style.position = 'absolute';
-                    ghost.style.top = '-1000px';
-                    document.body.appendChild(ghost);
-                    e.dataTransfer.setDragImage(ghost, 0, 0);
-
-                    setTimeout(() => ghost.remove(), 0);
-                });
-
-                item.addEventListener('dragend', function () {
-                    this.classList.remove('dragging');
-                    document.querySelectorAll('.section-order-item').forEach(el => {
-                        el.classList.remove('drag-over');
-                    });
-                    draggedElement = null;
-                });
-
-                item.addEventListener('dragover', function (e) {
-                    e.preventDefault();
-                    e.dataTransfer.dropEffect = 'move';
-                });
-
-                item.addEventListener('dragenter', function (e) {
-                    e.preventDefault();
-                    if (this !== draggedElement) {
-                        this.classList.add('drag-over');
-                    }
-                });
-
-                item.addEventListener('dragleave', function () {
-                    this.classList.remove('drag-over');
-                });
-
-                item.addEventListener('drop', function (e) {
-                    e.preventDefault();
-                    e.stopPropagation();
-
-                    this.classList.remove('drag-over');
-
-                    if (draggedElement && draggedElement !== this) {
-                        const draggedId = draggedElement.dataset.sectionId;
-                        const targetId = this.dataset.sectionId;
-
-                        const draggedIndex = state.sectionOrder.indexOf(draggedId);
-                        const targetIndex = state.sectionOrder.indexOf(targetId);
-
-                        if (draggedIndex !== -1 && targetIndex !== -1) {
-                            saveStateForUndo();
-
-                            // Remove from old position and insert at new position
-                            state.sectionOrder.splice(draggedIndex, 1);
-                            state.sectionOrder.splice(targetIndex, 0, draggedId);
-
-                            updateSectionOrder();
-                            render();
-                            autoSave();
-                            showToast('Section order updated', 'success');
-                        }
-                    }
-                });
-
-                container.appendChild(item);
-            });
-        }
-
-        // Enhanced updateEditor with duplicate and move buttons
-        const originalUpdateEditor = updateEditor;
-        updateEditor = function () {
             const container = document.getElementById('dynamic-editors');
             container.innerHTML = '';
 
             ['exp', 'edu', 'skill', 'lang', 'ref'].forEach(type => {
+                if (state[type].length === 0) return;
+
+                const details = document.createElement('details');
+                details.className = 'section-group';
+                details.open = true;
+
+                const typeLabel = {
+                    exp: '💼 Experience',
+                    edu: '🎓 Education',
+                    skill: '⭐ Skill',
+                    lang: '🌍 Language',
+                    ref: '👥 Reference'
+                };
+
+                const summary = document.createElement('summary');
+                summary.innerHTML = `${typeLabel[type]}`;
+                details.appendChild(summary);
+
+                const contentDiv = document.createElement('div');
+                contentDiv.className = 'group-content';
+
                 state[type].forEach((item, index) => {
                     const div = document.createElement('div');
                     div.className = 'item-editor';
 
-                    const typeLabel = {
-                        exp: '💼 Experience',
-                        edu: '🎓 Education',
-                        skill: '⭐ Skill',
-                        lang: '🌍 Language',
-                        ref: '👥 Reference'
-                    };
-
-                    const itemActions = `
+                    let itemActions = `
                         <div class="item-actions">
                             <button class="action-btn duplicate" onclick="duplicateItem('${type}', ${item.id})" title="Duplicate">
                                 <i class="fas fa-copy"></i>
@@ -3857,11 +3797,13 @@ I look forward to the opportunity to discuss my qualifications in greater detail
                             ${type === 'exp' ? `<button class="btn-ai" onclick="generateJobDescription(${item.id})" style="margin-top: 8px; background: #10b981; font-size: 11px; padding: 8px;">🤖 AI Generate Description</button>` : ''}
                         `}
                     `;
-                    container.appendChild(div);
+                    contentDiv.appendChild(div);
                 });
+                details.appendChild(contentDiv);
+                container.appendChild(details);
             });
 
-            // === CUSTOM SECTIONS ===
+            // === CUSTOM SECTIONS (Collapsible) ===
             if (state.custom && state.custom.length > 0) {
                 const groupedCustom = {};
                 state.custom.forEach(item => {
@@ -3871,23 +3813,30 @@ I look forward to the opportunity to discuss my qualifications in greater detail
                 });
 
                 Object.keys(groupedCustom).forEach(sectionName => {
-                    const sectionHeader = document.createElement('div');
-                    sectionHeader.className = 'custom-section-header';
-                    sectionHeader.style.cssText = 'background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%); color: white; padding: 10px 12px; border-radius: 8px; margin: 15px 0 8px 0; display: flex; align-items: center; justify-content: space-between;';
-                    sectionHeader.innerHTML = `
-                        <div style="display: flex; align-items: center; gap: 8px;">
-                            <i class="fas fa-star"></i>
+                    const details = document.createElement('details');
+                    details.className = 'section-group';
+                    details.open = true;
+
+                    const summary = document.createElement('summary');
+                    // Header inside summary
+                    summary.innerHTML = `
+                        <div style="display: flex; align-items: center; gap: 8px; width: 100%;">
+                            <i class="fas fa-star" style="color:var(--primary)"></i>
                             <input type="text" value="${sectionName}" 
-                                style="background: transparent; border: none; color: white; font-weight: 600; font-size: 13px; width: auto; min-width: 100px; padding: 0;"
+                                style="background: transparent; border: none; font-weight: 700; font-size: 13px; width: auto; color: #334155;"
                                 onchange="renameCustomSection('${sectionName}', this.value)"
-                                onclick="event.stopPropagation()"
+                                onclick="event.stopPropagation(); event.preventDefault();"
                                 placeholder="Section Name">
+                            <button onclick="event.preventDefault(); deleteCustomSection('${sectionName}')" 
+                                style="margin-left:auto; background: #fee2e2; color: #ef4444; border:none; padding: 4px 8px; border-radius: 4px; font-size: 10px;">
+                                <i class="fas fa-trash"></i>
+                            </button>
                         </div>
-                        <button onclick="deleteCustomSection('${sectionName}')" style="background: rgba(255,255,255,0.2); border: none; color: white; padding: 4px 8px; border-radius: 4px; cursor: pointer; font-size: 10px;">
-                            <i class="fas fa-trash"></i> Delete Section
-                        </button>
                     `;
-                    container.appendChild(sectionHeader);
+                    details.appendChild(summary);
+
+                    const contentDiv = document.createElement('div');
+                    contentDiv.className = 'group-content';
 
                     groupedCustom[sectionName].forEach((item, index) => {
                         const div = document.createElement('div');
@@ -3917,16 +3866,17 @@ I look forward to the opportunity to discuss my qualifications in greater detail
                             <input type="text" placeholder="Date Range" value="${item.d || ''}" style="margin-top: 5px;" oninput="state.custom.find(x=>x.id===${item.id}).d=this.value; render(); autoSave();">
                             <textarea placeholder="Description / Details" rows="3" style="margin-top: 5px;" oninput="state.custom.find(x=>x.id===${item.id}).desc=this.value; render(); autoSave();">${item.desc || ''}</textarea>
                         `;
-                        container.appendChild(div);
+                        contentDiv.appendChild(div);
                     });
 
                     const addBtn = document.createElement('button');
                     addBtn.style.cssText = 'width: 100%; padding: 8px; margin-bottom: 10px; background: #f1f5f9; border: 2px dashed #cbd5e1; border-radius: 6px; color: #64748b; cursor: pointer; font-size: 12px; font-weight: 500; transition: 0.2s;';
                     addBtn.innerHTML = `<i class="fas fa-plus"></i> Add item to "${sectionName}"`;
-                    addBtn.onmouseover = function () { this.style.background = '#e2e8f0'; };
-                    addBtn.onmouseout = function () { this.style.background = '#f1f5f9'; };
                     addBtn.onclick = function () { addCustomItem(sectionName); };
-                    container.appendChild(addBtn);
+                    contentDiv.appendChild(addBtn);
+
+                    details.appendChild(contentDiv);
+                    container.appendChild(details);
                 });
             }
         };
@@ -4048,6 +3998,9 @@ I look forward to the opportunity to discuss my qualifications in greater detail
             state.sectionOrder.forEach(sectionId => {
                 if (state.sectionVisibility && state.sectionVisibility[sectionId] === false) return;
 
+                // WRAPPER FOR PAGINATION
+                html += `<div class="resume-section" data-id="${sectionId}">`;
+
                 if (sectionId === 'summary') {
                     const summaryText = document.getElementById('in-sum').value;
                     if (summaryText) {
@@ -4056,19 +4009,21 @@ I look forward to the opportunity to discuss my qualifications in greater detail
                     }
                 } else if (sectionId === 'exp' && state.exp.length > 0) {
                     html += `<div class="section-h"><i class="fas fa-briefcase"></i> Professional Experience</div>
-                             <div>${getExperienceHTML(0, 2)}</div>`;
+                             <div>${getExperienceHTML(0, 100)}</div>`;
                 } else if (sectionId === 'edu' && state.edu.length > 0) {
                     html += `<div class="section-h"><i class="fas fa-graduation-cap"></i> Education</div>
-                             <div>${getEducationHTML(0, 2)}</div>`;
+                             <div>${getEducationHTML(0, 100)}</div>`;
                 } else if (sectionId === 'ref' && state.ref.length > 0) {
                     html += `<div class="section-h"><i class="fas fa-users"></i> References</div>
                              <div>${state.ref.map(r => `
                                 <div class="item">
                                     <div class="item-header">
-                                        <span class="item-title">${r.t1}</span>
-                                        ${r.t2 ? `<span class="item-org"> • ${r.t2}</span>` : ''}
+                                        <div style="display:flex; justify-content:space-between; width:100%;">
+                                            <span class="item-title">${r.t1}</span>
+                                        </div>
                                     </div>
-                                    <div class="item-desc">${r.desc.replace(/\n/g, '<br>')}</div>
+                                    ${r.t2 ? `<div class="item-org">${r.t2}</div>` : ''}
+                                    ${r.desc ? `<div class="item-desc">${r.desc.replace(/\n/g, '<br>')}</div>` : ''}
                                 </div>
                              `).join('')}</div>`;
                 } else if (sectionId.startsWith('custom:')) {
@@ -4090,6 +4045,8 @@ I look forward to the opportunity to discuss my qualifications in greater detail
                                  `).join('')}</div>`;
                     }
                 }
+
+                html += `</div>`; // Close wrapper
             });
             return html;
         }
@@ -4121,9 +4078,11 @@ I look forward to the opportunity to discuss my qualifications in greater detail
                 item.draggable = true;
                 item.dataset.sectionId = id;
                 item.innerHTML = `
-                    <div style="display:flex; align-items:center; gap:8px;">
-                        <i class="fas fa-grip-vertical" style="color:#cbd5e1; cursor:grab;"></i>
-                        <span style="font-size:12px; font-weight:500; color:#334155;"><i class="fas ${icon}" style="margin-right:6px; color:#6366f1;"></i> ${label}</span>
+                    <div style="display:flex; align-items:center; gap:10px; padding: 4px 0;">
+                        <i class="fas fa-grip-vertical" style="color:#94a3b8; cursor:grab; opacity:0.6;"></i>
+                        <span style="font-size:13px; font-weight:600; color:#1e293b; display:flex; align-items:center;">
+                            <i class="fas ${icon}" style="margin-right:8px; color:var(--primary);"></i> ${label}
+                        </span>
                     </div>
                 `;
 
