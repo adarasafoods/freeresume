@@ -4,26 +4,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ResumeFlow - Professional Resume Builder </title>
+    <title>ResumeFlow - Free Professional Resume Builder | Create Stunning Resumes</title>
+    <meta name="description" content="Create beautiful, professional resumes for free. 23+ templates, AI-powered content, ATS-optimized formats. Export to PDF, Word, HTML. No signup required.">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
     <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Poppins:wght@400;700;800&family=Montserrat:wght@400;700;800&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Roboto:wght@400;700;900&family=Lato:wght@300;400;700;900&family=Open+Sans:wght@400;600;800&family=Raleway:wght@400;700;900&family=Source+Sans+Pro:wght@400;600;900&family=Merriweather:wght@400;700;900&family=Nunito:wght@400;700;900&family=Ubuntu:wght@400;700&family=Crimson+Text:wght@400;600;700&family=Libre+Baskerville:wght@400;700&family=PT+Sans:wght@400;700&family=Oswald:wght@400;600;700&family=Quicksand:wght@400;600;700&family=Karla:wght@400;700&family=Fira+Sans:wght@400;600;800&family=Bitter:wght@400;700&family=Cabin:wght@400;600;700&family=Arimo:wght@400;700&family=Josefin+Sans:wght@400;600;700&family=Work+Sans:wght@400;600;800&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&family=Montserrat:wght@400;700;800&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Roboto:wght@400;700;900&family=Lato:wght@300;400;700;900&family=Open+Sans:wght@400;600;800&family=Raleway:wght@400;700;900&family=Source+Sans+Pro:wght@400;600;900&family=Merriweather:wght@400;700;900&family=Nunito:wght@400;700;900&family=Ubuntu:wght@400;700&family=Crimson+Text:wght@400;600;700&family=Libre+Baskerville:wght@400;700&family=PT+Sans:wght@400;700&family=Oswald:wght@400;600;700&family=Quicksand:wght@400;600;700&family=Karla:wght@400;700&family=Fira+Sans:wght@400;600;800&family=Bitter:wght@400;700&family=Cabin:wght@400;600;700&family=Arimo:wght@400;700&family=Josefin+Sans:wght@400;600;700&family=Work+Sans:wght@400;600;800&display=swap"
         rel="stylesheet">
 
     <style>
         :root {
             --primary: #6366f1;
+            --primary-light: #818cf8;
+            --primary-dark: #4f46e5;
             --primary-gradient: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
             --secondary-gradient: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            --hero-gradient: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #312e81 100%);
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
             --side-bg: #1e293b;
             --side-text: #ffffff;
             --font-main: 'Inter';
             --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            --card-radius: 12px;
+            --card-radius: 16px;
+            --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         * {
@@ -32,38 +39,952 @@
             print-color-adjust: exact;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             margin: 0;
-            display: flex;
-            height: 100vh;
             background: #0f172a;
             font-family: 'Inter', sans-serif;
-            overflow: hidden;
             color: #333;
+            overflow-x: hidden;
+        }
+
+        body.landing-mode {
+            display: block;
+            height: auto;
+            overflow-y: auto;
+        }
+
+        body.builder-mode {
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
         }
 
         @media (max-width: 768px) {
-            body {
+            body.builder-mode {
                 flex-direction: column;
                 height: auto;
                 overflow-y: auto;
             }
         }
 
+        /* ===== LANDING PAGE STYLES ===== */
+        .landing-page {
+            min-height: 100vh;
+        }
+
+        /* Navigation */
+        .landing-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+            transition: var(--transition-smooth);
+        }
+
+        .landing-nav.scrolled {
+            padding: 15px 40px;
+            background: rgba(15, 23, 42, 0.95);
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .nav-logo-icon {
+            width: 42px;
+            height: 42px;
+            background: var(--primary-gradient);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: white;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+        }
+
+        .nav-logo-text {
+            font-size: 24px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #fff 0%, #c7d2fe 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 35px;
+        }
+
+        .nav-links a {
+            color: #94a3b8;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 15px;
+            transition: var(--transition-smooth);
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: white;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-gradient);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-cta {
+            padding: 12px 28px;
+            background: var(--primary-gradient);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 15px;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.4);
+        }
+
+        /* Hero Section */
+        .hero-section {
+            min-height: 100vh;
+            background: var(--hero-gradient);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 120px 40px 80px;
+            overflow: hidden;
+        }
+
+        .hero-bg-grid {
+            position: absolute;
+            inset: 0;
+            background-image: 
+                linear-gradient(rgba(99, 102, 241, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(99, 102, 241, 0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            mask-image: radial-gradient(ellipse 80% 50% at 50% 0%, #000 70%, transparent 100%);
+        }
+
+        .hero-glow {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, transparent 70%);
+            border-radius: 50%;
+            top: -200px;
+            right: -100px;
+            animation: pulse-glow 8s ease-in-out infinite;
+        }
+
+        .hero-glow-2 {
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(139, 92, 246, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            bottom: -100px;
+            left: -100px;
+            animation: pulse-glow 10s ease-in-out infinite reverse;
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.2); opacity: 0.8; }
+        }
+
+        .hero-content {
+            max-width: 1400px;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-text {
+            max-width: 600px;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 50px;
+            font-size: 13px;
+            color: #c7d2fe;
+            margin-bottom: 25px;
+            backdrop-filter: blur(10px);
+        }
+
+        .hero-badge-dot {
+            width: 8px;
+            height: 8px;
+            background: #10b981;
+            border-radius: 50%;
+            animation: blink 2s ease-in-out infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        .hero-title {
+            font-size: clamp(40px, 5vw, 64px);
+            font-weight: 800;
+            line-height: 1.1;
+            color: white;
+            margin: 0 0 25px;
+        }
+
+        .hero-title-gradient {
+            background: linear-gradient(135deg, #818cf8 0%, #c084fc 50%, #f472b6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-description {
+            font-size: 18px;
+            color: #94a3b8;
+            line-height: 1.7;
+            margin-bottom: 40px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .hero-btn-primary {
+            padding: 18px 36px;
+            background: var(--primary-gradient);
+            color: white;
+            border: none;
+            border-radius: 14px;
+            font-weight: 700;
+            font-size: 16px;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 8px 30px rgba(99, 102, 241, 0.35);
+        }
+
+        .hero-btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 40px rgba(99, 102, 241, 0.5);
+        }
+
+        .hero-btn-secondary {
+            padding: 18px 36px;
+            background: var(--glass-bg);
+            color: white;
+            border: 1px solid var(--glass-border);
+            border-radius: 14px;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            backdrop-filter: blur(10px);
+        }
+
+        .hero-btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 40px;
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 1px solid var(--glass-border);
+        }
+
+        .hero-stat {
+            text-align: left;
+        }
+
+        .hero-stat-number {
+            font-size: 32px;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 5px;
+        }
+
+        .hero-stat-label {
+            font-size: 14px;
+            color: #64748b;
+        }
+
+        /* Hero Preview */
+        .hero-preview {
+            position: relative;
+            perspective: 1000px;
+        }
+
+        .hero-preview-wrapper {
+            position: relative;
+            transform: rotateY(-5deg) rotateX(5deg);
+            transition: transform 0.5s ease;
+        }
+
+        .hero-preview-wrapper:hover {
+            transform: rotateY(0) rotateX(0);
+        }
+
+        .hero-preview-card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 
+                0 50px 100px -20px rgba(0, 0, 0, 0.5),
+                0 30px 60px -30px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .hero-preview-header {
+            padding: 15px 20px;
+            background: #f8fafc;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .preview-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .preview-dot.red { background: #ef4444; }
+        .preview-dot.yellow { background: #f59e0b; }
+        .preview-dot.green { background: #10b981; }
+
+        .hero-preview-content {
+            display: grid;
+            grid-template-columns: 35% 65%;
+            min-height: 400px;
+        }
+
+        .preview-sidebar {
+            background: linear-gradient(180deg, #1e293b 0%, #334155 100%);
+            padding: 30px 20px;
+            color: white;
+        }
+
+        .preview-avatar {
+            width: 80px;
+            height: 80px;
+            background: var(--primary-gradient);
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            font-weight: 800;
+            color: white;
+        }
+
+        .preview-name {
+            font-size: 16px;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 5px;
+        }
+
+        .preview-title {
+            font-size: 11px;
+            color: var(--primary-light);
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+        }
+
+        .preview-section-title {
+            font-size: 10px;
+            color: rgba(255,255,255,0.6);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 15px 0 10px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .preview-skill {
+            margin-bottom: 10px;
+        }
+
+        .preview-skill-name {
+            font-size: 11px;
+            margin-bottom: 4px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .preview-skill-bar {
+            height: 4px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .preview-skill-fill {
+            height: 100%;
+            background: var(--primary-gradient);
+            border-radius: 2px;
+        }
+
+        .preview-main {
+            padding: 30px;
+            background: white;
+        }
+
+        .preview-main-title {
+            font-size: 11px;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #f1f5f9;
+        }
+
+        .preview-exp {
+            margin-bottom: 18px;
+        }
+
+        .preview-exp-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 4px;
+        }
+
+        .preview-exp-role {
+            font-size: 13px;
+            font-weight: 700;
+            color: #1e293b;
+        }
+
+        .preview-exp-date {
+            font-size: 10px;
+            color: #94a3b8;
+        }
+
+        .preview-exp-company {
+            font-size: 11px;
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .preview-exp-desc {
+            font-size: 10px;
+            color: #64748b;
+            line-height: 1.5;
+        }
+
+        .preview-floating-badge {
+            position: absolute;
+            padding: 10px 18px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 13px;
+            font-weight: 600;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .preview-badge-1 {
+            top: -20px;
+            right: -30px;
+            color: #10b981;
+        }
+
+        .preview-badge-2 {
+            bottom: 50px;
+            left: -40px;
+            color: var(--primary);
+            animation-delay: 1s;
+        }
+
+        .preview-badge-3 {
+            bottom: -20px;
+            right: 50px;
+            color: #f59e0b;
+            animation-delay: 2s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Features Section */
+        .features-section {
+            padding: 120px 40px;
+            background: #0f172a;
+            position: relative;
+        }
+
+        .features-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--glass-border), transparent);
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 80px;
+        }
+
+        .section-label {
+            display: inline-block;
+            padding: 8px 16px;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 50px;
+            font-size: 13px;
+            color: var(--primary-light);
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-size: clamp(32px, 4vw, 48px);
+            font-weight: 800;
+            color: white;
+            margin: 0 0 20px;
+        }
+
+        .section-description {
+            font-size: 18px;
+            color: #64748b;
+            line-height: 1.7;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 35px;
+            transition: var(--transition-smooth);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--primary-gradient);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.15);
+        }
+
+        .feature-card:hover::before {
+            opacity: 1;
+        }
+
+        .feature-icon {
+            width: 56px;
+            height: 56px;
+            background: var(--primary-gradient);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+            margin-bottom: 22px;
+            box-shadow: 0 8px 20px rgba(99, 102, 241, 0.3);
+        }
+
+        .feature-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 12px;
+        }
+
+        .feature-description {
+            font-size: 15px;
+            color: #94a3b8;
+            line-height: 1.6;
+        }
+
+        /* Templates Section */
+        .templates-section {
+            padding: 120px 40px;
+            background: linear-gradient(180deg, #0f172a 0%, #1e1b4b 100%);
+        }
+
+        .templates-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .template-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: var(--transition-smooth);
+            cursor: pointer;
+        }
+
+        .template-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 50px rgba(99, 102, 241, 0.3);
+            border-color: var(--primary);
+        }
+
+        .template-preview {
+            height: 200px;
+            background: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .template-preview-mini {
+            transform: scale(0.25);
+            transform-origin: top left;
+            width: 400%;
+            height: 400%;
+        }
+
+        .template-info {
+            padding: 16px;
+            background: rgba(15, 23, 42, 0.8);
+        }
+
+        .template-name {
+            font-size: 15px;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 4px;
+        }
+
+        .template-tag {
+            font-size: 12px;
+            color: var(--primary-light);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 120px 40px;
+            background: #0f172a;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-glow {
+            position: absolute;
+            width: 800px;
+            height: 400px;
+            background: radial-gradient(ellipse, rgba(99, 102, 241, 0.15) 0%, transparent 70%);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 1;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .cta-title {
+            font-size: clamp(32px, 4vw, 48px);
+            font-weight: 800;
+            color: white;
+            margin-bottom: 20px;
+        }
+
+        .cta-description {
+            font-size: 18px;
+            color: #94a3b8;
+            margin-bottom: 40px;
+        }
+
+        .cta-btn {
+            padding: 20px 50px;
+            background: var(--primary-gradient);
+            color: white;
+            border: none;
+            border-radius: 16px;
+            font-weight: 700;
+            font-size: 18px;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            box-shadow: 0 10px 40px rgba(99, 102, 241, 0.4);
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 50px rgba(99, 102, 241, 0.5);
+        }
+
+        /* Footer */
+        .landing-footer {
+            padding: 60px 40px;
+            background: #0a0f1a;
+            border-top: 1px solid var(--glass-border);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .footer-logo-icon {
+            width: 36px;
+            height: 36px;
+            background: var(--primary-gradient);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            color: white;
+        }
+
+        .footer-logo-text {
+            font-size: 20px;
+            font-weight: 700;
+            color: white;
+        }
+
+        .footer-text {
+            color: #64748b;
+            font-size: 14px;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .footer-links a {
+            color: #94a3b8;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        /* Mobile Menu */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        /* Responsive Landing */
+        @media (max-width: 1200px) {
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .templates-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 992px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            .hero-text {
+                max-width: 100%;
+            }
+            .hero-buttons {
+                justify-content: center;
+            }
+            .hero-stats {
+                justify-content: center;
+            }
+            .hero-preview {
+                display: none;
+            }
+            .templates-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .landing-nav {
+                padding: 15px 20px;
+            }
+            .nav-links {
+                display: none;
+            }
+            .mobile-menu-btn {
+                display: block;
+            }
+            .hero-section {
+                padding: 100px 20px 60px;
+            }
+            .features-section,
+            .templates-section,
+            .cta-section {
+                padding: 80px 20px;
+            }
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            .templates-grid {
+                grid-template-columns: 1fr;
+            }
+            .footer-content {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+            .footer-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+
+        /* ===== BUILDER STYLES (Original) ===== */
+        .builder-container {
+            display: none;
+            width: 100%;
+            height: 100vh;
+        }
+
+        body.builder-mode .builder-container {
+            display: flex;
+        }
+
+        body.builder-mode .landing-page {
+            display: none;
+        }
+
         #editor {
-            width: 480px;
-            background: #ffffff;
+            width: 420px;
+            background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
             overflow-y: auto;
             padding: 25px;
             height: 100vh;
-            border-right: 1px solid #e2e8f0;
-            box-shadow: 10px 0 30px rgba(0, 0, 0, 0.2);
+            border-right: none;
+            box-shadow: 10px 0 40px rgba(0, 0, 0, 0.15);
             z-index: 100;
+            position: relative;
+        }
+
+        #editor::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            width: 1px;
+            background: linear-gradient(180deg, transparent, var(--primary), transparent);
         }
 
         @media (max-width: 1024px) {
             #editor {
-                width: 400px;
+                width: 380px;
             }
         }
 
@@ -73,40 +994,45 @@
                 height: auto;
                 min-height: 100vh;
                 border-right: none;
-                border-bottom: 3px solid #e2e8f0;
+                border-bottom: 3px solid var(--primary);
                 box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-                padding: 20px;
+                padding: 20px 16px;
+            }
+
+            #editor::before {
+                display: none;
             }
         }
 
         .group {
             background: #ffffff;
             border-radius: var(--card-radius);
-            padding: 24px;
-            margin-bottom: 24px;
-            border: 1px solid #f1f5f9;
-            box-shadow: var(--card-shadow);
-            transition: transform 0.2s, box-shadow 0.2s;
+            padding: 20px;
+            margin-bottom: 16px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+            transition: var(--transition-smooth);
         }
 
         .group:hover {
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 8px 20px rgba(99, 102, 241, 0.08);
+            border-color: rgba(99, 102, 241, 0.2);
         }
 
         @media (max-width: 768px) {
             .group {
                 padding: 16px;
-                margin-bottom: 16px;
+                margin-bottom: 12px;
             }
         }
 
         h3 {
-            font-size: 13px;
-            color: #6366f1;
+            font-size: 12px;
+            color: var(--primary);
             text-transform: uppercase;
-            letter-spacing: 1.2px;
+            letter-spacing: 1.5px;
             margin-bottom: 16px;
-            font-weight: 800;
+            font-weight: 700;
             border-bottom: 2px solid #f1f5f9;
             padding-bottom: 10px;
             display: flex;
@@ -114,42 +1040,50 @@
             gap: 8px;
         }
 
+        h3 i {
+            font-size: 14px;
+        }
+
         @media (max-width: 768px) {
             h3 {
-                font-size: 12px;
+                font-size: 11px;
                 margin-bottom: 12px;
             }
         }
 
         select.dropdown-style {
             width: 100%;
-            padding: 14px 15px;
+            padding: 12px 14px;
             border: 2px solid #e2e8f0;
             background: #fff;
-            border-radius: 8px;
-            font-size: 15px;
-            font-weight: 600;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 500;
             cursor: pointer;
-            transition: 0.2s;
-            margin-top: 8px;
+            transition: var(--transition-smooth);
+            margin-top: 6px;
             color: #1e293b;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%2364748b' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10l-5 5z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
         }
 
         select.dropdown-style:hover {
-            border-color: var(--primary);
-            background: #f8fafc;
+            border-color: var(--primary-light);
+            background-color: #fafaff;
         }
 
         select.dropdown-style:focus {
             outline: none;
             border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
         }
 
         .swatch-grid {
             display: grid;
             grid-template-columns: repeat(8, 1fr);
-            gap: 5px;
+            gap: 6px;
             margin-bottom: 10px;
             margin-top: 8px;
         }
@@ -157,42 +1091,49 @@
         .swatch {
             width: 100%;
             aspect-ratio: 1;
-            border-radius: 4px;
+            border-radius: 6px;
             cursor: pointer;
             border: 2px solid transparent;
-            transition: 0.2s;
+            transition: var(--transition-smooth);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
 
         .swatch:hover {
-            transform: scale(1.1);
+            transform: scale(1.15);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
         }
 
         .swatch.active {
-            border-color: #000;
-            transform: scale(1.15);
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+            border-color: #1e293b;
+            transform: scale(1.2);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
         }
 
         input,
         textarea {
             width: 100%;
-            padding: 12px 16px;
-            border: 1px solid #cbd5e1;
-            border-radius: 8px;
+            padding: 12px 14px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
             font-size: 14px;
             margin-top: 6px;
             font-family: inherit;
             color: #334155;
             background: #ffffff;
-            transition: all 0.2s;
+            transition: var(--transition-smooth);
         }
 
         input:focus,
         textarea:focus {
             border-color: var(--primary);
             outline: none;
-            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
             background: #fff;
+        }
+
+        input::placeholder,
+        textarea::placeholder {
+            color: #94a3b8;
         }
 
         @media (max-width: 768px) {
@@ -290,8 +1231,18 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            background: #0f172a;
+            background: linear-gradient(180deg, #0f172a 0%, #1e1b4b 100%);
             position: relative;
+        }
+
+        #preview-pane::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: 
+                radial-gradient(circle at 20% 50%, rgba(99, 102, 241, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(139, 92, 246, 0.06) 0%, transparent 40%);
+            pointer-events: none;
         }
 
         @media (max-width: 768px) {
@@ -303,14 +1254,18 @@
 
         .toolbar {
             width: 210mm;
-            background: #fff;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
             padding: 18px 25px;
-            border-radius: 15px;
+            border-radius: 16px;
             margin-bottom: 25px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+            z-index: 10;
         }
 
         @media (max-width: 768px) {
@@ -1634,20 +2589,406 @@
     </style>
 </head>
 
-<body>
+<body class="landing-mode">
 
-    <div id="editor">
+    <!-- ===== LANDING PAGE ===== -->
+    <div class="landing-page" id="landing-page">
+        <!-- Navigation -->
+        <nav class="landing-nav" id="landing-nav">
+            <a href="#" class="nav-logo">
+                <div class="nav-logo-icon">
+                    <i class="fas fa-file-alt"></i>
+                </div>
+                <span class="nav-logo-text">ResumeFlow</span>
+            </a>
+            <div class="nav-links">
+                <a href="#features">Features</a>
+                <a href="#templates">Templates</a>
+                <a href="#how-it-works">How It Works</a>
+            </div>
+            <button class="nav-cta" onclick="startBuilder()">Create Resume <i class="fas fa-arrow-right"></i></button>
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
+        </nav>
+
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="hero-bg-grid"></div>
+            <div class="hero-glow"></div>
+            <div class="hero-glow-2"></div>
+            
+            <div class="hero-content">
+                <div class="hero-text">
+                    <div class="hero-badge">
+                        <span class="hero-badge-dot"></span>
+                        100% Free • No Sign-up Required
+                    </div>
+                    <h1 class="hero-title">
+                        Build Your <span class="hero-title-gradient">Dream Resume</span> in Minutes
+                    </h1>
+                    <p class="hero-description">
+                        Create stunning, professional resumes that get you hired. Choose from 23+ 
+                        beautiful templates, customize with AI-powered content suggestions, and export 
+                        to PDF, Word, or HTML — all completely free.
+                    </p>
+                    <div class="hero-buttons">
+                        <button class="hero-btn-primary" onclick="startBuilder()">
+                            <i class="fas fa-rocket"></i> Start Building Free
+                        </button>
+                        <button class="hero-btn-secondary" onclick="document.getElementById('templates').scrollIntoView({behavior: 'smooth'})">
+                            <i class="fas fa-eye"></i> View Templates
+                        </button>
+                    </div>
+                    <div class="hero-stats">
+                        <div class="hero-stat">
+                            <div class="hero-stat-number">23+</div>
+                            <div class="hero-stat-label">Pro Templates</div>
+                        </div>
+                        <div class="hero-stat">
+                            <div class="hero-stat-number">ATS</div>
+                            <div class="hero-stat-label">Optimized</div>
+                        </div>
+                        <div class="hero-stat">
+                            <div class="hero-stat-number">4</div>
+                            <div class="hero-stat-label">Export Formats</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hero-preview">
+                    <div class="hero-preview-wrapper">
+                        <div class="hero-preview-card">
+                            <div class="hero-preview-header">
+                                <div class="preview-dot red"></div>
+                                <div class="preview-dot yellow"></div>
+                                <div class="preview-dot green"></div>
+                            </div>
+                            <div class="hero-preview-content">
+                                <div class="preview-sidebar">
+                                    <div class="preview-avatar">AM</div>
+                                    <div class="preview-name">Alexandra Mitchell</div>
+                                    <div class="preview-title">Senior Product Manager</div>
+                                    
+                                    <div class="preview-section-title">Skills</div>
+                                    <div class="preview-skill">
+                                        <div class="preview-skill-name">
+                                            <span>Product Strategy</span>
+                                            <span>95%</span>
+                                        </div>
+                                        <div class="preview-skill-bar">
+                                            <div class="preview-skill-fill" style="width: 95%"></div>
+                                        </div>
+                                    </div>
+                                    <div class="preview-skill">
+                                        <div class="preview-skill-name">
+                                            <span>Agile/Scrum</span>
+                                            <span>90%</span>
+                                        </div>
+                                        <div class="preview-skill-bar">
+                                            <div class="preview-skill-fill" style="width: 90%"></div>
+                                        </div>
+                                    </div>
+                                    <div class="preview-skill">
+                                        <div class="preview-skill-name">
+                                            <span>Data Analytics</span>
+                                            <span>85%</span>
+                                        </div>
+                                        <div class="preview-skill-bar">
+                                            <div class="preview-skill-fill" style="width: 85%"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="preview-main">
+                                    <div class="preview-main-title">
+                                        <i class="fas fa-user"></i> Profile Summary
+                                    </div>
+                                    <p style="font-size: 10px; color: #64748b; line-height: 1.5; margin: 0 0 20px;">
+                                        Results-driven Product Manager with 8+ years of experience leading digital transformation initiatives in fast-paced technology environments.
+                                    </p>
+                                    
+                                    <div class="preview-main-title">
+                                        <i class="fas fa-briefcase"></i> Experience
+                                    </div>
+                                    <div class="preview-exp">
+                                        <div class="preview-exp-header">
+                                            <span class="preview-exp-role">Senior Product Manager</span>
+                                            <span class="preview-exp-date">2021 - Present</span>
+                                        </div>
+                                        <div class="preview-exp-company">TechCorp Solutions</div>
+                                        <div class="preview-exp-desc">Led cross-functional teams of 15+ members to deliver innovative SaaS products serving 100K+ users.</div>
+                                    </div>
+                                    <div class="preview-exp">
+                                        <div class="preview-exp-header">
+                                            <span class="preview-exp-role">Product Manager</span>
+                                            <span class="preview-exp-date">2018 - 2021</span>
+                                        </div>
+                                        <div class="preview-exp-company">Digital Innovations Inc</div>
+                                        <div class="preview-exp-desc">Successfully launched 5 B2B products generating $10M in annual revenue.</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="preview-floating-badge preview-badge-1">
+                            <i class="fas fa-check-circle"></i> ATS Optimized
+                        </div>
+                        <div class="preview-floating-badge preview-badge-2">
+                            <i class="fas fa-magic"></i> AI Powered
+                        </div>
+                        <div class="preview-floating-badge preview-badge-3">
+                            <i class="fas fa-file-pdf"></i> Export PDF
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="features-section" id="features">
+            <div class="section-header">
+                <span class="section-label">✨ Features</span>
+                <h2 class="section-title">Everything You Need to Build the Perfect Resume</h2>
+                <p class="section-description">
+                    Powerful tools, beautiful templates, and smart features to help you create 
+                    a resume that stands out from the crowd.
+                </p>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-palette"></i>
+                    </div>
+                    <h3 class="feature-title">23+ Professional Templates</h3>
+                    <p class="feature-description">
+                        Choose from a wide variety of modern, creative, and ATS-friendly templates designed by professionals.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3 class="feature-title">AI Content Suggestions</h3>
+                    <p class="feature-description">
+                        Get smart suggestions for your summary, job descriptions, and skills powered by AI technology.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-check-double"></i>
+                    </div>
+                    <h3 class="feature-title">ATS Optimized</h3>
+                    <p class="feature-description">
+                        Our ATS-friendly templates ensure your resume passes through Applicant Tracking Systems with ease.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-download"></i>
+                    </div>
+                    <h3 class="feature-title">Multiple Export Formats</h3>
+                    <p class="feature-description">
+                        Download your resume as PDF, Word document, HTML, or high-quality PNG image.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-sync-alt"></i>
+                    </div>
+                    <h3 class="feature-title">Real-Time Preview</h3>
+                    <p class="feature-description">
+                        See your changes instantly with our live preview feature. No more guessing how it will look.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-envelope-open-text"></i>
+                    </div>
+                    <h3 class="feature-title">Cover Letter Generator</h3>
+                    <p class="feature-description">
+                        Create matching cover letters with AI assistance to complement your resume perfectly.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Templates Section -->
+        <section class="templates-section" id="templates">
+            <div class="section-header">
+                <span class="section-label">🎨 Templates</span>
+                <h2 class="section-title">Professional Templates for Every Career</h2>
+                <p class="section-description">
+                    From modern and creative to classic and professional, find the perfect template 
+                    that matches your industry and style.
+                </p>
+            </div>
+
+            <div class="templates-grid">
+                <div class="template-card" onclick="startBuilder(1)">
+                    <div class="template-preview" style="background: linear-gradient(135deg, #1e293b 35%, #fff 35%);"></div>
+                    <div class="template-info">
+                        <div class="template-name">Modern Split</div>
+                        <div class="template-tag">Popular</div>
+                    </div>
+                </div>
+                <div class="template-card" onclick="startBuilder(5)">
+                    <div class="template-preview" style="background: linear-gradient(135deg, #f8fafc 30%, #e2e8f0 30%);"></div>
+                    <div class="template-info">
+                        <div class="template-name">Minimal Clean</div>
+                        <div class="template-tag">Elegant</div>
+                    </div>
+                </div>
+                <div class="template-card" onclick="startBuilder(21)">
+                    <div class="template-preview" style="background: #fff; border-top: 4px solid #1e293b;"></div>
+                    <div class="template-info">
+                        <div class="template-name">ATS Clean</div>
+                        <div class="template-tag">ATS Optimized</div>
+                    </div>
+                </div>
+                <div class="template-card" onclick="startBuilder(7)">
+                    <div class="template-preview" style="background: linear-gradient(135deg, #334155 40%, #fff 40%);"></div>
+                    <div class="template-info">
+                        <div class="template-name">Executive Balance</div>
+                        <div class="template-tag">Professional</div>
+                    </div>
+                </div>
+                <div class="template-card" onclick="startBuilder(11)">
+                    <div class="template-preview" style="background: linear-gradient(180deg, #6366f1 20%, #fff 20%);"></div>
+                    <div class="template-info">
+                        <div class="template-name">Gradient Flow</div>
+                        <div class="template-tag">Creative</div>
+                    </div>
+                </div>
+                <div class="template-card" onclick="startBuilder(13)">
+                    <div class="template-preview" style="background: #fff; border-left: 4px solid #6366f1;"></div>
+                    <div class="template-info">
+                        <div class="template-name">Timeline</div>
+                        <div class="template-tag">Modern</div>
+                    </div>
+                </div>
+                <div class="template-card" onclick="startBuilder(17)">
+                    <div class="template-preview" style="background: linear-gradient(135deg, #475569 45%, #fff 45%);"></div>
+                    <div class="template-info">
+                        <div class="template-name">Serif Pro</div>
+                        <div class="template-tag">Classic</div>
+                    </div>
+                </div>
+                <div class="template-card" onclick="startBuilder(4)">
+                    <div class="template-preview" style="background: #fff; border-top: 20px solid #6366f1;"></div>
+                    <div class="template-info">
+                        <div class="template-name">Corporate Header</div>
+                        <div class="template-tag">Business</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- How It Works Section -->
+        <section class="features-section" id="how-it-works" style="background: linear-gradient(180deg, #1e1b4b 0%, #0f172a 100%);">
+            <div class="section-header">
+                <span class="section-label">🚀 How It Works</span>
+                <h2 class="section-title">Create Your Resume in 3 Simple Steps</h2>
+                <p class="section-description">
+                    Building a professional resume has never been easier. Follow these simple steps 
+                    and have your resume ready in minutes.
+                </p>
+            </div>
+
+            <div class="features-grid" style="grid-template-columns: repeat(3, 1fr);">
+                <div class="feature-card" style="text-align: center;">
+                    <div class="feature-icon" style="margin: 0 auto 22px; background: linear-gradient(135deg, #10b981, #059669);">
+                        <span style="font-size: 24px; font-weight: 800;">1</span>
+                    </div>
+                    <h3 class="feature-title">Choose a Template</h3>
+                    <p class="feature-description">
+                        Browse our collection of 23+ professionally designed templates and pick one that matches your style.
+                    </p>
+                </div>
+
+                <div class="feature-card" style="text-align: center;">
+                    <div class="feature-icon" style="margin: 0 auto 22px; background: linear-gradient(135deg, #f59e0b, #d97706);">
+                        <span style="font-size: 24px; font-weight: 800;">2</span>
+                    </div>
+                    <h3 class="feature-title">Fill In Your Details</h3>
+                    <p class="feature-description">
+                        Add your experience, education, skills, and more. Use AI suggestions to enhance your content.
+                    </p>
+                </div>
+
+                <div class="feature-card" style="text-align: center;">
+                    <div class="feature-icon" style="margin: 0 auto 22px; background: linear-gradient(135deg, #ec4899, #db2777);">
+                        <span style="font-size: 24px; font-weight: 800;">3</span>
+                    </div>
+                    <h3 class="feature-title">Download & Apply</h3>
+                    <p class="feature-description">
+                        Export your resume as PDF, Word, or other formats and start applying to your dream jobs.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="cta-section">
+            <div class="cta-glow"></div>
+            <div class="cta-content">
+                <h2 class="cta-title">Ready to Build Your Perfect Resume?</h2>
+                <p class="cta-description">
+                    Join thousands of job seekers who have created stunning resumes with ResumeFlow. 
+                    It's completely free — no sign-up required.
+                </p>
+                <button class="cta-btn" onclick="startBuilder()">
+                    <i class="fas fa-rocket"></i> Start Building Now — It's Free!
+                </button>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="landing-footer">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <div class="footer-logo-icon">
+                        <i class="fas fa-file-alt"></i>
+                    </div>
+                    <span class="footer-logo-text">ResumeFlow</span>
+                </div>
+                <p class="footer-text">© 2026 ResumeFlow. Free & Open Source Resume Builder.</p>
+                <div class="footer-links">
+                    <a href="#features">Features</a>
+                    <a href="#templates">Templates</a>
+                    <a href="https://github.com" target="_blank">GitHub</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- ===== RESUME BUILDER ===== -->
+    <div class="builder-container">
+        <div id="editor">
         <!-- Toast Container for Notifications -->
         <div class="toast-container" id="toast-container"></div>
 
         <!-- Clean Header -->
         <div style="margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid #e2e8f0;">
-            <h2
-                style="font-family:'Inter'; margin:0; color:#1e293b; font-size: 22px; font-weight: 700; display: flex; align-items: center; gap: 8px;">
-                <span
-                    style="background: linear-gradient(135deg, var(--primary), #8b5cf6); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; color: transparent;">ResumeFlow</span>
-            </h2>
-            <div id="autosave-status" style="font-size: 11px; color: #10b981; margin-top: 6px; font-weight: 500;">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+                <h2
+                    style="font-family:'Inter'; margin:0; color:#1e293b; font-size: 20px; font-weight: 700; display: flex; align-items: center; gap: 10px;">
+                    <div style="width: 32px; height: 32px; background: linear-gradient(135deg, var(--primary), #8b5cf6); border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+                        <i class="fas fa-file-alt" style="color: white; font-size: 14px;"></i>
+                    </div>
+                    <span
+                        style="background: linear-gradient(135deg, var(--primary), #8b5cf6); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; color: transparent;">ResumeFlow</span>
+                </h2>
+                <button onclick="backToLanding()" style="background: none; border: 1px solid #e2e8f0; padding: 6px 12px; border-radius: 8px; font-size: 12px; color: #64748b; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: all 0.2s;" onmouseover="this.style.borderColor='var(--primary)'; this.style.color='var(--primary)';" onmouseout="this.style.borderColor='#e2e8f0'; this.style.color='#64748b';">
+                    <i class="fas fa-arrow-left"></i> Home
+                </button>
+            </div>
+            <div id="autosave-status" style="font-size: 11px; color: #10b981; font-weight: 500;">
                 <i class="fas fa-check-circle"></i> Auto-saved
             </div>
         </div>
@@ -1910,34 +3251,37 @@
 
     <div id="preview-pane">
         <div class="toolbar">
-            <span style="font-weight:900; color:#1e293b; letter-spacing:1px; font-size: 16px;">📄 LIVE PREVIEW</span>
-            <div style="display:flex; gap:12px; flex-wrap: wrap;">
-                <button class="btn-exp" style="background:#ef4444;" onclick="downloadPDF()" title="Download PDF">
+            <span style="font-weight:800; color:#1e293b; letter-spacing:0.5px; font-size: 15px; display: flex; align-items: center; gap: 8px;">
+                <i class="fas fa-eye" style="color: var(--primary);"></i> Live Preview
+            </span>
+            <div style="display:flex; gap:10px; flex-wrap: wrap;">
+                <button class="btn-exp" style="background: linear-gradient(135deg, #ef4444, #dc2626);" onclick="downloadPDF()" title="Download PDF">
                     <i class="fas fa-file-pdf"></i>
                     <span>PDF</span>
                 </button>
-                <button class="btn-exp" style="background:#2b579a;" onclick="downloadWord()" title="Download WORD">
+                <button class="btn-exp" style="background: linear-gradient(135deg, #2b579a, #1e3a8a);" onclick="downloadWord()" title="Download WORD">
                     <i class="fas fa-file-word"></i>
                     <span>WORD</span>
                 </button>
-                <button class="btn-exp" style="background:#10b981;" onclick="downloadHTML()" title="Download HTML">
+                <button class="btn-exp" style="background: linear-gradient(135deg, #10b981, #059669);" onclick="downloadHTML()" title="Download HTML">
                     <i class="fas fa-code"></i>
                     <span>HTML</span>
                 </button>
-                <button class="btn-exp" style="background:#f59e0b;" onclick="downloadImage()" title="Download PNG">
+                <button class="btn-exp" style="background: linear-gradient(135deg, #f59e0b, #d97706);" onclick="downloadImage()" title="Download PNG">
                     <i class="fas fa-image"></i>
                     <span>PNG</span>
                 </button>
-                <button class="btn-exp" style="background:#8b5cf6;" onclick="showCoverLetterModal()"
+                <button class="btn-exp" style="background: linear-gradient(135deg, #8b5cf6, #7c3aed);" onclick="showCoverLetterModal()"
                     title="Cover Letter">
                     <i class="fas fa-file-alt"></i>
-                    <span>COVER LETTER</span>
+                    <span>COVER</span>
                 </button>
             </div>
         </div>
 
         <div id="cv-pages-container"></div>
     </div>
+    </div> <!-- End builder-container -->
 
     <!-- Cover Letter Modal -->
     <div id="cover-letter-modal"
@@ -4133,12 +5477,56 @@ I look forward to the opportunity to discuss my qualifications in greater detail
             return false;
         }
 
+        // ===== LANDING PAGE FUNCTIONS =====
+        function startBuilder(templateId = null) {
+            document.body.classList.remove('landing-mode');
+            document.body.classList.add('builder-mode');
+            
+            if (templateId) {
+                state.tpl = templateId;
+                document.getElementById('tpl-select').value = templateId;
+            }
+            
+            // Initialize builder if not already done
+            if (!document.getElementById('in-name').value) {
+                init();
+            }
+            render();
+            
+            // Scroll to top of builder
+            window.scrollTo(0, 0);
+        }
+
+        function backToLanding() {
+            document.body.classList.remove('builder-mode');
+            document.body.classList.add('landing-mode');
+            window.scrollTo(0, 0);
+        }
+
+        function toggleMobileMenu() {
+            const navLinks = document.querySelector('.nav-links');
+            navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+        }
+
+        // Navigation scroll effect
+        window.addEventListener('scroll', function() {
+            const nav = document.getElementById('landing-nav');
+            if (nav) {
+                if (window.scrollY > 50) {
+                    nav.classList.add('scrolled');
+                } else {
+                    nav.classList.remove('scrolled');
+                }
+            }
+        });
+
         window.addEventListener('DOMContentLoaded', () => {
-            init();
-            setupKeyboardShortcuts();
-            updateProgress();
-            updateCharCounter();
-            updateUndoRedoButtons();
+            // Check if we should go straight to builder (e.g., from URL hash)
+            if (window.location.hash === '#builder') {
+                startBuilder();
+            }
+            
+            // Pre-initialize the builder
         });
     </script>
 </body>
