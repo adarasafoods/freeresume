@@ -1169,6 +1169,96 @@
             color: white;
         }
 
+        .modern-subsection {
+            background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 12px;
+            border-left: 4px solid var(--primary);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .modern-subsection:hover {
+            box-shadow: 0 4px 16px rgba(99, 102, 241, 0.15);
+            transform: translateX(4px);
+        }
+
+        .subsection-header {
+            font-size: 14px;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .subsection-header i {
+            font-size: 18px;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .action-btn-modern {
+            padding: 14px 12px;
+            font-size: 13px;
+            font-weight: 600;
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            color: #1e293b;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+        }
+
+        .action-btn-modern:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+            border-color: var(--primary-light);
+        }
+
+        .action-btn-modern i {
+            font-size: 24px;
+            margin-bottom: 2px;
+        }
+
+        .action-btn-modern.load { border-color: #3b82f6; }
+        .action-btn-modern.load i { color: #3b82f6; }
+        .action-btn-modern.backup { border-color: #10b981; }
+        .action-btn-modern.backup i { color: #10b981; }
+        .action-btn-modern.restore { border-color: #f59e0b; }
+        .action-btn-modern.restore i { color: #f59e0b; }
+        .action-btn-modern.sample { border-color: #8b5cf6; }
+        .action-btn-modern.sample i { color: #8b5cf6; }
+        .action-btn-modern.print { border-color: #6366f1; }
+        .action-btn-modern.print i { color: #6366f1; }
+        .action-btn-modern.reset { border-color: #ef4444; background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%); }
+        .action-btn-modern.reset i { color: #ef4444; }
+
+        @media (max-width: 768px) {
+            .action-btn-modern {
+                padding: 16px 14px;
+                font-size: 14px;
+                min-height: 90px;
+            }
+
+            .action-btn-modern i {
+                font-size: 28px;
+            }
+
+            .subsection-header {
+                font-size: 15px;
+            }
+        }
+
         select.dropdown-style {
             width: 100%;
             padding: 12px 14px;
@@ -1473,6 +1563,12 @@
             #preview-pane {
                 padding: 20px 10px;
                 width: 100%;
+                display: flex !important;
+                min-height: 600px;
+            }
+
+            body.builder-mode #preview-pane {
+                display: flex !important;
             }
         }
 
@@ -3302,46 +3398,35 @@
         </div>
 
         <!-- More Actions (Collapsed by default) -->
-        <details style="margin-bottom: 16px;">
+        <details class="section-group" style="margin-bottom: 16px;">
             <summary
-                style="font-size: 12px; font-weight: 600; color: #64748b; cursor: pointer; padding: 8px 0; user-select: none;">
-                <i class="fas fa-ellipsis-h"></i> More Actions
+                style="font-size: 14px; font-weight: 700; cursor: pointer; padding: 15px; user-select: none; border-radius: 12px; background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);">
+                <i class="fas fa-tools" style="margin-right: 8px;"></i> Quick Actions
             </summary>
-            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; padding-top: 10px;">
-                <button onclick="loadCV()"
-                    style="padding: 10px 8px; font-size: 11px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; cursor: pointer; font-weight: 500; color: #475569;">
-                    <i class="fas fa-folder-open"
-                        style="display: block; margin-bottom: 4px; font-size: 14px; color: #3b82f6;"></i>
-                    Load
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; padding-top: 15px;">
+                <button onclick="loadCV()" class="action-btn-modern load">
+                    <i class="fas fa-folder-open"></i>
+                    <span>Load</span>
                 </button>
-                <button onclick="exportJSON()"
-                    style="padding: 10px 8px; font-size: 11px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; cursor: pointer; font-weight: 500; color: #475569;">
-                    <i class="fas fa-download"
-                        style="display: block; margin-bottom: 4px; font-size: 14px; color: #10b981;"></i>
-                    Backup
+                <button onclick="exportJSON()" class="action-btn-modern backup">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>Backup</span>
                 </button>
-                <button onclick="importJSON()"
-                    style="padding: 10px 8px; font-size: 11px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; cursor: pointer; font-weight: 500; color: #475569;">
-                    <i class="fas fa-upload"
-                        style="display: block; margin-bottom: 4px; font-size: 14px; color: #f59e0b;"></i>
-                    Restore
+                <button onclick="importJSON()" class="action-btn-modern restore">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <span>Restore</span>
                 </button>
-                <button onclick="fillSampleData()"
-                    style="padding: 10px 8px; font-size: 11px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; cursor: pointer; font-weight: 500; color: #475569;">
-                    <i class="fas fa-magic"
-                        style="display: block; margin-bottom: 4px; font-size: 14px; color: #8b5cf6;"></i>
-                    Sample
+                <button onclick="fillSampleData()" class="action-btn-modern sample">
+                    <i class="fas fa-wand-magic-sparkles"></i>
+                    <span>Sample</span>
                 </button>
-                <button onclick="printCV()"
-                    style="padding: 10px 8px; font-size: 11px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; cursor: pointer; font-weight: 500; color: #475569;">
-                    <i class="fas fa-print"
-                        style="display: block; margin-bottom: 4px; font-size: 14px; color: #6366f1;"></i>
-                    Print
+                <button onclick="printCV()" class="action-btn-modern print">
+                    <i class="fas fa-print"></i>
+                    <span>Print</span>
                 </button>
-                <button onclick="resetAll()"
-                    style="padding: 10px 8px; font-size: 11px; background: #fef2f2; border: 1px solid #fecaca; border-radius: 6px; cursor: pointer; font-weight: 500; color: #dc2626;">
-                    <i class="fas fa-trash-alt" style="display: block; margin-bottom: 4px; font-size: 14px;"></i>
-                    Reset
+                <button onclick="resetAll()" class="action-btn-modern reset">
+                    <i class="fas fa-trash-alt"></i>
+                    <span>Reset</span>
                 </button>
             </div>
             <input type="file" id="json-import" accept=".json" style="display: none;"
@@ -3349,16 +3434,23 @@
         </details>
 
         <!-- Design Settings (Collapsible) -->
-        <div class="group" style="padding: 10px;">
-            <details class="section-group">
-                <summary style="margin: -10px; padding: 15px; background: transparent;">🎨 Design & Appearance</summary>
-                <div style="padding-top: 15px;">
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+        <div class="group" style="padding: 16px;">
+            <details class="section-group" open>
+                <summary style="margin: -16px; padding: 18px; background: transparent; font-size: 15px;">
+                    <i class="fas fa-palette" style="margin-right: 8px;"></i> Design & Appearance
+                </summary>
+                <div style="padding-top: 20px;">
+                    <!-- Template Section -->
+                    <div class="modern-subsection">
+                        <div class="subsection-header">
+                            <i class="fas fa-th-large"></i>
+                            <span>Template Style</span>
+                        </div>
                         <div>
                             <label
-                                style="font-size: 11px; font-weight: 600; color: #64748b; display: block; margin-bottom: 4px;">Template</label>
+                                style="font-size: 13px; font-weight: 600; color: #475569; display: block; margin-bottom: 8px;">Choose Template</label>
                             <select id="tpl-select" class="dropdown-style" onchange="changeTemplate()"
-                                style="padding: 10px; font-size: 12px; margin-top: 0;">
+                                style="padding: 12px; font-size: 14px; margin-top: 0;">
                                 <option value="1">Modern Split</option>
                                 <option value="2">Reverse Split</option>
                                 <option value="3">Classic Full Width</option>
@@ -3384,11 +3476,19 @@
                                 <option value="23">ATS Pro</option>
                             </select>
                         </div>
+                    </div>
+
+                    <!-- Font Section -->
+                    <div class="modern-subsection">
+                        <div class="subsection-header">
+                            <i class="fas fa-font"></i>
+                            <span>Typography</span>
+                        </div>
                         <div>
                             <label
-                                style="font-size: 11px; font-weight: 600; color: #64748b; display: block; margin-bottom: 4px;">Font</label>
+                                style="font-size: 13px; font-weight: 600; color: #475569; display: block; margin-bottom: 8px;">Font Family</label>
                             <select id="font-select" class="dropdown-style" onchange="changeFont()"
-                                style="padding: 10px; font-size: 12px; margin-top: 0;">
+                                style="padding: 12px; font-size: 14px; margin-top: 0;">
                                 <option value="Inter">Inter</option>
                                 <option value="Poppins">Poppins</option>
                                 <option value="Montserrat">Montserrat</option>
@@ -3405,17 +3505,24 @@
                             </select>
                         </div>
                     </div>
-                    <div style="margin-top: 12px;">
-                        <label
-                            style="font-size: 11px; font-weight: 600; color: #64748b; display: block; margin-bottom: 6px;">Accent
-                            Color</label>
-                        <div class="swatch-grid" id="accent-colors" style="grid-template-columns: repeat(10, 1fr);">
+
+                    <!-- Colors Section -->
+                    <div class="modern-subsection">
+                        <div class="subsection-header">
+                            <i class="fas fa-fill-drip"></i>
+                            <span>Color Scheme</span>
                         </div>
-                    </div>
-                    <div style="margin-top: 10px;">
-                        <label
-                            style="font-size: 11px; font-weight: 600; color: #64748b; display: block; margin-bottom: 6px;">Sidebar</label>
-                        <div class="swatch-grid" id="side-colors" style="grid-template-columns: repeat(10, 1fr);"></div>
+                        <div style="margin-bottom: 16px;">
+                            <label
+                                style="font-size: 13px; font-weight: 600; color: #475569; display: block; margin-bottom: 10px;">Accent Color</label>
+                            <div class="swatch-grid" id="accent-colors" style="grid-template-columns: repeat(10, 1fr);">
+                            </div>
+                        </div>
+                        <div>
+                            <label
+                                style="font-size: 13px; font-weight: 600; color: #475569; display: block; margin-bottom: 10px;">Sidebar Background</label>
+                            <div class="swatch-grid" id="side-colors" style="grid-template-columns: repeat(10, 1fr);"></div>
+                        </div>
                     </div>
                 </div>
             </details>
